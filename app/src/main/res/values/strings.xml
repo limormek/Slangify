@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Slangify</string>
+
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">SLANGIFY\nCONTENT</string>
+</resources>
