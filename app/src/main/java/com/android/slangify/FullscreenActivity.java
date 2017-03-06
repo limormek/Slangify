@@ -1,12 +1,17 @@
 package com.android.slangify;
 
 import android.annotation.SuppressLint;
+import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
+
+import com.google.firebase.crash.FirebaseCrash;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -30,6 +35,7 @@ public class FullscreenActivity extends AppCompatActivity {
      * and a change of the status and navigation bar.
      */
     private static final int UI_ANIMATION_DELAY = 300;
+    private static final String TAG = FullscreenActivity.class.getName();
     private final Handler mHideHandler = new Handler();
     private View mContentView;
     private final Runnable mHidePart2Runnable = new Runnable() {
