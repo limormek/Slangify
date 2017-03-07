@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "15694874023",
+    "firebase_url": "https://slangify-f6c05.firebaseio.com",
+    "project_id": "slangify-f6c05",
+    "storage_bucket": "slangify-f6c05.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:15694874023:android:a61de8396d59e706",
+        "android_client_info": {
+          "package_name": "com.android.slangify"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "15694874023-o644f7vnvhg7dksj7205osrbomrt6s40.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.android.slangify",
+            "certificate_hash": "c024b558db540c5260a651f4f3fcaa86f487c6d0"
+          }
+        },
+        {
+          "client_id": "15694874023-03683vntcn8jdf0s0v0l846ojo5diuej.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDB2cEdpovmMPYlJ6-yi4XZ55BtfOBiTVU"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "15694874023-03683vntcn8jdf0s0v0l846ojo5diuej.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
