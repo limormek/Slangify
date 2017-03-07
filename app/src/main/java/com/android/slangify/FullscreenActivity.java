@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.firebase.crash.FirebaseCrash;
+import com.facebook.FacebookSdk;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
