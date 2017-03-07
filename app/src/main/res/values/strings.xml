@@ -3,4 +3,5 @@
 
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">SLANGIFY\nCONTENT</string>
+    <string name="login_title">Welcome!</string>
 </resources>
