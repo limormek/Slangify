@@ -7,4 +7,7 @@
     <string name="activity_feed">Memes Feed</string>
     <string name="activity_display_video">My Video</string>
     <string name="activity_create_meme">Create Meme</string>
+    <string name="create_meme_title">Let\'s get risky!</string>
+    <string name="create_meme_submit">I\'m feeling lucky!</string>
+    <string name="activity_login">Login</string>
 </resources>

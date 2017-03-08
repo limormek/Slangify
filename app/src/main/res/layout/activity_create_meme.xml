@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="@dimen/page_content_padding">
+
+    <TextView
+        style="@style/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/create_meme_title" />
+
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/create_meme_submit_btn_margin_top"
+        android:background="@drawable/bg_rounded_corners_primary"
+        android:padding="@dimen/create_meme_submit_btn_padding"
+        android:text="@string/create_meme_submit"
+        android:textAllCaps="false"
+        android:textColor="@color/white" />
+
+</LinearLayout>
