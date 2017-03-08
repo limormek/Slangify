@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.android.slangify">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
 
     <application
@@ -12,7 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
 
         <activity
             android:name=".ui.activities.LoginActivity"
@@ -27,18 +29,24 @@
         </activity>
 
         <activity
-            android:name=".FullscreenActivity"
+            android:name=".ui.activities.CaptureVideoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/app_name"
-            android:theme="@style/FullscreenTheme">
-        </activity>
+            android:theme="@style/Theme.NoStatusBar"></activity>
 
         <activity
-            android:name=".CaptureVideoActivity"
+            android:name=".ui.activities.FeedActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/app_name"
-            android:theme="@style/Theme.NoStatusBar">
-        </activity>
+            android:label="@string/activity_feed"></activity>
+
+        <activity
+            android:name=".ui.activities.DisplayVideoActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/activity_display_video"></activity>
+
+        <activity
+            android:name=".ui.activities.CreateMemeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/activity_create_meme"></activity>
     </application>
 
 </manifest>

@@ -4,4 +4,7 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">SLANGIFY\nCONTENT</string>
     <string name="login_title">Welcome!</string>
+    <string name="activity_feed">Memes Feed</string>
+    <string name="activity_display_video">My Video</string>
+    <string name="activity_create_meme">Create Meme</string>
 </resources>
