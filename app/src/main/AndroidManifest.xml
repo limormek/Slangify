@@ -31,17 +31,17 @@
         <activity
             android:name=".ui.activities.CaptureVideoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:theme="@style/Theme.NoStatusBar"></activity>
+            android:theme="@style/Theme.NoStatusBar" />
 
         <activity
             android:name=".ui.activities.FeedActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/activity_feed"></activity>
+            android:label="@string/activity_feed" />
 
         <activity
             android:name=".ui.activities.DisplayVideoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/activity_display_video"></activity>
+            android:label="@string/activity_display_video" />
 
         <activity
             android:name=".ui.activities.CreateMemeActivity"
