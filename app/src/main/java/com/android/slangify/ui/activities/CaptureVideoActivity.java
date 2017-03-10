@@ -115,7 +115,8 @@ public class CaptureVideoActivity extends AppCompatActivity {
     public void initialize() {
         mPreview = (CameraSurfaceView) findViewById(R.id.camera_preview);
 
-        mCamControl = new CameraControl(mPreview, this);
+        Long currentTime = System.currentTimeMillis();
+        mCamControl = new CameraControl(mPreview, this, currentTime);
     }
 
 /*    View.OnClickListener switchCameraListener = new View.OnClickListener() {
