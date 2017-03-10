@@ -50,6 +50,10 @@ public class CaptureVideoActivity extends AppCompatActivity {
     @BindView(R.id.timeout)
     RobotoTextView tvTimeout;
 
+    private Long currentTime;
+    private String FilePath;
+    private String sourceText;
+
     public CameraSurfaceView mPreview;
 
 
@@ -115,8 +119,9 @@ public class CaptureVideoActivity extends AppCompatActivity {
     public void initialize() {
         mPreview = (CameraSurfaceView) findViewById(R.id.camera_preview);
 
-        Long currentTime = System.currentTimeMillis();
+        currentTime = System.currentTimeMillis();
         mCamControl = new CameraControl(mPreview, this, currentTime);
+        FilePath =  String.format("/sdcard/slangify%s.mp4", String.valueOf(currentTime));
     }
 
 /*    View.OnClickListener switchCameraListener = new View.OnClickListener() {
@@ -247,7 +252,10 @@ public class CaptureVideoActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        IntentUtils.startDisplayVideoActivity(CaptureVideoActivity.this);
+                        IntentUtils.startDisplayVideoActivity(CaptureVideoActivity.this,
+                                phraseModel.getText(),
+                                phraseModel.getTranslation(),
+                                FilePath);
                     }
                 }, 6000);
 
