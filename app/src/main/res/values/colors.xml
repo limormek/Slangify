@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="black">#000000</color>
     <color name="colorPrimary">#448aff</color>
     <color name="colorPrimaryDark">#1157CC</color>
     <color name="colorAccent">#FF4081</color>
@@ -16,4 +17,9 @@
     <color name="transparent_grey">#80ffffff</color>
     <color name="video_display_background_color">#9012fe</color>
     <color name="dropdown_text">#757575</color>
+
+    <!--fancy dialog-->
+    <color name="float_transparent">#00000000</color>
+    <color name="ready_set_dialog_bg">#8f12fe</color>
+    <color name="ready_set_stroke">#7600E5</color>
 </resources>

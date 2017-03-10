@@ -18,4 +18,11 @@
     <dimen name="spinner_dropdown_item_padding">10dp</dimen>
     <dimen name="phrase_text_view_size">33dp</dimen>
     <dimen name="video_text_padding_side">10dp</dimen>
+    <dimen name="fancy_dialog_close_margin">20dp</dimen>
+    <dimen name="fancy_dialog_content_padding">10dp</dimen>
+    <dimen name="fancy_dialog_title_size">18sp</dimen>
+    <dimen name="fancy_dialog_content_size">15sp</dimen>
+    <dimen name="fancy_dialog_buttons_margin_top">20dp</dimen>
+    <dimen name="ready_set_dialog_width">200dp</dimen>
+    <dimen name="ready_set_dialog_height">300dp</dimen>
 </resources>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/loading"
+    android:layout_width="@dimen/ready_set_dialog_width"
+    android:layout_height="@dimen/ready_set_dialog_height"
+    android:layout_gravity="center"
+    android:background="@drawable/bg_ready_set"
+    android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:padding="@dimen/fancy_dialog_content_padding">
+
+        <com.devspark.robototextview.widget.RobotoTextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:typeface="roboto_slab_bold"
+            android:layout_marginTop="@dimen/fancy_dialog_content_padding"
+            android:gravity="center_horizontal"
+            android:text="@string/ready_set_dialog_title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/fancy_dialog_title_size"
+            />
+
+        <com.devspark.robototextview.widget.RobotoTextView
+            android:id="@+id/content_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/fancy_dialog_content_padding"
+            app:typeface="roboto_slab_bold"
+            android:gravity="center"
+            android:text="@string/ready_set_dialog_subtitle"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/fancy_dialog_content_size"
+            android:visibility="visible" />
+
+
+    </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/btn_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|top"
+        android:padding="@dimen/fancy_dialog_close_margin"
+        android:src="@drawable/ic_close" />
+</FrameLayout>
