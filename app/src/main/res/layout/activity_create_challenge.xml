@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_create_gradient"
+    android:orientation="vertical"
+    android:paddingLeft="@dimen/create_padding_left"
+    android:paddingRight="@dimen/create_padding_right"
+    android:paddingTop="@dimen/create_padding_top">
+
+    <TextView
+        style="@style/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/create_meme_title" />
+
+    <AutoCompleteTextView
+        android:id="@+id/languages_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Dutch"
+        android:textColorHint="@color/transparent_grey"
+        android:theme="@style/Autocomplete" />
+
+    <TextView
+        android:id="@+id/scale_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/create_sub_title"
+        android:textColor="@color/white"
+        android:textSize="@dimen/sub_title_text_size"
+        android:layout_marginTop="@dimen/create_subtitle_margin_top"/>
+
+
+    <Button
+        android:id="@+id/btn_submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/create_meme_submit_btn_margin_top"
+        android:background="@drawable/bg_rounded_corners_primary"
+        android:padding="@dimen/create_meme_submit_btn_padding"
+        android:text="@string/create_meme_submit"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/create_btn_text_size" />
+
+</LinearLayout>

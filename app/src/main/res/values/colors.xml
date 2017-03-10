@@ -7,4 +7,11 @@
     <color name="black_overlay">#66000000</color>
     <color name="content_text_color">#33b5e5</color>
     <color name="white">#ffffff</color>
+
+    <color name="bg_gradient_start">#3023AE</color>
+    <color name="bg_gradient_end">#C96DD8</color>
+
+    <color name="underline_color">#50E3C2</color>
+    <color name="btn_create">#00BFA5</color>
+    <color name="transparent_grey">#80ffffff</color>
 </resources>

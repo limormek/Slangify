@@ -18,7 +18,7 @@ import com.android.slangify.repository.models.PhraseModel;
 
 public class SlangifyApplication extends Application {
 
-    private static ArrayList<LanguageModel> languagesArray;
+    private static ArrayList<LanguageModel> languagesArray = new ArrayList<>();
 
     @Override
     public void onCreate() {
@@ -29,7 +29,7 @@ public class SlangifyApplication extends Application {
             @Override
             public void onSuccess(ArrayList<LanguageModel> result) {
                 //save data
-                languagesArray = result;
+                SlangifyApplication.languagesArray = result;
             }
 
             @Override
@@ -63,5 +63,9 @@ public class SlangifyApplication extends Application {
 
             }
         });
+    }
+
+    public static ArrayList<LanguageModel> getLanguages() {
+        return languagesArray;
     }
 }

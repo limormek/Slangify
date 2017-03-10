@@ -24,10 +24,20 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
-    <style name="title">
-        <item name="android:textSize">22sp</item>
-        <item name="android:textColor">@color/colorPrimary</item>
-        <item name="android:gravity">center_horizontal</item>
+    <style name="Theme.CreateChallenge" parent="Theme.NoStatusBar">
+        <item name="android:windowBackground">@drawable/bg_create_gradient</item>
     </style>
+
+    <style name="title">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Autocomplete">
+        <item name="colorControlNormal">@color/underline_color</item>
+        <item name="colorControlActivated">@color/underline_color</item>
+    </style>
+
+    <color name="black">#000000</color>
 
 </resources>

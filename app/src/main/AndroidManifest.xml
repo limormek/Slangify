@@ -36,7 +36,8 @@
         <activity
             android:name=".ui.activities.CreateChallengeActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/activity_create_meme" >
+            android:label="@string/activity_create_meme"
+            android:theme="@style/Theme.CreateChallenge">
 
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

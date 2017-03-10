@@ -4,15 +4,21 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.Spinner;
 
 import com.android.slangify.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import com.android.slangify.repository.implementation.LanguagesRepository;
+import com.android.slangify.repository.interfaces.IRepositoryCallback;
+import com.android.slangify.repository.models.LanguageModel;
 import com.android.slangify.utils.IntentUtils;
+
+import java.util.ArrayList;
 
 
 /**
@@ -21,15 +27,52 @@ import com.android.slangify.utils.IntentUtils;
 
 public class CreateChallengeActivity extends AppCompatActivity implements View.OnClickListener {
 
-    @BindView(R.id.btn_submit) Button btnSubmit;
+    @BindView(R.id.btn_submit)
+    Button btnSubmit;
+    @BindView(R.id.languages_list)
+    AutoCompleteTextView languagesList;
+
+    private ArrayList<LanguageModel> languageModels;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_create_meme);
-
+        setContentView(R.layout.activity_create_challenge);
         ButterKnife.bind(this);
+
+        languagesList.setThreshold(1);
+
+        LanguagesRepository languagesRepository = new LanguagesRepository();
+        languagesRepository.getLanguages(new IRepositoryCallback<LanguageModel>() {
+            @Override
+            public void onSuccess(ArrayList<LanguageModel> result) {
+                //save data
+                languageModels = result;
+                String[] mStringArray = new String[languageModels.size()];
+                for (int i = 0; i < languageModels.size(); i++) {
+                    mStringArray[i] = languageModels.get(i).getName();
+                }
+
+                final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+                        CreateChallengeActivity.this, android.R.layout.simple_dropdown_item_1line,
+                        mStringArray);
+
+                languagesList.setAdapter(arrayAdapter);
+                languagesList.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(final View arg0) {
+                        languagesList.showDropDown();
+                    }
+                });
+
+            }
+
+            @Override
+            public void onFailure() {
+
+            }
+        });
 
         setListeners();
 
@@ -42,10 +85,10 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_submit:
                 //todo - add metadata about the chosen phrase
-                IntentUtils.startLoginActivity(CreateChallengeActivity.this);
+                IntentUtils.startVideoCaptureActivity(CreateChallengeActivity.this);
                 break;
         }
     }
