@@ -1,22 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
 
-    <TextView
-        android:id="@+id/dialog_btn"
-        android:layout_width="wrap_content"
+    android:weightSum="2">
+
+    <FrameLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Show dialog!"
-        android:textColor="@color/black"
-        android:textSize="20sp" />
+        android:layout_weight="1">
 
-    <VideoView
-        android:id="@+id/video"
-        android:layout_width="@dimen/video_display_size"
-        android:layout_height="@dimen/video_display_size"
+        <com.android.slangify.ui.activities.views.SquareVideoView
+            android:id="@+id/video"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/iv_play"
+            android:layout_width="@dimen/play_size"
+            android:layout_height="@dimen/play_size"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_play" />
+
+    </FrameLayout>
+
+
+    <LinearLayout
+
+        android:id="@+id/buttonsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        />
+        android:layout_weight="2"
+        android:background="@drawable/bg_create_gradient"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/phrase_margin_top">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/display_video_metadata_margin"
+            android:layout_weight="5"
+            android:orientation="vertical">
+
+            <com.devspark.robototextview.widget.RobotoTextView
+                android:id="@+id/challenge_title"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2"
+                android:padding="@dimen/display_padding"
+                android:background="@color/display_video_green"
+                android:text="@string/display_phrase_title"
+                android:textColor="@color/white"
+                android:textSize="@dimen/display_text_size_title"
+                app:typeface="roboto_slab_regular" />
+
+            <com.devspark.robototextview.widget.RobotoTextView
+                android:id="@+id/subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="3"
+                android:padding="@dimen/display_padding"
+                android:background="@color/white"
+                android:text="@string/display_phrase"
+                android:textSize="@dimen/display_subtitle_text_size"
+                app:typeface="roboto_slab_regular" />
+
+        </LinearLayout>
+
+
+    </LinearLayout>
 </LinearLayout>

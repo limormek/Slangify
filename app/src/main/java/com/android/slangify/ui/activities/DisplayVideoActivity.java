@@ -20,8 +20,6 @@ import butterknife.ButterKnife;
 
 public class DisplayVideoActivity extends AppCompatActivity {
 
-    @BindView(R.id.dialog_btn)
-    TextView btnSubmit;
     @BindView(R.id.video)
     VideoView video;
 
@@ -32,14 +30,6 @@ public class DisplayVideoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_display_video);
 
         ButterKnife.bind(this);
-
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                FancyAlertDialog fancyAlertDialog = new FancyAlertDialog(DisplayVideoActivity.this);
-                fancyAlertDialog.show();
-            }
-        });
 
         video.setVideoURI(Uri.parse("https://www.youtube.com/watch?v=MaHq0Gh6e2k"));
 

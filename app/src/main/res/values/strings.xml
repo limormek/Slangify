@@ -15,4 +15,6 @@
     <string name="ready_set_dialog_title">The sentence will appear for 5 seconds</string>
     <string name="ready_set_dialog_subtitle">Give it your best shot</string>
     <string name="done">Nice Try!</string>
+    <string name="display_phrase_title">Ich bin deine Schmutzekatze</string>
+    <string name="display_phrase">Language : German\nTranslation: I’m your cuddly kitty cat\n\nUsed as a loving display of affection between lovers and spouses. Refers to the cuddly nature of felines as a way to show love and care.</string>
 </resources>

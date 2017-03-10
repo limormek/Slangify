@@ -16,7 +16,7 @@
     <dimen name="create_btn_height">53dp</dimen>
     <dimen name="dropdown_margin_top">16dp</dimen>
     <dimen name="spinner_dropdown_item_padding">10dp</dimen>
-    <dimen name="phrase_text_view_size">33dp</dimen>
+    <dimen name="phrase_text_view_size">27dp</dimen>
     <dimen name="video_text_padding_side">10dp</dimen>
     <dimen name="fancy_dialog_close_margin">20dp</dimen>
     <dimen name="fancy_dialog_content_padding">24dp</dimen>
@@ -36,5 +36,10 @@
     <dimen name="facebook_button_margin_top">30dp</dimen>
     <dimen name="timeout_text_size">20sp</dimen>
     <dimen name="timeout_margin">10dp</dimen>
-    <dimen name="phrase_margin_top">10dp</dimen>
+    <dimen name="phrase_margin_top">20dp</dimen>
+    <dimen name="display_video_metadata_margin">8dp</dimen>
+    <dimen name="display_text_size_title">22sp</dimen>
+    <dimen name="display_subtitle_text_size">16sp</dimen>
+    <dimen name="display_padding">8dp</dimen>
+    <dimen name="play_size">80dp</dimen>
 </resources>

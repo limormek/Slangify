@@ -57,6 +57,7 @@
         <activity
             android:name=".ui.activities.DisplayVideoActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@style/Theme.NoStatusBar"
             >
 
             </activity>

@@ -17,6 +17,7 @@
     <color name="transparent_grey">#80ffffff</color>
     <color name="video_display_background_color">#9012fe</color>
     <color name="dropdown_text">#757575</color>
+    <color name="display_video_green">#39beac</color>
 
     <!--fancy dialog-->
     <color name="float_transparent">#00000000</color>
