@@ -14,4 +14,5 @@
     <color name="underline_color">#50E3C2</color>
     <color name="btn_create">#00BFA5</color>
     <color name="transparent_grey">#80ffffff</color>
+    <color name="video_display_background_color">#9012fe</color>
 </resources>

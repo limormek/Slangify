@@ -10,6 +10,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -20,13 +21,16 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import com.android.slangify.repository.implementation.LanguagesRepository;
+import com.android.slangify.repository.implementation.PhraseRepository;
 import com.android.slangify.repository.interfaces.IRepositoryCallback;
 import com.android.slangify.repository.models.LanguageModel;
+import com.android.slangify.repository.models.PhraseModel;
 import com.android.slangify.utils.IntentUtils;
 import com.devspark.robototextview.widget.RobotoAutoCompleteTextView;
 import com.devspark.robototextview.widget.RobotoTextView;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 
 /**
@@ -41,6 +45,7 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
     RobotoAutoCompleteTextView languagesList;
 
     private ArrayList<LanguageModel> languageModels;
+    private PhraseModel selectdPhrase;
 
     private static final int LOCATION_PERMISSION_CODE = 000;
     private static final int STORAGE_PERMISSION_CODE = 111;
@@ -86,6 +91,29 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
                     }
                 });
 
+                languagesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        LanguageModel selectedLanguage = languageModels.get(position);
+                        PhraseRepository phraseRepository = new PhraseRepository();
+                        phraseRepository.getPhraseData(selectedLanguage.getId(), new IRepositoryCallback<PhraseModel>() {
+                            @Override
+                            public void onSuccess(ArrayList<PhraseModel> result) {
+                                if (result != null && result.size() > 0) {
+                                    // Start camera activity with random Phrase
+                                    Random r = new Random();
+                                    int randomNumber = r.nextInt(result.size() -1) +1;
+                                    selectdPhrase = result.get(randomNumber);
+                                }
+                            }
+
+                            @Override
+                            public void onFailure() {
+                                // Tell user there was an error
+                            }
+                        });
+                    }
+                });
             }
 
             @Override
@@ -107,8 +135,7 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_submit:
-                //todo - add metadata about the chosen phrase
-                IntentUtils.startVideoCaptureActivity(CreateChallengeActivity.this);
+                IntentUtils.startVideoCaptureActivity(CreateChallengeActivity.this, selectdPhrase);
                 break;
         }
     }

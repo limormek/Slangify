@@ -3,6 +3,7 @@ package com.android.slangify.utils;
 import android.content.Context;
 import android.content.Intent;
 
+import com.android.slangify.repository.models.PhraseModel;
 import com.android.slangify.ui.activities.CaptureVideoActivity;
 import com.android.slangify.ui.activities.CreateChallengeActivity;
 import com.android.slangify.ui.activities.DisplayVideoActivity;
@@ -14,6 +15,8 @@ import com.android.slangify.ui.activities.LoginActivity;
  */
 
 public class IntentUtils {
+
+    public static final String EXTRA_PHRASE= "EXTRA_PHRASE";
 
     /**
      * Start the feed activity on a new stack
@@ -31,8 +34,9 @@ public class IntentUtils {
         context.startActivity(new Intent(context, CreateChallengeActivity.class));
     }
 
-    public static void startVideoCaptureActivity(Context context) {
-        context.startActivity(new Intent(context, CaptureVideoActivity.class));
+    public static void startVideoCaptureActivity(Context context, PhraseModel phrase) {
+        context.startActivity(new Intent(context, CaptureVideoActivity.class)
+        .putExtra(EXTRA_PHRASE, phrase));
     }
 
     public static void startDisplayVideoActivity(Context context) {

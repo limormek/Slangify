@@ -16,4 +16,6 @@
     <dimen name="create_btn_height">53dp</dimen>
     <dimen name="dropdown_margin_top">16dp</dimen>
     <dimen name="spinner_dropdown_item_padding">10dp</dimen>
+    <dimen name="phrase_text_view_size">33dp</dimen>
+    <dimen name="video_text_padding_side">10dp</dimen>
 </resources>

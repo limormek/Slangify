@@ -2,6 +2,7 @@ package com.android.slangify.ui.activities;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
 import android.os.Bundle;
@@ -14,18 +15,25 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.android.slangify.R;
+import com.android.slangify.repository.models.PhraseModel;
 import com.android.slangify.ui.activities.Events.SurfaceCreatedEvent;
 import com.android.slangify.ui.activities.camera.CameraControl;
 import com.android.slangify.ui.activities.camera.CameraSurfaceView;
+import com.devspark.robototextview.widget.RobotoTextView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+import static com.android.slangify.utils.IntentUtils.EXTRA_PHRASE;
+
 public class CaptureVideoActivity extends AppCompatActivity {
 
+    @BindView(R.id.phrase_text_view)
+    RobotoTextView phraseTextView;
     public CameraSurfaceView mPreview;
-
-    private Button capture, switchCamera;
 
     private CameraControl mCamControl;
 
@@ -37,9 +45,13 @@ public class CaptureVideoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_capture_video);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
-
+        ButterKnife.bind(this);
+        Intent intent = getIntent();
+        PhraseModel phraseModel = (PhraseModel) intent.getParcelableExtra(EXTRA_PHRASE);
+        if (phraseModel != null) {
+            phraseTextView.setText(phraseModel.getText());
+        }
         myContext = this;
-
         initialize();
     }
 
@@ -47,11 +59,6 @@ public class CaptureVideoActivity extends AppCompatActivity {
         mPreview = (CameraSurfaceView) findViewById(R.id.camera_preview);
 
         mCamControl = new CameraControl(mPreview, this);
-        capture = (Button) findViewById(R.id.button_capture);
-        capture.setOnClickListener(captrureListener);
-
-        switchCamera = (Button) findViewById(R.id.button_ChangeCamera);
-        switchCamera.setOnClickListener(switchCameraListener);
     }
 
     View.OnClickListener switchCameraListener = new View.OnClickListener() {

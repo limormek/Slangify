@@ -1,16 +1,30 @@
 package com.android.slangify.repository.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by bettykin on 09/03/2017.
  */
 
-public class PhraseModel {
+public class PhraseModel implements Parcelable {
     private String text;
     private String extra;
     private int score;
     private String translation;
 
+
     public PhraseModel() {
+
+    }
+    
+    public PhraseModel(Parcel in) {
+
+        // the order needs to be the same as in writeToParcel() method
+        this.text = in.readString();
+        this.extra = in.readString();
+        this.score = in.readInt();
+        this.translation = in.readString();
     }
 
     public PhraseModel(String text, String extra, int score, String translation) {
@@ -20,6 +34,18 @@ public class PhraseModel {
         this.translation = translation;
     }
 
+
+    public static final Creator<PhraseModel> CREATOR = new Creator<PhraseModel>() {
+        @Override
+        public PhraseModel createFromParcel(Parcel in) {
+            return new PhraseModel(in);
+        }
+
+        @Override
+        public PhraseModel[] newArray(int size) {
+            return new PhraseModel[size];
+        }
+    };
 
     public String getText() {
         return text;
@@ -35,5 +61,18 @@ public class PhraseModel {
 
     public String getTranslation() {
         return translation;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(text);
+        dest.writeString(extra);
+        dest.writeInt(score);
+        dest.writeString(translation);
     }
 }
