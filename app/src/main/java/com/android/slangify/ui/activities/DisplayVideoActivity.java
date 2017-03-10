@@ -4,7 +4,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.VideoView;
 
@@ -23,6 +25,9 @@ public class DisplayVideoActivity extends AppCompatActivity {
     @BindView(R.id.video)
     VideoView video;
 
+    @BindView(R.id.iv_play)
+    ImageView playBtn;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,8 +36,20 @@ public class DisplayVideoActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        video.setVideoURI(Uri.parse("https://www.youtube.com/watch?v=MaHq0Gh6e2k"));
+        String path = getIntent().getStringExtra("filePath");
 
-        video.start();
+        if(!TextUtils.isEmpty(path)) {
+            video.setVideoURI(Uri.parse(path));
+
+            video.start();
+//            playBtn.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//
+//                }
+//            });
+
+        }
+
     }
 }

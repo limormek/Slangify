@@ -40,6 +40,37 @@
         app:typeface="roboto_slab_bold" />
 
 
+    <ImageView
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_slider"/>
+
+    <FrameLayout
+        android:layout_marginTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <com.devspark.robototextview.widget.RobotoTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="meh."
+            android:layout_gravity="left|center_vertical"
+            app:typeface="roboto_slab_regular"
+            android:textSize="20sp"/>
+
+        <com.devspark.robototextview.widget.RobotoTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="oh yes!"
+            android:layout_gravity="right|center_vertical"
+            app:typeface="roboto_slab_regular"
+            android:textSize="20sp"/>
+
+    </FrameLayout>
+
+
     <com.devspark.robototextview.widget.RobotoTextView
         android:id="@+id/btn_submit"
         android:layout_width="match_parent"

@@ -23,7 +23,8 @@
             android:layout_width="@dimen/play_size"
             android:layout_height="@dimen/play_size"
             android:layout_gravity="center"
-            android:src="@drawable/ic_play" />
+            android:src="@drawable/ic_play"
+            android:visibility="gone"/>
 
     </FrameLayout>
 
@@ -58,16 +59,24 @@
                 android:textSize="@dimen/display_text_size_title"
                 app:typeface="roboto_slab_regular" />
 
-            <com.devspark.robototextview.widget.RobotoTextView
-                android:id="@+id/subtitle"
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="3"
-                android:padding="@dimen/display_padding"
-                android:background="@color/white"
-                android:text="@string/display_phrase"
-                android:textSize="@dimen/display_subtitle_text_size"
-                app:typeface="roboto_slab_regular" />
+                android:layout_weight="3">
+
+
+                <com.devspark.robototextview.widget.RobotoTextView
+                    android:id="@+id/subtitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/display_padding"
+                    android:background="@color/white"
+                    android:text="@string/display_phrase"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/display_subtitle_text_size"
+                    app:typeface="roboto_slab_regular" />
+            </ScrollView>
+
 
         </LinearLayout>
 
