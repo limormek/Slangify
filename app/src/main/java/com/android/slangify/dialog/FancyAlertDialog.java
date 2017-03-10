@@ -53,7 +53,7 @@ public class FancyAlertDialog extends Dialog implements View.OnClickListener {
         super(context, R.style.fancy_alert_dialog);
         mContext = context;
         setCancelable(true);
-        setCanceledOnTouchOutside(true);//todo change ?
+        setCanceledOnTouchOutside(false);//todo change ?
 
         mAlertType = alertType;
 

@@ -2,10 +2,14 @@ package com.android.slangify.ui.activities;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Color;
 import android.hardware.Camera;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -16,10 +20,12 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.slangify.R;
+import com.android.slangify.dialog.FancyAlertDialog;
 import com.android.slangify.repository.models.PhraseModel;
 import com.android.slangify.ui.activities.Events.SurfaceCreatedEvent;
 import com.android.slangify.ui.activities.camera.CameraControl;
 import com.android.slangify.ui.activities.camera.CameraSurfaceView;
+import com.android.slangify.utils.IntentUtils;
 import com.devspark.robototextview.widget.RobotoTextView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -41,11 +47,19 @@ public class CaptureVideoActivity extends AppCompatActivity {
     @BindView(R.id.buttonsLayout)
     LinearLayout textContainer;
 
+    @BindView(R.id.timeout)
+    RobotoTextView tvTimeout;
+
     public CameraSurfaceView mPreview;
 
+
+    public static boolean isRecording = false;
     private CameraControl mCamControl;
     private PhraseModel phraseModel;
     private Context myContext;
+    private FancyAlertDialog readySetGo;
+    private boolean showOnDialogDismiss;
+    private CountDownTimer waitTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +75,32 @@ public class CaptureVideoActivity extends AppCompatActivity {
         }
         myContext = this;
         initialize();
+
+        readySetGo = new FancyAlertDialog(CaptureVideoActivity.this);
+        readySetGo.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                showContent();
+            }
+        });
+        readySetGo.show();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                showContent();
+            }
+        }, 3000);
+    }
+
+
+    private void showContent() {
+        readySetGo.dismiss();
+        showPhrase();
+
+        if(showOnDialogDismiss) {
+            waitTimer.start();
+        }
     }
 
     public void showPhrase() {
@@ -78,7 +118,7 @@ public class CaptureVideoActivity extends AppCompatActivity {
         mCamControl = new CameraControl(mPreview, this);
     }
 
-    View.OnClickListener switchCameraListener = new View.OnClickListener() {
+/*    View.OnClickListener switchCameraListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             // get the number of cameras
@@ -95,7 +135,7 @@ public class CaptureVideoActivity extends AppCompatActivity {
                 }
             }
         }
-    };
+    };*/
 
     @Override
     public void onStart() {
@@ -127,7 +167,7 @@ public class CaptureVideoActivity extends AppCompatActivity {
     }*/
 
 
-    boolean recording = false;
+/*    boolean recording = false;
     View.OnClickListener captrureListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
@@ -136,10 +176,10 @@ public class CaptureVideoActivity extends AppCompatActivity {
                 Toast.makeText(CaptureVideoActivity.this, "Video captured!", Toast.LENGTH_LONG).show();
                 recording = false;
             } else {
-                /*if (!prepareMediaRecorder()) {
+                *//*if (!prepareMediaRecorder()) {
                     Toast.makeText(MainActivity.this, "Fail in prepareMediaRecorder()!\n - Ended -", Toast.LENGTH_LONG).show();
                     finish();
-                }*/
+                }*//*
                 // work on UiThread for better performance
                 runOnUiThread(new Runnable() {
                     public void run() {
@@ -156,7 +196,7 @@ public class CaptureVideoActivity extends AppCompatActivity {
                 recording = true;
             }
         }
-    };
+    };*/
 
 
     ///////////////////////////////////////////////////////////////////////////
@@ -165,5 +205,54 @@ public class CaptureVideoActivity extends AppCompatActivity {
     @Subscribe
     public void onSurfaceCreated(SurfaceCreatedEvent event) {
         mCamControl.startPreview();
+
+        waitTimer = new CountDownTimer(6000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+
+                Long delta = millisUntilFinished / 1000;
+                tvTimeout.setText(delta.toString());
+                if(!isRecording) {
+                    try {
+                        mCamControl.startRecording();
+
+                        isRecording = true;
+                    } catch (final Exception ex) {
+                        // Log.i("---","Exception in thread");
+                    }
+                }
+            }
+
+            public void onFinish() {
+                tvTimeout.setText(getString(R.string.done));
+
+                try {
+                    mCamControl.stopRecording();
+
+                } catch (final Exception ex) {
+                    // Log.i("---","Exception in thread");
+                }
+
+                showTranslation();
+
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        IntentUtils.startDisplayVideoActivity(CaptureVideoActivity.this);
+                    }
+                }, 2000);
+
+            }
+
+        };
+        if(readySetGo.isShowing()) {
+            showOnDialogDismiss = true;
+        } else {
+            waitTimer.start();
+        }
+
+
+
+
     }
 }
