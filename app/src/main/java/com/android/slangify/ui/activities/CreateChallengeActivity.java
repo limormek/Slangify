@@ -17,6 +17,8 @@ import com.android.slangify.repository.implementation.LanguagesRepository;
 import com.android.slangify.repository.interfaces.IRepositoryCallback;
 import com.android.slangify.repository.models.LanguageModel;
 import com.android.slangify.utils.IntentUtils;
+import com.devspark.robototextview.widget.RobotoAutoCompleteTextView;
+import com.devspark.robototextview.widget.RobotoTextView;
 
 import java.util.ArrayList;
 
@@ -28,9 +30,9 @@ import java.util.ArrayList;
 public class CreateChallengeActivity extends AppCompatActivity implements View.OnClickListener {
 
     @BindView(R.id.btn_submit)
-    Button btnSubmit;
+    RobotoTextView btnSubmit;
     @BindView(R.id.languages_list)
-    AutoCompleteTextView languagesList;
+    RobotoAutoCompleteTextView languagesList;
 
     private ArrayList<LanguageModel> languageModels;
 

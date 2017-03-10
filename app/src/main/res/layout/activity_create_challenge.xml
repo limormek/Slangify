@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_create_gradient"
@@ -8,40 +9,51 @@
     android:paddingRight="@dimen/create_padding_right"
     android:paddingTop="@dimen/create_padding_top">
 
-    <TextView
-        style="@style/title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/create_meme_title" />
+    <com.devspark.robototextview.widget.RobotoTextView
 
-    <AutoCompleteTextView
+        style="@style/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/create_meme_title"
+        app:typeface="roboto_slab_bold" />
+
+
+    <com.devspark.robototextview.widget.RobotoAutoCompleteTextView
         android:id="@+id/languages_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dropdown_margin_top"
         android:hint="Dutch"
         android:textColorHint="@color/transparent_grey"
+        app:typeface="roboto_slab_regular"
         android:theme="@style/Autocomplete" />
 
-    <TextView
+    <com.devspark.robototextview.widget.RobotoTextView
         android:id="@+id/scale_title"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/create_subtitle_margin_top"
         android:text="@string/create_sub_title"
         android:textColor="@color/white"
         android:textSize="@dimen/sub_title_text_size"
-        android:layout_marginTop="@dimen/create_subtitle_margin_top"/>
+        app:typeface="roboto_slab_bold" />
 
 
-    <Button
+    <com.devspark.robototextview.widget.RobotoTextView
         android:id="@+id/btn_submit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/create_meme_submit_btn_margin_top"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/create_btn_height"
+        android:layout_marginTop="@dimen/create_submit_btn_margin_top"
         android:background="@drawable/bg_rounded_corners_primary"
-        android:padding="@dimen/create_meme_submit_btn_padding"
+        android:padding="@dimen/create_submit_btn_padding"
         android:text="@string/create_meme_submit"
-        android:textAllCaps="false"
+        android:gravity="center"
         android:textColor="@color/white"
-        android:textSize="@dimen/create_btn_text_size" />
+        android:textSize="@dimen/create_btn_text_size"
+        app:typeface="roboto_slab_regular" />
+
+
+
+
 
 </LinearLayout>

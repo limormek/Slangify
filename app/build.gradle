@@ -32,6 +32,9 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 
+    //views
+//    compile 'com.github.ademar111190:android-phased-seek-bar:0.1.2'
+    compile 'com.github.johnkil.android-robototextview:robototextview:3.0.0'
 
     //events
     compile 'org.greenrobot:eventbus:3.0.0'

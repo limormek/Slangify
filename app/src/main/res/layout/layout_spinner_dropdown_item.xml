@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<CheckedTextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@android:id/text1"
+    style="?android:attr/spinnerDropDownItemStyle"
+    android:paddingTop="@dimen/spinner_dropdown_item_padding"
+    android:paddingBottom="@dimen/spinner_dropdown_item_padding"
+    android:maxLines="1"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:ellipsize="marquee"
+    android:textColor="@color/transparent_grey"
+    android:background="@color/white"
+    android:gravity="center_vertical"
+    android:layout_gravity="center"/>
