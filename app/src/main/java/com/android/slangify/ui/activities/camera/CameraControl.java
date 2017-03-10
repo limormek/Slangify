@@ -4,12 +4,18 @@ import android.content.Context;
 import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
 import android.view.WindowManager;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import static android.content.Context.WINDOW_SERVICE;
@@ -25,6 +31,8 @@ public class CameraControl implements CameraControlInterface {
     private CameraSurfaceView mView;
     private Context activityContext;
 
+    private long timestamp;
+
     private static String CAMERA_CONTROL_TAG = "camera control";
 
     public enum CameraType {
@@ -34,10 +42,11 @@ public class CameraControl implements CameraControlInterface {
 
     public CameraType cameraCurrentState = CameraType.BACK;
 
-    public CameraControl(CameraSurfaceView view, Context context) {
+    public CameraControl(CameraSurfaceView view, Context context, long creationTime) {
         mView = view;
 
         activityContext = context;
+        this.timestamp = creationTime;
         //init the camera
         //setCameraType(cameraCurrentState);
         //mView.
@@ -87,6 +96,45 @@ public class CameraControl implements CameraControlInterface {
         }
     }
 
+/*    Camera.PictureCallback mPicture = new Camera.PictureCallback() {
+        @Override
+        public void onPictureTaken(byte[] data, Camera camera) {
+            File pictureFile = getOutputMediaFile();
+            if (pictureFile == null) {
+                return;
+            }
+            try {
+                FileOutputStream fos = new FileOutputStream(pictureFile);
+                fos.write(data);
+                fos.close();
+            } catch (FileNotFoundException e) {
+
+            } catch (IOException e) {
+            }
+        }
+    };
+
+    private static File getOutputMediaFile() {
+        File mediaStorageDir = new File(
+                Environment
+                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
+                "MyCameraApp");
+        if (!mediaStorageDir.exists()) {
+            if (!mediaStorageDir.mkdirs()) {
+                Log.d("MyCameraApp", "failed to create directory");
+                return null;
+            }
+        }
+        // Create a media file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
+                .format(new Date());
+        File mediaFile;
+        mediaFile = new File(mediaStorageDir.getPath() + File.separator
+                + "IMG_" + timeStamp + ".jpg");
+
+        return mediaFile;
+    }*/
+
     //this function should be called before any other function
     private boolean prepareCamera() {
 
@@ -100,9 +148,11 @@ public class CameraControl implements CameraControlInterface {
 
         mediaRecorder.setProfile(CamcorderProfile.get(CamcorderProfile.QUALITY_720P));
 
-        mediaRecorder.setOutputFile("/sdcard/myvideo.mp4");
+        String defaultFilePath = String.format("/sdcard/slangify%s.mp4", String.valueOf(timestamp));
+        mediaRecorder.setOutputFile(defaultFilePath);
         mediaRecorder.setMaxDuration(600000); //set maximum duration 60 sec.
         mediaRecorder.setMaxFileSize(50000000); //set maximum file size 50M
+        mediaRecorder.setOrientationHint(90);
 
         try {
             mediaRecorder.prepare();

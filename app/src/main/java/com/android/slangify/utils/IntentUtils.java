@@ -39,8 +39,14 @@ public class IntentUtils {
         .putExtra(EXTRA_PHRASE, phrase));
     }
 
-    public static void startDisplayVideoActivity(Context context) {
-        context.startActivity(new Intent(context, DisplayVideoActivity.class));
+    public static void startDisplayVideoActivity(Context context, String sourceText,
+                                                 String translationText, String filePath) {
+
+        Intent intent = new Intent(context, DisplayVideoActivity.class);
+        intent.putExtra("sourceText", sourceText);
+        intent.putExtra("transText", translationText);
+        intent.putExtra("filePath", filePath);
+        context.startActivity(intent);
     }
 
 }
