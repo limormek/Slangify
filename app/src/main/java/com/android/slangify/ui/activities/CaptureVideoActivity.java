@@ -236,12 +236,20 @@ public class CaptureVideoActivity extends AppCompatActivity {
 
                 showTranslation();
 
+                try{
+                    mCamControl.swapCamera();
+                }
+                catch(Exception ex)
+                {
+
+                }
+
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         IntentUtils.startDisplayVideoActivity(CaptureVideoActivity.this);
                     }
-                }, 2000);
+                }, 6000);
 
             }
 
