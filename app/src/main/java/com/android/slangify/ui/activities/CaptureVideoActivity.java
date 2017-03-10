@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.android.slangify.R;
@@ -33,6 +34,13 @@ public class CaptureVideoActivity extends AppCompatActivity {
 
     @BindView(R.id.phrase_text_view)
     RobotoTextView phraseTextView;
+
+    @BindView(R.id.translation_title_text_view)
+    RobotoTextView translationTitleTextView;
+
+    @BindView(R.id.buttonsLayout)
+    LinearLayout textContainer;
+
     public CameraSurfaceView mPreview;
 
     private CameraControl mCamControl;
@@ -53,6 +61,15 @@ public class CaptureVideoActivity extends AppCompatActivity {
         }
         myContext = this;
         initialize();
+    }
+
+    public void showPhrase() {
+        textContainer.setBackgroundColor(ContextCompat.getColor(CaptureVideoActivity.this,R.color.video_display_background_color));
+    }
+
+    public void showTranslation() {
+        translationTitleTextView.setVisibility(View.VISIBLE);
+        phraseTextView.setText(phraseModel.getTranslation());
     }
 
     public void initialize() {
