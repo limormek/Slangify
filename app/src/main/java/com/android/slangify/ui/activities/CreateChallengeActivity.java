@@ -60,7 +60,7 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
         setContentView(R.layout.activity_create_challenge);
         ButterKnife.bind(this);
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             //Request all permissions
             requestFewPermissions(
                     Manifest.permission.RECORD_AUDIO,
@@ -102,11 +102,15 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
                         phraseRepository.getPhraseData(selectedLanguage.getId(), new IRepositoryCallback<PhraseModel>() {
                             @Override
                             public void onSuccess(ArrayList<PhraseModel> result) {
-                                if (result != null && result.size() > 0) {
-                                    // Start camera activity with random Phrase
-                                    Random r = new Random();
-                                    int randomNumber = r.nextInt(result.size() -1) +1;
-                                    selectdPhrase = result.get(randomNumber);
+                                if (result != null) {
+                                    if(result.size() == 1) {
+                                        selectdPhrase = result.get(0);
+                                    } else if (result.size() > 1) {
+                                        // Start camera activity with random Phrase
+                                        Random r = new Random();
+                                        int randomNumber = r.nextInt(result.size() - 1) + 1;
+                                        selectdPhrase = result.get(randomNumber);
+                                    }
                                 }
                             }
 
@@ -144,7 +148,7 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
     }
 
     public void requestFewPermissions(String... permissions) {
-        requestPermissions(permissions,19999);
+        requestPermissions(permissions, 19999);
     }
 
     @Override
