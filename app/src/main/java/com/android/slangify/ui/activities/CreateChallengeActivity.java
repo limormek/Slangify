@@ -1,8 +1,14 @@
 package com.android.slangify.ui.activities;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -36,12 +42,24 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
 
     private ArrayList<LanguageModel> languageModels;
 
+    private static final int LOCATION_PERMISSION_CODE = 000;
+    private static final int STORAGE_PERMISSION_CODE = 111;
+    private static final int AUDIO_PERMISSION_CODE = 222;
+    private static final int CAMERA_PERMISSION_CODE = 333;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_create_challenge);
         ButterKnife.bind(this);
+
+        //Request all permissions
+        requestFewPermissions(
+                Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.CAMERA,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
 
         languagesList.setThreshold(1);
 
@@ -92,6 +110,18 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
                 //todo - add metadata about the chosen phrase
                 IntentUtils.startVideoCaptureActivity(CreateChallengeActivity.this);
                 break;
+        }
+    }
+
+    public void requestFewPermissions(String... permissions) {
+        requestPermissions(permissions,19999);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 19999) {
+            Log.d("tag", "onRequestPermissionsResult: ");
         }
     }
 }
