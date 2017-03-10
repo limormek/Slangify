@@ -21,5 +21,5 @@
     <!--fancy dialog-->
     <color name="float_transparent">#00000000</color>
     <color name="ready_set_dialog_bg">#8f12fe</color>
-    <color name="ready_set_stroke">#7600E5</color>
+    <color name="ready_set_stroke">#4D000000</color>
 </resources>
