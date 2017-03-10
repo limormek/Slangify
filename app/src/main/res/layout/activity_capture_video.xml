@@ -20,10 +20,24 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:background="@color/video_display_background_color"
         android:layout_weight="2">
-
+        <com.devspark.robototextview.widget.RobotoTextView
+            android:id="@+id/translation_title_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingLeft="@dimen/video_text_padding_side"
+            android:paddingRight="@dimen/video_text_padding_side"
+            android:text="@string/translation_title_text"
+            android:textColor="@color/white"
+            android:textAlignment="center"
+            android:paddingTop="@dimen/video_text_padding_side"
+            android:textSize="@dimen/translation_title_text_view_size"
+            app:typeface="roboto_slab_bold"
+            android:visibility="invisible"
+            />
         <com.devspark.robototextview.widget.RobotoTextView
             android:id="@+id/phrase_text_view"
             android:layout_width="wrap_content"
@@ -31,6 +45,8 @@
             android:layout_gravity="center"
             android:paddingLeft="@dimen/video_text_padding_side"
             android:paddingRight="@dimen/video_text_padding_side"
+            android:paddingBottom="@dimen/video_text_padding_side"
+            android:layout_marginTop="@dimen/video_text_padding_side"
             tools:text="Ich binsfsgsgfsgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfg deine
 Schmusekatze"
             android:textColor="@color/white"

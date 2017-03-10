@@ -11,6 +11,7 @@
     <string name="create_meme_submit">Challenge Accepted!</string>
     <string name="activity_login">Login</string>
     <string name="create_sub_title">Feeling adventurous?</string>
+    <string name="translation_title_text">(What you actually said)</string>
     <string name="ready_set_dialog_title">The sentence will appear for 5 seconds</string>
     <string name="ready_set_dialog_subtitle">Give it your best shot</string>
 </resources>

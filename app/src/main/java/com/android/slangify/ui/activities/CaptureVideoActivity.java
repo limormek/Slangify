@@ -36,7 +36,7 @@ public class CaptureVideoActivity extends AppCompatActivity {
     public CameraSurfaceView mPreview;
 
     private CameraControl mCamControl;
-
+    private PhraseModel phraseModel;
     private Context myContext;
 
     @Override
@@ -47,7 +47,7 @@ public class CaptureVideoActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         ButterKnife.bind(this);
         Intent intent = getIntent();
-        PhraseModel phraseModel = (PhraseModel) intent.getParcelableExtra(EXTRA_PHRASE);
+        phraseModel = (PhraseModel) intent.getParcelableExtra(EXTRA_PHRASE);
         if (phraseModel != null) {
             phraseTextView.setText(phraseModel.getText());
         }

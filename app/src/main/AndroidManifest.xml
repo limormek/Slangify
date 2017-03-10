@@ -29,7 +29,11 @@
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/activity_login"
             android:theme="@style/Theme.NoStatusBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
 
@@ -39,11 +43,7 @@
             android:label="@string/activity_create_meme"
             android:theme="@style/Theme.CreateChallenge">
 
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
 
 
 
