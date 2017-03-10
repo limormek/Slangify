@@ -1,10 +1,12 @@
-package repository;
+package com.android.slangify.repository.interfaces;
+
+import com.android.slangify.repository.models.PhraseModel;
 
 /**
  * Created by limormekaiten on 3/8/17.
  */
 
-public interface IVocabularyRepository {
+public interface IPhraseRepository {
 
     void getVocabularyIDs(String languageID, IRepositoryCallback callback);
 
@@ -15,8 +17,8 @@ public interface IVocabularyRepository {
      * translation
      * nice degree (optional - TBD) //todo TBD
      * did you know (optional - TBD) //todo TBD
-     * @param vocabularyID
+     * @param languageID
      * @param callback
      */
-    void getVocabularyData(String vocabularyID, IRepositoryCallback callback);
+    void getPhraseData(int languageID, IRepositoryCallback<PhraseModel> callback);
 }

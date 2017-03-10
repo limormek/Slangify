@@ -25,7 +25,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import utils.IntentUtils;
+import com.android.slangify.utils.IntentUtils;
 
 /**
  * Created by bettykin on 07/03/2017.
@@ -65,11 +65,13 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onCancel() {
                         // App code
+                        Log.e(TAG, "onCancel: ");
                     }
 
                     @Override
                     public void onError(FacebookException exception) {
                         // App code
+                        Log.e(TAG, "onCancel: ");
                     }
                 });
 

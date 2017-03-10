@@ -1,10 +1,10 @@
-package utils;
+package com.android.slangify.utils;
 
 import android.content.Context;
 import android.content.Intent;
 
 import com.android.slangify.ui.activities.CaptureVideoActivity;
-import com.android.slangify.ui.activities.CreateMemeActivity;
+import com.android.slangify.ui.activities.CreateChallengeActivity;
 import com.android.slangify.ui.activities.DisplayVideoActivity;
 import com.android.slangify.ui.activities.FeedActivity;
 import com.android.slangify.ui.activities.LoginActivity;
@@ -28,7 +28,7 @@ public class IntentUtils {
     }
 
     public static void startCreateActivity(Context context) {
-        context.startActivity(new Intent(context, CreateMemeActivity.class));
+        context.startActivity(new Intent(context, CreateChallengeActivity.class));
     }
 
     public static void startVideoCaptureActivity(Context context) {

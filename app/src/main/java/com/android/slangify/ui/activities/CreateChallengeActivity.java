@@ -5,18 +5,21 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
 
 import com.android.slangify.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import utils.IntentUtils;
+
+import com.android.slangify.utils.IntentUtils;
+
 
 /**
  * Created by limormekaiten on 3/8/17.
  */
 
-public class CreateMemeActivity extends AppCompatActivity implements View.OnClickListener {
+public class CreateChallengeActivity extends AppCompatActivity implements View.OnClickListener {
 
     @BindView(R.id.btn_submit) Button btnSubmit;
 
@@ -41,8 +44,8 @@ public class CreateMemeActivity extends AppCompatActivity implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btn_submit:
-                //todo - add metadata about the chosen vocabulary
-                IntentUtils.startLoginActivity(CreateMemeActivity.this);
+                //todo - add metadata about the chosen phrase
+                IntentUtils.startLoginActivity(CreateChallengeActivity.this);
                 break;
         }
     }

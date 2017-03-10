@@ -13,6 +13,7 @@
 
 
     <application
+        android:name=".SlangifyApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -29,21 +30,23 @@
             android:label="@string/activity_login"
             android:theme="@style/Theme.NoStatusBar">
 
+
+        </activity>
+
+        <activity
+            android:name=".ui.activities.CreateChallengeActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/activity_create_meme" >
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
 
+
+
         </activity>
-
-        <activity
-            android:name=".ui.activities.CreateMemeActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/activity_create_meme" >
-
-
-            </activity>
 
         <activity
             android:name=".ui.activities.CaptureVideoActivity"
