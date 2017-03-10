@@ -2,6 +2,7 @@ package com.android.slangify.ui.activities;
 
 import android.Manifest;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -59,12 +60,14 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
         setContentView(R.layout.activity_create_challenge);
         ButterKnife.bind(this);
 
-        //Request all permissions
-        requestFewPermissions(
-                Manifest.permission.RECORD_AUDIO,
-                Manifest.permission.CAMERA,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            //Request all permissions
+            requestFewPermissions(
+                    Manifest.permission.RECORD_AUDIO,
+                    Manifest.permission.CAMERA,
+                    Manifest.permission.WRITE_EXTERNAL_STORAGE);
 
+        }
 
         languagesList.setThreshold(1);
 
@@ -80,7 +83,7 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
                 }
 
                 final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                        CreateChallengeActivity.this, android.R.layout.simple_dropdown_item_1line,
+                        CreateChallengeActivity.this, R.layout.layout_spinner_dropdown_item,
                         mStringArray);
 
                 languagesList.setAdapter(arrayAdapter);
