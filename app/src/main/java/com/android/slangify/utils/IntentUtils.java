@@ -17,6 +17,8 @@ import com.android.slangify.ui.activities.LoginActivity;
 public class IntentUtils {
 
     public static final String EXTRA_PHRASE= "EXTRA_PHRASE";
+    public static final String EXTRA_FILE_PATH= "EXTRA_FILE_PATH";
+    public static final String EXTRA_LANGUAGE = "EXTRA_LANGUAGE";
 
     /**
      * Start the feed activity on a new stack
@@ -34,18 +36,18 @@ public class IntentUtils {
         context.startActivity(new Intent(context, CreateChallengeActivity.class));
     }
 
-    public static void startVideoCaptureActivity(Context context, PhraseModel phrase) {
+    public static void startVideoCaptureActivity(Context context, PhraseModel phrase, String language) {
         context.startActivity(new Intent(context, CaptureVideoActivity.class)
-        .putExtra(EXTRA_PHRASE, phrase));
+        .putExtra(EXTRA_PHRASE, phrase)
+        .putExtra(EXTRA_LANGUAGE, language));
     }
 
-    public static void startDisplayVideoActivity(Context context, String sourceText,
-                                                 String translationText, String filePath) {
+    public static void startDisplayVideoActivity(Context context, PhraseModel phrase, String filePath, String language) {
 
-        Intent intent = new Intent(context, DisplayVideoActivity.class);
-        intent.putExtra("sourceText", sourceText);
-        intent.putExtra("transText", translationText);
-        intent.putExtra("filePath", filePath);
+        Intent intent = new Intent(context, DisplayVideoActivity.class)
+                .putExtra(EXTRA_PHRASE, phrase)
+                .putExtra(EXTRA_FILE_PATH, filePath)
+                .putExtra(EXTRA_LANGUAGE,language);
         context.startActivity(intent);
     }
 

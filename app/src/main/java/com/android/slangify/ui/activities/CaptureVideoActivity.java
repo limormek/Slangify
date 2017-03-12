@@ -1,23 +1,16 @@
 package com.android.slangify.ui.activities;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Color;
-import android.hardware.Camera;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.android.slangify.R;
 import com.android.slangify.dialog.FancyAlertDialog;
@@ -230,7 +223,7 @@ public class CaptureVideoActivity extends AppCompatActivity {
             }
 
             public void onFinish() {
-                tvTimeout.setText(getString(R.string.done));
+                tvTimeout.setText(getString(R.string.capture_video_done));
 
                 try {
                     mCamControl.stopRecording();
@@ -253,9 +246,8 @@ public class CaptureVideoActivity extends AppCompatActivity {
                     @Override
                     public void run() {
                         IntentUtils.startDisplayVideoActivity(CaptureVideoActivity.this,
-                                phraseModel.getText(),
-                                phraseModel.getTranslation(),
-                                FilePath);
+                                phraseModel,
+                                FilePath, getIntent().getStringExtra(IntentUtils.EXTRA_LANGUAGE));
                     }
                 }, 6000);
 

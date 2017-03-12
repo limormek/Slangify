@@ -42,4 +42,6 @@
     <dimen name="display_subtitle_text_size">16sp</dimen>
     <dimen name="display_padding">8dp</dimen>
     <dimen name="play_size">80dp</dimen>
+    <dimen name="display_translation_margin_top">3dp</dimen>
+    <dimen name="display_extra_margin_top">10dp</dimen>
 </resources>

@@ -24,7 +24,7 @@
             android:layout_height="@dimen/play_size"
             android:layout_gravity="center"
             android:src="@drawable/ic_play"
-            android:visibility="gone"/>
+            android:visibility="gone" />
 
     </FrameLayout>
 
@@ -35,7 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:background="@drawable/bg_create_gradient"
         android:orientation="vertical"
         android:paddingTop="@dimen/phrase_margin_top">
@@ -44,17 +44,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="@dimen/display_video_metadata_margin"
-            android:layout_weight="5"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="5">
 
             <com.devspark.robototextview.widget.RobotoTextView
-                android:id="@+id/challenge_title"
+                android:id="@+id/tv_challenge_text"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="2"
-                android:padding="@dimen/display_padding"
+                android:gravity="center_vertical"
                 android:background="@color/display_video_green"
-                android:text="@string/display_phrase_title"
+                android:padding="@dimen/display_padding"
+                tools:text="Ich bin ein berliner"
                 android:textColor="@color/white"
                 android:textSize="@dimen/display_text_size_title"
                 app:typeface="roboto_slab_regular" />
@@ -64,17 +65,42 @@
                 android:layout_height="0dp"
                 android:layout_weight="3">
 
-
-                <com.devspark.robototextview.widget.RobotoTextView
-                    android:id="@+id/subtitle"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:padding="@dimen/display_padding"
                     android:background="@color/white"
-                    android:text="@string/display_phrase"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/display_subtitle_text_size"
-                    app:typeface="roboto_slab_regular" />
+                    android:orientation="vertical"
+                    android:padding="@dimen/display_padding">
+
+                    <com.devspark.robototextview.widget.RobotoTextView
+                        android:id="@+id/tv_language"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:typeface="roboto_slab_regular"
+                        tools:text="Language: Dutch"
+                        style="@style/dialog_display_sub_title"/>
+
+                    <com.devspark.robototextview.widget.RobotoTextView
+                        android:id="@+id/tv_translation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:typeface="roboto_slab_regular"
+                        tools:text="Translation: It is better late than pregnant"
+                        android:layout_marginTop="@dimen/display_translation_margin_top"
+                        style="@style/dialog_display_sub_title"/>
+
+                    <com.devspark.robototextview.widget.RobotoTextView
+                        android:id="@+id/tv_extra"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/display_extra_margin_top"
+                        tools:text="Well, when your period is running late.."
+                        app:typeface="roboto_slab_regular"
+                        style="@style/dialog_display_sub_title"/>
+
+
+                </LinearLayout>
+
             </ScrollView>
 
 

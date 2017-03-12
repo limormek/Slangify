@@ -51,4 +51,9 @@
         <item name="android:backgroundDimAmount">0.4</item>
     </style>
 
+    <style name="dialog_display_sub_title">
+        <item name="android:textSize">@dimen/display_subtitle_text_size</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
 </resources>

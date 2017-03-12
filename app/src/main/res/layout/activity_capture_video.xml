@@ -50,7 +50,7 @@
             android:layout_gravity="center"
             android:paddingLeft="@dimen/video_text_padding_side"
             android:paddingRight="@dimen/video_text_padding_side"
-            android:text="@string/translation_title_text"
+            android:text="@string/capture_video_translation_title"
             android:textColor="@color/white"
             android:textAlignment="center"
             android:paddingTop="@dimen/video_text_padding_side"

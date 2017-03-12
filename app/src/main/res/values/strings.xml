@@ -1,20 +1,13 @@
 <resources>
     <string name="app_name">Slangify</string>
 
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">SLANGIFY\nCONTENT</string>
-    <string name="login_title">Welcome!</string>
-    <string name="activity_feed">Memes Feed</string>
-    <string name="activity_display_video">My Video</string>
-    <string name="activity_create_meme">Create Meme</string>
-    <string name="create_meme_title">What\'s the language?</string>
-    <string name="create_meme_submit">Challenge Accepted!</string>
-    <string name="activity_login">Login</string>
-    <string name="create_sub_title">Feeling adventurous?</string>
-    <string name="translation_title_text">(What you actually said)</string>
+    <string name="create_challenge_title">What\'s the language?</string>
+    <string name="create_challenge_submit">Challenge Accepted!</string>
+    <string name="create_challenge_sub_title">Feeling adventurous?</string>
+    <string name="capture_video_translation_title">(What you actually said)</string>
     <string name="ready_set_dialog_title">The sentence will appear for 5 seconds</string>
     <string name="ready_set_dialog_subtitle">Give it your best shot</string>
-    <string name="done">Nice Try!</string>
-    <string name="display_phrase_title">Ich bin deine Schmutzekatze</string>
-    <string name="display_phrase">Language : German\nTranslation: I’m your cuddly kitty cat\n\nUsed as a loving display of affection between lovers and spouses. Refers to the cuddly nature of felines as a way to show love and care.</string>
+    <string name="capture_video_done">Nice Try!</string>
+    <string name="display_language">Language: %1$s</string>
+    <string name="display_translation">Translation: %1$s</string>
 </resources>

@@ -53,6 +53,7 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
     private static final int STORAGE_PERMISSION_CODE = 111;
     private static final int AUDIO_PERMISSION_CODE = 222;
     private static final int CAMERA_PERMISSION_CODE = 333;
+    private LanguageModel selectedLanguage;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -98,7 +99,7 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
                 languagesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        LanguageModel selectedLanguage = languageModels.get(position);
+                        selectedLanguage = languageModels.get(position);
                         PhraseRepository phraseRepository = new PhraseRepository();
                         phraseRepository.getPhraseData(selectedLanguage.getId(), new IRepositoryCallback<PhraseModel>() {
                             @Override
@@ -144,7 +145,7 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_submit:
-                IntentUtils.startVideoCaptureActivity(CreateChallengeActivity.this, selectdPhrase);
+                IntentUtils.startVideoCaptureActivity(CreateChallengeActivity.this, selectdPhrase, selectedLanguage.getName());
                 break;
         }
     }

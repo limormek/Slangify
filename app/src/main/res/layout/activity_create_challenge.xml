@@ -14,7 +14,7 @@
         style="@style/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/create_meme_title"
+        android:text="@string/create_challenge_title"
         app:typeface="roboto_slab_bold" />
 
 
@@ -34,7 +34,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/create_subtitle_margin_top"
-        android:text="@string/create_sub_title"
+        android:text="@string/create_challenge_sub_title"
         android:textColor="@color/white"
         android:textSize="@dimen/sub_title_text_size"
         app:typeface="roboto_slab_bold" />
@@ -78,7 +78,7 @@
         android:layout_marginTop="@dimen/create_submit_btn_margin_top"
         android:background="@drawable/bg_rounded_corners_primary"
         android:padding="@dimen/create_submit_btn_padding"
-        android:text="@string/create_meme_submit"
+        android:text="@string/create_challenge_submit"
         android:gravity="center"
         android:textColor="@color/white"
         android:textSize="@dimen/create_btn_text_size"
