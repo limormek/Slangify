@@ -27,6 +27,7 @@ import com.android.slangify.repository.interfaces.IRepositoryCallback;
 import com.android.slangify.repository.models.LanguageModel;
 import com.android.slangify.repository.models.PhraseModel;
 import com.android.slangify.utils.IntentUtils;
+import com.android.slangify.utils.UiUtils;
 import com.devspark.robototextview.widget.RobotoAutoCompleteTextView;
 import com.devspark.robototextview.widget.RobotoTextView;
 
@@ -112,6 +113,7 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
                                         selectdPhrase = result.get(randomNumber);
                                     }
                                 }
+                                UiUtils.hideKeyboard(languagesList);
                             }
 
                             @Override
