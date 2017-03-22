@@ -66,7 +66,7 @@ public class CaptureVideoActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         ButterKnife.bind(this);
         Intent intent = getIntent();
-        phraseModel = (PhraseModel) intent.getParcelableExtra(EXTRA_PHRASE);
+        phraseModel = intent.getParcelableExtra(EXTRA_PHRASE);
         if (phraseModel != null) {
             phraseTextView.setText(phraseModel.getText());
         }
@@ -117,25 +117,6 @@ public class CaptureVideoActivity extends AppCompatActivity {
         FilePath =  String.format("/sdcard/slangify%s.mp4", String.valueOf(currentTime));
     }
 
-/*    View.OnClickListener switchCameraListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            // get the number of cameras
-            if (!recording) {
-                int camerasNumber = Camera.getNumberOfCameras();
-                if (camerasNumber > 1) {
-                    // release the old camera instance
-                    // switch camera, from the front and the back and vice versa
-                    mCamControl.swapCamera();
-
-                } else {
-                    Toast toast = Toast.makeText(myContext, "Sorry, your phone has only one camera!", Toast.LENGTH_LONG);
-                    toast.show();
-                }
-            }
-        }
-    };*/
-
     @Override
     public void onStart() {
         super.onStart();
@@ -155,47 +136,6 @@ public class CaptureVideoActivity extends AppCompatActivity {
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
-
-/*    private boolean hasCamera(Context context) {
-        // check if the device has camera
-        if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
-            return true;
-        } else {
-            return false;
-        }
-    }*/
-
-
-/*    boolean recording = false;
-    View.OnClickListener captrureListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            if (recording) {
-                mCamControl.stopRecording();
-                Toast.makeText(CaptureVideoActivity.this, "Video captured!", Toast.LENGTH_LONG).show();
-                recording = false;
-            } else {
-                *//*if (!prepareMediaRecorder()) {
-                    Toast.makeText(MainActivity.this, "Fail in prepareMediaRecorder()!\n - Ended -", Toast.LENGTH_LONG).show();
-                    finish();
-                }*//*
-                // work on UiThread for better performance
-                runOnUiThread(new Runnable() {
-                    public void run() {
-                        // If there are stories, add them to the table
-
-                        try {
-                            mCamControl.startRecording();
-                        } catch (final Exception ex) {
-                            // Log.i("---","Exception in thread");
-                        }
-                    }
-                });
-
-                recording = true;
-            }
-        }
-    };*/
 
 
     ///////////////////////////////////////////////////////////////////////////
