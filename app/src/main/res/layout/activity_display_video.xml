@@ -98,6 +98,16 @@
                         app:typeface="roboto_slab_regular"
                         style="@style/dialog_display_sub_title"/>
 
+                    <Button
+                        android:id="@+id/btn_finish"
+                        android:layout_marginTop="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/go_to_home"
+                        android:background="@color/white"
+                        android:textColor="@color/bg_gradient_start"
+                        android:layout_gravity="center"/>
+
 
                 </LinearLayout>
 

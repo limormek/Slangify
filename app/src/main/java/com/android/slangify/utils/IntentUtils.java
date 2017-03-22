@@ -33,7 +33,7 @@ public class IntentUtils {
     }
 
     public static void startCreateActivity(Context context) {
-        context.startActivity(new Intent(context, CreateChallengeActivity.class));
+        context.startActivity(new Intent(context, CreateChallengeActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
     }
 
     public static void startVideoCaptureActivity(Context context, PhraseModel phrase, String language) {

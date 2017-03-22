@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.VideoView;
 
@@ -21,7 +22,7 @@ import butterknife.ButterKnife;
  * Created by limormekaiten on 3/8/17.
  */
 
-public class DisplayVideoActivity extends AppCompatActivity {
+public class DisplayVideoActivity extends AppCompatActivity implements View.OnClickListener {
 
     @BindView(R.id.video)
     VideoView video;
@@ -41,6 +42,9 @@ public class DisplayVideoActivity extends AppCompatActivity {
 
     @BindView(R.id.tv_extra)
     RobotoTextView tvDidYouKnow;
+
+    @BindView(R.id.btn_finish)
+    Button btnFinish;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -82,5 +86,20 @@ public class DisplayVideoActivity extends AppCompatActivity {
 
         }
 
+        setListeners();
+
+    }
+
+    private void setListeners() {
+        btnFinish.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_finish:
+                IntentUtils.startCreateActivity(DisplayVideoActivity.this);
+                break;
+        }
     }
 }
