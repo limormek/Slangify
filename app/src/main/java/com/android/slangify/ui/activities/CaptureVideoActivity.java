@@ -185,9 +185,9 @@ public class CaptureVideoActivity extends AppCompatActivity {
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        IntentUtils.startDisplayVideoActivity(CaptureVideoActivity.this,
-                                phraseModel,
-                                FilePath, getIntent().getStringExtra(IntentUtils.EXTRA_LANGUAGE));
+//                        IntentUtils.startDisplayVideoActivity(CaptureVideoActivity.this,
+//                                phraseModel,
+//                                FilePath, getIntent().getStringExtra(IntentUtils.EXTRA_LANGUAGE));
                     }
                 }, 6000);
 

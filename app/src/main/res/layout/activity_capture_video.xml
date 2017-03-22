@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/video_display_background_color"
     android:orientation="vertical"
     android:weightSum="2">
 
@@ -11,10 +12,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1">
+
         <com.android.slangify.ui.activities.camera.CameraSurfaceView
             android:id="@+id/camera_preview"
-            android:layout_height="match_parent"
             android:layout_width="match_parent"
+            android:layout_height="match_parent"
 
             />
 
@@ -26,23 +28,22 @@
             android:layout_marginLeft="@dimen/timeout_margin"
             android:layout_marginTop="@dimen/timeout_margin"
             android:textColor="@color/video_display_background_color"
-            tools:text="10"
             android:textSize="@dimen/timeout_text_size"
-            />
+            tools:text="10" />
 
     </FrameLayout>
 
 
     <LinearLayout
-
         android:id="@+id/buttonsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:paddingTop="@dimen/phrase_margin_top"
+        android:layout_weight="1"
+        android:background="@color/video_display_background_color"
         android:orientation="vertical"
-        android:background="@color/white"
-        android:layout_weight="2">
+        >
+
         <com.devspark.robototextview.widget.RobotoTextView
             android:id="@+id/translation_title_text_view"
             android:layout_width="wrap_content"
@@ -50,29 +51,27 @@
             android:layout_gravity="center"
             android:paddingLeft="@dimen/video_text_padding_side"
             android:paddingRight="@dimen/video_text_padding_side"
-            android:text="@string/capture_video_translation_title"
-            android:textColor="@color/white"
-            android:textAlignment="center"
             android:paddingTop="@dimen/video_text_padding_side"
+            android:text="@string/capture_video_translation_title"
+            android:textAlignment="center"
+            android:textColor="@color/white"
             android:textSize="@dimen/translation_title_text_view_size"
-            app:typeface="roboto_slab_bold"
-            android:visibility="invisible"
-            />
+            android:visibility="gone"
+            app:typeface="roboto_slab_bold" />
+
         <com.devspark.robototextview.widget.RobotoTextView
             android:id="@+id/phrase_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:paddingBottom="@dimen/video_text_padding_side"
             android:paddingLeft="@dimen/video_text_padding_side"
             android:paddingRight="@dimen/video_text_padding_side"
-            android:paddingBottom="@dimen/video_text_padding_side"
             android:paddingTop="@dimen/video_text_padding_side"
-            tools:text="Ich binsfsgsgfsgsfgsfgsfgsfgsfgsfgsfgsfgsfgsfg deine
-Schmusekatze"
-            android:textColor="@color/white"
             android:textAlignment="center"
+            android:textColor="@color/white"
             android:textSize="@dimen/phrase_text_view_size"
             app:typeface="roboto_slab_bold"
-            />
+            tools:text="Ganan Gidel Dagan Bagan Dagan Gadol Gadal Bagan" />
     </LinearLayout>
 </LinearLayout>
