@@ -23,4 +23,5 @@
     <color name="float_transparent">#00000000</color>
     <color name="ready_set_dialog_bg">#8f12fe</color>
     <color name="ready_set_stroke">#4D000000</color>
+    <color name="gray6">#9f9fb4</color>
 </resources>

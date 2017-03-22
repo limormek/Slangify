@@ -44,4 +44,5 @@
     <dimen name="play_size">80dp</dimen>
     <dimen name="display_translation_margin_top">3dp</dimen>
     <dimen name="display_extra_margin_top">10dp</dimen>
+    <dimen name="progress_bar_size">30dp</dimen>
 </resources>

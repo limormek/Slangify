@@ -70,19 +70,39 @@
 
     </FrameLayout>
 
-
-    <com.devspark.robototextview.widget.RobotoTextView
-        android:id="@+id/btn_submit"
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/create_btn_height"
         android:layout_marginTop="@dimen/create_submit_btn_margin_top"
-        android:background="@drawable/bg_rounded_corners_primary"
-        android:padding="@dimen/create_submit_btn_padding"
-        android:text="@string/create_challenge_submit"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:textSize="@dimen/create_btn_text_size"
-        app:typeface="roboto_slab_regular" />
+        >
+
+
+        <com.devspark.robototextview.widget.RobotoTextView
+            android:id="@+id/btn_submit"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/create_btn_height"
+
+            android:background="@drawable/bg_rounded_corners_primary"
+            android:padding="@dimen/create_submit_btn_padding"
+            android:text="@string/create_challenge_submit"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/create_btn_text_size"
+            app:typeface="roboto_slab_regular" />
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="@dimen/progress_bar_size"
+            android:layout_height="@dimen/progress_bar_size"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            android:progressDrawable="@drawable/primary_progress" />
+
+
+
+    </FrameLayout>
+
+
 
 
 

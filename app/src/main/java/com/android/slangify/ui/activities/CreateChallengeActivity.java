@@ -1,20 +1,16 @@
 package com.android.slangify.ui.activities;
 
 import android.Manifest;
-import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 
 import com.android.slangify.R;
 
@@ -28,6 +24,7 @@ import com.android.slangify.repository.models.LanguageModel;
 import com.android.slangify.repository.models.PhraseModel;
 import com.android.slangify.utils.IntentUtils;
 import com.android.slangify.utils.UiUtils;
+import com.android.slangify.utils.Utils;
 import com.devspark.robototextview.widget.RobotoAutoCompleteTextView;
 import com.devspark.robototextview.widget.RobotoTextView;
 
@@ -47,7 +44,7 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
     RobotoAutoCompleteTextView languagesList;
 
     private ArrayList<LanguageModel> languageModels;
-    private PhraseModel selectdPhrase;
+    private PhraseModel selectedPhrase;
 
     private static final int LOCATION_PERMISSION_CODE = 000;
     private static final int STORAGE_PERMISSION_CODE = 111;
@@ -100,28 +97,7 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         selectedLanguage = languageModels.get(position);
-                        PhraseRepository phraseRepository = new PhraseRepository();
-                        phraseRepository.getPhraseData(selectedLanguage.getId(), new IRepositoryCallback<PhraseModel>() {
-                            @Override
-                            public void onSuccess(ArrayList<PhraseModel> result) {
-                                if (result != null) {
-                                    if(result.size() == 1) {
-                                        selectdPhrase = result.get(0);
-                                    } else if (result.size() > 1) {
-                                        // Start camera activity with random Phrase
-                                        Random r = new Random();
-                                        int randomNumber = r.nextInt(result.size() - 1) + 1;
-                                        selectdPhrase = result.get(randomNumber);
-                                    }
-                                }
-                                UiUtils.hideKeyboard(languagesList);
-                            }
-
-                            @Override
-                            public void onFailure() {
-                                // Tell user there was an error
-                            }
-                        });
+                        fetchPhrase(false);
                     }
                 });
             }
@@ -136,6 +112,34 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
 
     }
 
+    private void fetchPhrase(final boolean shouldSubmit) {
+        PhraseRepository phraseRepository = new PhraseRepository();
+        phraseRepository.getPhraseData(selectedLanguage.getId(), new IRepositoryCallback<PhraseModel>() {
+            @Override
+            public void onSuccess(ArrayList<PhraseModel> result) {
+                if (result != null) {
+                    if(result.size() == 1) {
+                        selectedPhrase = result.get(0);
+                    } else if (result.size() > 1) {
+                        // Start camera activity with random Phrase
+                        Random r = new Random();
+                        int randomNumber = r.nextInt(result.size() - 1) + 1;
+                        selectedPhrase = result.get(randomNumber);
+                    }
+                }
+                UiUtils.hideKeyboard(languagesList);
+                if(shouldSubmit) {
+                    startCaptureActivity();
+                }
+            }
+
+            @Override
+            public void onFailure() {
+                // Tell user there was an error
+            }
+        });
+    }
+
     private void setListeners() {
         btnSubmit.setOnClickListener(this);
     }
@@ -145,9 +149,56 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_submit:
-                IntentUtils.startVideoCaptureActivity(CreateChallengeActivity.this, selectdPhrase, selectedLanguage.getName());
+                submitChallenge();
                 break;
         }
+    }
+
+    private void submitChallenge() {
+        if(selectedPhrase == null) {
+
+            //language is not supported
+            String language = languagesList.getText().toString();
+
+            if(TextUtils.isEmpty(language)){
+                Utils.makeSafeToast(CreateChallengeActivity.this, R.string.error_language_not_chosen);
+                return;
+            }
+
+            selectedLanguage = isLanguageSupported(language);
+            if (selectedLanguage != null) {
+                fetchPhrase(true);
+            } else {
+                Utils.makeSafeToast(CreateChallengeActivity.this, R.string.error_language_not_supported);
+            }
+
+        } else {
+            startCaptureActivity();
+        }
+    }
+
+    private void startCaptureActivity() {
+        IntentUtils.startVideoCaptureActivity(CreateChallengeActivity.this, selectedPhrase, selectedLanguage.getName());
+    }
+
+    /**
+     * Checks if the language is supported.
+     * If so - returns the relevant language model (in the database)
+     * returns null otherwise
+     * @param language
+     * @return
+     */
+    private LanguageModel isLanguageSupported(String language) {
+        if (languageModels != null) {
+            for (LanguageModel lang :
+                    languageModels) {
+                if (lang.getName().equalsIgnoreCase(language)) {
+                    return lang;
+                }
+            }
+        }
+
+        return null;
     }
 
     public void requestFewPermissions(String... permissions) {
