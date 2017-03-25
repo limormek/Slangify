@@ -18,7 +18,6 @@ import com.android.slangify.repository.models.PhraseModel;
 import com.android.slangify.ui.activities.Events.SurfaceCreatedEvent;
 import com.android.slangify.ui.activities.camera.CameraControl;
 import com.android.slangify.ui.activities.camera.CameraSurfaceView;
-import com.android.slangify.utils.IntentUtils;
 import com.devspark.robototextview.widget.RobotoTextView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -49,14 +48,12 @@ public class CaptureVideoActivity extends AppCompatActivity {
 
     public CameraSurfaceView mPreview;
 
-
-    public static boolean isRecording = false;
     private CameraControl mCamControl;
     private PhraseModel phraseModel;
     private Context myContext;
     private FancyAlertDialog readySetGo;
     private boolean showOnDialogDismiss;
-    private CountDownTimer waitTimer;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +93,8 @@ public class CaptureVideoActivity extends AppCompatActivity {
         showPhrase();
 
         if(showOnDialogDismiss) {
-            waitTimer.start();
+            //waitTimer.start();
+            startCameraFlow();
         }
     }
 
@@ -137,67 +135,73 @@ public class CaptureVideoActivity extends AppCompatActivity {
         EventBus.getDefault().unregister(this);
     }
 
-
     ///////////////////////////////////////////////////////////////////////////
     // Events
     ///////////////////////////////////////////////////////////////////////////
+
+    //Entry point code for starting the video recording flow
+    //TODO
+    //This is not complete, we are missing the 2 videos merging part
+    private void startCameraFlow(){
+
+        waitTimer.start();
+
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                mCamControl.swapCamera();
+                waitTimer.start();
+            }
+        }, 8000);
+    }
+
+    private CountDownTimer waitTimer = new CountDownTimer(6000, 1000) {
+
+        boolean isRecording = false;
+        boolean isFirstVideo = true;
+        public void onTick(long millisUntilFinished) {
+
+            Long delta = millisUntilFinished / 1000;
+            tvTimeout.setText(delta.toString());
+
+            if(!isFirstVideo)
+                showTranslation();
+
+            if(!isRecording) {
+                try {
+                    mCamControl.startRecording();
+
+                    isRecording = true;
+                } catch (final Exception ex) {
+                    // Log.i("---","Exception in thread");
+                }
+            }
+        }
+
+        public void onFinish() {
+            tvTimeout.setText(getString(R.string.capture_video_done));
+
+            try {
+                mCamControl.stopRecording();
+                isRecording = false;
+            } catch (final Exception ex) {
+            }
+
+            isFirstVideo = false;
+        }
+
+    };
     @Subscribe
     public void onSurfaceCreated(SurfaceCreatedEvent event) {
         mCamControl.startPreview();
 
-        waitTimer = new CountDownTimer(6000, 1000) {
 
-            public void onTick(long millisUntilFinished) {
-
-                Long delta = millisUntilFinished / 1000;
-                tvTimeout.setText(delta.toString());
-                if(!isRecording) {
-                    try {
-                        mCamControl.startRecording();
-
-                        isRecording = true;
-                    } catch (final Exception ex) {
-                        // Log.i("---","Exception in thread");
-                    }
-                }
-            }
-
-            public void onFinish() {
-                tvTimeout.setText(getString(R.string.capture_video_done));
-
-                try {
-                    mCamControl.stopRecording();
-
-                } catch (final Exception ex) {
-                    // Log.i("---","Exception in thread");
-                }
-
-                showTranslation();
-
-                try{
-                    mCamControl.swapCamera();
-                }
-                catch(Exception ex)
-                {
-
-                }
-
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-//                        IntentUtils.startDisplayVideoActivity(CaptureVideoActivity.this,
-//                                phraseModel,
-//                                FilePath, getIntent().getStringExtra(IntentUtils.EXTRA_LANGUAGE));
-                    }
-                }, 6000);
-
-            }
-
-        };
         if(readySetGo.isShowing()) {
             showOnDialogDismiss = true;
         } else {
-            waitTimer.start();
+            startCameraFlow();
+            //waitTimer.start();
         }
 
 
