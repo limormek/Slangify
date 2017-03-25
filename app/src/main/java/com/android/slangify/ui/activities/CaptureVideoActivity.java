@@ -8,6 +8,7 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -91,9 +92,11 @@ public class CaptureVideoActivity extends AppCompatActivity {
     private void showContent() {
         readySetGo.dismiss();
         showPhrase();
+        //Log.i("MESSAGE!!", "got into show content");
 
         if(showOnDialogDismiss) {
             //waitTimer.start();
+            //Log.i("MESSAGE!!", "got into show content - start camera flow");
             startCameraFlow();
         }
     }
@@ -153,7 +156,7 @@ public class CaptureVideoActivity extends AppCompatActivity {
                 mCamControl.swapCamera();
                 waitTimer.start();
             }
-        }, 8000);
+        }, 7000);
     }
 
     private CountDownTimer waitTimer = new CountDownTimer(6000, 1000) {
@@ -165,9 +168,6 @@ public class CaptureVideoActivity extends AppCompatActivity {
             Long delta = millisUntilFinished / 1000;
             tvTimeout.setText(delta.toString());
 
-            if(!isFirstVideo)
-                showTranslation();
-
             if(!isRecording) {
                 try {
                     mCamControl.startRecording();
@@ -177,10 +177,14 @@ public class CaptureVideoActivity extends AppCompatActivity {
                     // Log.i("---","Exception in thread");
                 }
             }
+
+            if(!isFirstVideo)
+                showTranslation();
         }
 
         public void onFinish() {
-            tvTimeout.setText(getString(R.string.capture_video_done));
+            if(isFirstVideo)
+                tvTimeout.setText(getString(R.string.capture_video_done));
 
             try {
                 mCamControl.stopRecording();
@@ -195,11 +199,13 @@ public class CaptureVideoActivity extends AppCompatActivity {
     @Subscribe
     public void onSurfaceCreated(SurfaceCreatedEvent event) {
         mCamControl.startPreview();
+        //Log.i("MESSAGE!!", "got into onSurfaceCreated event");
 
 
         if(readySetGo.isShowing()) {
             showOnDialogDismiss = true;
         } else {
+            //Log.i("MESSAGE!!", "got into onSurfaceCreated event - start camera flow");
             startCameraFlow();
             //waitTimer.start();
         }

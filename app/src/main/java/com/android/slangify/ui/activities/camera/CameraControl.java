@@ -4,21 +4,15 @@ import android.content.Context;
 import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
-import android.os.Environment;
 import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
 import android.view.WindowManager;
 
-import com.android.slangify.utils.FilesManager;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Date;
-import java.text.SimpleDateFormat;
 import java.util.List;
+
+import com.android.slangify.utils.FilesManager;
 
 import static android.content.Context.WINDOW_SERVICE;
 
