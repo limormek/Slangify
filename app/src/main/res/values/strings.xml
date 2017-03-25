@@ -10,4 +10,7 @@
     <string name="capture_video_done">Nice Try!</string>
     <string name="display_language">Language: %1$s</string>
     <string name="display_translation">Translation: %1$s</string>
+    <string name="error_language_not_supported">Language is not supported (yet..)</string>
+    <string name="error_language_not_chosen">Please choose a language first!</string>
+    <string name="go_to_home">Take me home</string>
 </resources>
