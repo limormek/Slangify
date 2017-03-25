@@ -10,6 +10,8 @@ import android.view.Display;
 import android.view.Surface;
 import android.view.WindowManager;
 
+import com.android.slangify.utils.FilesManager;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -55,21 +57,27 @@ public class CameraControl implements CameraControlInterface {
     @Override
     public void startRecording() throws Exception {
 
+        startRecording(null);
+    }
+    public void startRecording(String VideoPath) throws Exception {
+
         //check preparedness of camera
-        if (!prepareCamera()) {
+        if (!prepareCamera(VideoPath)) {
 
             //can not start recording - return/throw exception
             throw new Exception("Media recorder fails to initialize");
         }
 
-        //start camera
         mediaRecorder.start();
     }
 
     @Override
     public void stopRecording() {
         mediaRecorder.stop();
+        mediaRecorder.reset();
+
         releaseMediaRecorder();
+        releaseCamera();
     }
 
     @Override
@@ -82,8 +90,6 @@ public class CameraControl implements CameraControlInterface {
 
     @Override
     public void startPreview() {
-
-        //mView.setListener7
         setCameraType(CameraType.BACK);
     }
 
@@ -96,49 +102,11 @@ public class CameraControl implements CameraControlInterface {
         }
     }
 
-/*    Camera.PictureCallback mPicture = new Camera.PictureCallback() {
-        @Override
-        public void onPictureTaken(byte[] data, Camera camera) {
-            File pictureFile = getOutputMediaFile();
-            if (pictureFile == null) {
-                return;
-            }
-            try {
-                FileOutputStream fos = new FileOutputStream(pictureFile);
-                fos.write(data);
-                fos.close();
-            } catch (FileNotFoundException e) {
-
-            } catch (IOException e) {
-            }
-        }
-    };
-
-    private static File getOutputMediaFile() {
-        File mediaStorageDir = new File(
-                Environment
-                        .getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES),
-                "MyCameraApp");
-        if (!mediaStorageDir.exists()) {
-            if (!mediaStorageDir.mkdirs()) {
-                Log.d("MyCameraApp", "failed to create directory");
-                return null;
-            }
-        }
-        // Create a media file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss")
-                .format(new Date());
-        File mediaFile;
-        mediaFile = new File(mediaStorageDir.getPath() + File.separator
-                + "IMG_" + timeStamp + ".jpg");
-
-        return mediaFile;
-    }*/
-
     //this function should be called before any other function
-    private boolean prepareCamera() {
+    private boolean prepareCamera(String VideoPath) {
 
-        mediaRecorder = new MediaRecorder();
+        if(mediaRecorder == null)
+            mediaRecorder = new MediaRecorder();
 
         mCamera.unlock();
         mediaRecorder.setCamera(mCamera);
@@ -148,11 +116,22 @@ public class CameraControl implements CameraControlInterface {
 
         mediaRecorder.setProfile(CamcorderProfile.get(CamcorderProfile.QUALITY_720P));
 
-        String defaultFilePath = String.format("/sdcard/slangify%s.mp4", String.valueOf(timestamp));
-        mediaRecorder.setOutputFile(defaultFilePath);
+        String fixedFilePath = "";
+        if(VideoPath == null ){
+            VideoPath = String.format("/sdcard/slangify%s.mp4", String.valueOf(timestamp));
+            fixedFilePath = FilesManager.getFilePath(VideoPath);
+        }
+
+        //String defaultFilePath = String.format("/sdcard/slangify%s.mp4", String.valueOf(timestamp));
+        mediaRecorder.setOutputFile(fixedFilePath);
         mediaRecorder.setMaxDuration(600000); //set maximum duration 60 sec.
         mediaRecorder.setMaxFileSize(50000000); //set maximum file size 50M
-        mediaRecorder.setOrientationHint(90);
+
+        //change recorder camera orientation according to type of camera
+        if(cameraCurrentState == CameraType.BACK)
+            mediaRecorder.setOrientationHint(90);
+        else
+            mediaRecorder.setOrientationHint(270);
 
         try {
             mediaRecorder.prepare();
