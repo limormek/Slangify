@@ -49,6 +49,7 @@
     <dimen name="slider_corner_radius">7dp</dimen>
     <dimen name="slider_thumb_size">35dp</dimen>
     <dimen name="slider_padding_start">17dp</dimen>
-    <dimen name="slider_margin_top">30dp</dimen>
+    <dimen name="slider_margin_top">24dp</dimen>
     <dimen name="rude_slider_text_size">12sp</dimen>
+    <dimen name="slider_text_margin_top">7dp</dimen>
 </resources>
