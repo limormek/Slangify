@@ -72,6 +72,7 @@
             android:textColor="@color/white"
             android:textSize="@dimen/phrase_text_view_size"
             app:typeface="roboto_slab_bold"
+            android:visibility="gone"
             tools:text="Ganan Gidel Dagan Bagan Dagan Gadol Gadal Bagan" />
     </LinearLayout>
 </LinearLayout>

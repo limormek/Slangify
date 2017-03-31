@@ -8,7 +8,6 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -102,6 +101,7 @@ public class CaptureVideoActivity extends AppCompatActivity {
     }
 
     public void showPhrase() {
+        phraseTextView.setVisibility(View.VISIBLE);
         textContainer.setBackgroundColor(ContextCompat.getColor(CaptureVideoActivity.this,R.color.video_display_background_color));
     }
 
