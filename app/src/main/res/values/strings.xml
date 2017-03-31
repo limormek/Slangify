@@ -13,4 +13,6 @@
     <string name="error_language_not_supported">Language is not supported (yet..)</string>
     <string name="error_language_not_chosen">Please choose a language first!</string>
     <string name="go_to_home">Take me home</string>
+    <string name="rude_slider_bottom">meh.</string>
+    <string name="rude_slider_top">oh yes!</string>
 </resources>

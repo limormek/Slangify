@@ -24,4 +24,10 @@
     <color name="ready_set_dialog_bg">#8f12fe</color>
     <color name="ready_set_stroke">#4D000000</color>
     <color name="gray6">#9f9fb4</color>
+    <color name="slider_thumb">#E5E5E5</color>
+    <color name="slider_gradient_bottom">#bbddfe</color>
+    <color name="slider_gradient_mid">#09509b</color>
+    <color name="slider_gradient_top">#c80010</color>
+    <color name="thumb_shadow">#80000000</color>
+    <color name="slider_text">#f0f0f0</color>
 </resources>

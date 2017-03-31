@@ -26,6 +26,7 @@
 
     <style name="Theme.CreateChallenge" parent="Theme.NoStatusBar">
         <item name="android:windowBackground">@drawable/bg_create_gradient</item>
+        <item name="colorControlHighlight">@android:color/transparent</item>
     </style>
 
     <style name="title">

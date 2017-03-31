@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.SeekBar;
 
 import com.android.slangify.R;
 
@@ -42,6 +43,9 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
     RobotoTextView btnSubmit;
     @BindView(R.id.languages_list)
     RobotoAutoCompleteTextView languagesList;
+
+    @BindView(R.id.rude_seekbar)
+    SeekBar mRudeSeekbar;
 
     private ArrayList<LanguageModel> languageModels;
     private PhraseModel selectedPhrase;

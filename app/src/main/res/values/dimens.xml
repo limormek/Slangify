@@ -6,13 +6,13 @@
     <dimen name="login_title_margin_top">40dp</dimen>
     <dimen name="page_content_padding">20dp</dimen>
     <dimen name="create_submit_btn_padding">8dp</dimen>
-    <dimen name="create_submit_btn_margin_top">40dp</dimen>
+    <dimen name="create_submit_btn_margin_top">88dp</dimen>
     <dimen name="create_padding_top">56dp</dimen>
     <dimen name="create_padding_left">28dp</dimen>
     <dimen name="create_padding_right">28dp</dimen>
     <dimen name="sub_title_text_size">22sp</dimen>
     <dimen name="create_btn_text_size">18sp</dimen>
-    <dimen name="create_subtitle_margin_top">15dp</dimen>
+    <dimen name="create_subtitle_margin_top">48dp</dimen>
     <dimen name="create_btn_height">53dp</dimen>
     <dimen name="dropdown_margin_top">16dp</dimen>
     <dimen name="spinner_dropdown_item_padding">10dp</dimen>
@@ -45,4 +45,10 @@
     <dimen name="display_translation_margin_top">3dp</dimen>
     <dimen name="display_extra_margin_top">10dp</dimen>
     <dimen name="progress_bar_size">30dp</dimen>
+    <dimen name="seekbar_height">38dp</dimen>
+    <dimen name="slider_corner_radius">7dp</dimen>
+    <dimen name="slider_thumb_size">35dp</dimen>
+    <dimen name="slider_padding_start">17dp</dimen>
+    <dimen name="slider_margin_top">30dp</dimen>
+    <dimen name="rude_slider_text_size">12sp</dimen>
 </resources>

@@ -39,12 +39,22 @@
         android:textSize="@dimen/sub_title_text_size"
         app:typeface="roboto_slab_bold" />
 
-
-    <ImageView
-        android:layout_marginTop="30dp"
+    <SeekBar
+        android:id="@+id/rude_seekbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_slider"/>
+        android:layout_height="@dimen/seekbar_height"
+        android:layout_marginTop="@dimen/slider_margin_top"
+        android:progress="5"
+        android:paddingStart="0dp"
+        android:paddingEnd="0dp"
+        android:progressDrawable="@drawable/slider_progress"
+        android:thumb="@drawable/slider_thumb"
+        android:thumbOffset="0dp"
+        android:splitTrack="false"
+        android:max="10"/>
+
+
+
 
     <FrameLayout
         android:layout_marginTop="10dp"
@@ -55,18 +65,21 @@
         <com.devspark.robototextview.widget.RobotoTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="meh."
-            android:layout_gravity="left|center_vertical"
-            app:typeface="roboto_slab_regular"
-            android:textSize="20sp"/>
-
-        <com.devspark.robototextview.widget.RobotoTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="oh yes!"
+            android:text="@string/rude_slider_top"
             android:layout_gravity="right|center_vertical"
             app:typeface="roboto_slab_regular"
-            android:textSize="20sp"/>
+            android:textSize="@dimen/rude_slider_text_size"
+            android:textColor="@color/slider_text"/>
+
+        <com.devspark.robototextview.widget.RobotoTextView
+            android:id="@+id/robotoTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left|center_vertical"
+            android:text="@string/rude_slider_bottom"
+            android:textSize="@dimen/rude_slider_text_size"
+            app:typeface="roboto_slab_regular"
+            android:textColor="@color/slider_text"/>
 
     </FrameLayout>
 
