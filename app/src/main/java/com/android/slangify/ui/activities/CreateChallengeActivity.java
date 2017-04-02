@@ -205,6 +205,9 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
         return null;
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+    // Permissions
+    ///////////////////////////////////////////////////////////////////////////
     public void requestFewPermissions(String... permissions) {
         requestPermissions(permissions, 19999);
     }
