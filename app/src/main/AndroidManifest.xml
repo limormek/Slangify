@@ -73,6 +73,9 @@
             </intent-filter>
         </activity>
 
+        <service android:name=".storage.services.UploadService"
+            android:exported="false"/>
+
     </application>
 
 </manifest>

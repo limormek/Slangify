@@ -1,5 +1,6 @@
 package com.android.slangify.ui.activities;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.widget.VideoView;
 
 import com.android.slangify.R;
 import com.android.slangify.repository.models.PhraseModel;
+import com.android.slangify.storage.services.UploadService;
 import com.android.slangify.utils.IntentUtils;
 import com.devspark.robototextview.widget.RobotoTextView;
 
@@ -74,9 +76,17 @@ public class DisplayVideoActivity extends AppCompatActivity implements View.OnCl
         }
 
         if(!TextUtils.isEmpty(path)) {
+//            video.setVideoURI(Uri.parse("https://firebasestorage.googleapis.com/v0/b/slangify-f6c05.appspot.com/o/videos%2FVID-20170214-WA0003.mp4?alt=media&token=5880db37-38da-4fb4-b6c6-b16b2d71ecee"));
             video.setVideoURI(Uri.parse(path));
 
             video.start();
+
+            //start uploading
+            startService(new Intent(DisplayVideoActivity.this, UploadService.class)
+                    .setAction(UploadService.ACTION_UPLOAD)
+                    .putExtra(IntentUtils.EXTRA_FILE_PATH, path));
+
+
 //            playBtn.setOnClickListener(new View.OnClickListener() {
 //                @Override
 //                public void onClick(View v) {

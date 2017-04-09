@@ -8,6 +8,7 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
@@ -18,6 +19,7 @@ import com.android.slangify.repository.models.PhraseModel;
 import com.android.slangify.ui.activities.Events.SurfaceCreatedEvent;
 import com.android.slangify.ui.activities.camera.CameraControl;
 import com.android.slangify.ui.activities.camera.CameraSurfaceView;
+import com.android.slangify.utils.IntentUtils;
 import com.devspark.robototextview.widget.RobotoTextView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -30,6 +32,7 @@ import static com.android.slangify.utils.IntentUtils.EXTRA_PHRASE;
 
 public class CaptureVideoActivity extends AppCompatActivity {
 
+    private static final String TAG = CaptureVideoActivity.class.getName();
     @BindView(R.id.phrase_text_view)
     RobotoTextView phraseTextView;
 
@@ -43,7 +46,7 @@ public class CaptureVideoActivity extends AppCompatActivity {
     RobotoTextView tvTimeout;
 
     private Long currentTime;
-    private String FilePath;
+    private String filePath;
     private String sourceText;
 
     public CameraSurfaceView mPreview;
@@ -115,7 +118,7 @@ public class CaptureVideoActivity extends AppCompatActivity {
 
         currentTime = System.currentTimeMillis();
         mCamControl = new CameraControl(mPreview, this, currentTime);
-        FilePath =  String.format("/sdcard/slangify%s.mp4", String.valueOf(currentTime));
+        filePath =  String.format("/sdcard/slangify%s.mp4", String.valueOf(currentTime));
     }
 
     @Override
@@ -178,21 +181,35 @@ public class CaptureVideoActivity extends AppCompatActivity {
                 }
             }
 
-            if(!isFirstVideo)
+            if(!isFirstVideo) {
                 showTranslation();
+            }
         }
 
         public void onFinish() {
-            if(isFirstVideo)
+            if(isFirstVideo) {
                 tvTimeout.setText(getString(R.string.capture_video_done));
+            }
 
             try {
                 mCamControl.stopRecording();
                 isRecording = false;
             } catch (final Exception ex) {
+                Log.e(TAG, "onFinish: error finish recording: " + ex.getMessage());
             }
 
             isFirstVideo = false;
+
+            //todo - move to a more logical location:
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                        IntentUtils.startDisplayVideoActivity(CaptureVideoActivity.this,
+                                phraseModel,
+                                filePath, getIntent().getStringExtra(IntentUtils.EXTRA_LANGUAGE));
+                        finish();
+                }
+            }, 1500);
         }
 
     };

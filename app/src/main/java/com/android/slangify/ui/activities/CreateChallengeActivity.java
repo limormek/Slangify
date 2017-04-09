@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -42,7 +44,7 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
     @BindView(R.id.btn_submit)
     RobotoTextView btnSubmit;
     @BindView(R.id.languages_list)
-    RobotoAutoCompleteTextView languagesList;
+    RobotoAutoCompleteTextView mLanguageAutoComplete;
 
     @BindView(R.id.rude_seekbar)
     SeekBar mRudeSeekbar;
@@ -72,7 +74,7 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
 
         }
 
-        languagesList.setThreshold(1);
+        mLanguageAutoComplete.setThreshold(1);
 
         LanguagesRepository languagesRepository = new LanguagesRepository();
         languagesRepository.getLanguages(new IRepositoryCallback<LanguageModel>() {
@@ -89,15 +91,15 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
                         CreateChallengeActivity.this, R.layout.layout_spinner_dropdown_item,
                         mStringArray);
 
-                languagesList.setAdapter(arrayAdapter);
-                languagesList.setOnClickListener(new View.OnClickListener() {
+                mLanguageAutoComplete.setAdapter(arrayAdapter);
+                mLanguageAutoComplete.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(final View arg0) {
-                        languagesList.showDropDown();
+                        mLanguageAutoComplete.showDropDown();
                     }
                 });
 
-                languagesList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                mLanguageAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         selectedLanguage = languageModels.get(position);
@@ -108,7 +110,7 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
 
             @Override
             public void onFailure() {
-
+                //todo check internet
             }
         });
 
@@ -131,7 +133,7 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
                         selectedPhrase = result.get(randomNumber);
                     }
                 }
-                UiUtils.hideKeyboard(languagesList);
+                UiUtils.hideKeyboard(mLanguageAutoComplete);
                 if(shouldSubmit) {
                     startCaptureActivity();
                 }
@@ -146,6 +148,28 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
 
     private void setListeners() {
         btnSubmit.setOnClickListener(this);
+
+        mLanguageAutoComplete.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                LanguageModel langModel = isLanguageSupported(s.toString());
+                if(langModel != null) {
+                    selectedLanguage = langModel;
+                    fetchPhrase(false);
+                }
+            }
+        });
+
     }
 
 
@@ -162,7 +186,7 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
         if(selectedPhrase == null) {
 
             //language is not supported
-            String language = languagesList.getText().toString();
+            String language = mLanguageAutoComplete.getText().toString();
 
             if(TextUtils.isEmpty(language)){
                 Utils.makeSafeToast(CreateChallengeActivity.this, R.string.error_language_not_chosen);
