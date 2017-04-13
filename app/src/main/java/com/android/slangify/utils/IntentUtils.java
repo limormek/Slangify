@@ -2,7 +2,9 @@ package com.android.slangify.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 
+import com.android.slangify.R;
 import com.android.slangify.repository.models.PhraseModel;
 import com.android.slangify.ui.activities.CaptureVideoActivity;
 import com.android.slangify.ui.activities.CreateChallengeActivity;
@@ -51,4 +53,12 @@ public class IntentUtils {
         context.startActivity(intent);
     }
 
+
+    public static void shareVideoUri(Context context, Uri videoUri) {
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_STREAM, videoUri);
+        shareIntent.setType("video/mp4");
+        context.startActivity(Intent.createChooser(shareIntent, context.getResources().getText(R.string.share_video_title)));
+    }
 }

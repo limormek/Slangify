@@ -47,18 +47,34 @@
             android:orientation="vertical"
             android:weightSum="5">
 
-            <com.devspark.robototextview.widget.RobotoTextView
-                android:id="@+id/tv_challenge_text"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="2"
-                android:gravity="center_vertical"
-                android:background="@color/display_video_green"
-                android:padding="@dimen/display_padding"
-                tools:text="Ich bin ein berliner"
-                android:textColor="@color/white"
-                android:textSize="@dimen/display_text_size_title"
-                app:typeface="roboto_slab_regular" />
+                android:layout_weight="2">
+
+                <com.devspark.robototextview.widget.RobotoTextView
+                    android:id="@+id/tv_challenge_text"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:background="@color/display_video_green"
+                    android:padding="@dimen/display_padding"
+                    tools:text="Ich bin ein berliner"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/display_text_size_title"
+                    app:typeface="roboto_slab_regular" />
+
+                <ImageView
+                    android:id="@+id/share_video"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|right"
+                    android:src="@drawable/ic_share"
+                    android:layout_margin="@dimen/share_margin"/>
+
+
+            </FrameLayout>
+
 
             <ScrollView
                 android:layout_width="match_parent"

@@ -35,6 +35,8 @@ public class DisplayVideoActivity extends AppCompatActivity implements View.OnCl
     @BindView(R.id.tv_challenge_text)
     RobotoTextView tvChallengeText;
 
+    @BindView(R.id.share_video)
+    ImageView ivShare;
 
     @BindView(R.id.tv_language)
     RobotoTextView tvLanguage;
@@ -48,6 +50,8 @@ public class DisplayVideoActivity extends AppCompatActivity implements View.OnCl
     @BindView(R.id.btn_finish)
     Button btnFinish;
 
+    private String videoPath;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,7 +60,7 @@ public class DisplayVideoActivity extends AppCompatActivity implements View.OnCl
 
         ButterKnife.bind(this);
 
-        String path = getIntent().getStringExtra(IntentUtils.EXTRA_FILE_PATH);
+        videoPath = getIntent().getStringExtra(IntentUtils.EXTRA_FILE_PATH);
 
         String selectedLanguage = getIntent().getStringExtra(IntentUtils.EXTRA_LANGUAGE);
         tvLanguage.setText(String.format(getString(R.string.display_language), selectedLanguage));
@@ -75,24 +79,17 @@ public class DisplayVideoActivity extends AppCompatActivity implements View.OnCl
             }
         }
 
-        if(!TextUtils.isEmpty(path)) {
+        if(!TextUtils.isEmpty(videoPath)) {
 //            video.setVideoURI(Uri.parse("https://firebasestorage.googleapis.com/v0/b/slangify-f6c05.appspot.com/o/videos%2FVID-20170214-WA0003.mp4?alt=media&token=5880db37-38da-4fb4-b6c6-b16b2d71ecee"));
-            video.setVideoURI(Uri.parse(path));
+            video.setVideoURI(Uri.parse(videoPath));
 
             video.start();
 
             //start uploading
             startService(new Intent(DisplayVideoActivity.this, UploadService.class)
                     .setAction(UploadService.ACTION_UPLOAD)
-                    .putExtra(IntentUtils.EXTRA_FILE_PATH, path));
+                    .putExtra(IntentUtils.EXTRA_FILE_PATH, videoPath));
 
-
-//            playBtn.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//
-//                }
-//            });
 
         }
 
@@ -102,11 +99,15 @@ public class DisplayVideoActivity extends AppCompatActivity implements View.OnCl
 
     private void setListeners() {
         btnFinish.setOnClickListener(this);
+        ivShare.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.share_video:
+                IntentUtils.shareVideoUri(DisplayVideoActivity.this, Uri.parse(videoPath));
+                break;
             case R.id.btn_finish:
                 IntentUtils.startCreateActivity(DisplayVideoActivity.this);
                 break;

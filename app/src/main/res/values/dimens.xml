@@ -54,4 +54,5 @@
     <dimen name="slider_text_margin_top">7dp</dimen>
     <dimen name="login_skip_text_size">15sp</dimen>
     <dimen name="login_skip_margin_top">90dp</dimen>
+    <dimen name="share_margin">4dp</dimen>
 </resources>
