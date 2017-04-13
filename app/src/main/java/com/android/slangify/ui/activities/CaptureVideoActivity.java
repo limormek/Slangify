@@ -198,18 +198,22 @@ public class CaptureVideoActivity extends AppCompatActivity {
                 Log.e(TAG, "onFinish: error finish recording: " + ex.getMessage());
             }
 
-            isFirstVideo = false;
+            if(!isFirstVideo) {
 
-            //todo - move to a more logical location:
-            new Handler().postDelayed(new Runnable() {
-                @Override
-                public void run() {
+                //todo - move to a more logical location:
+                Log.e(TAG, "onFinish: start display video act!");
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
                         IntentUtils.startDisplayVideoActivity(CaptureVideoActivity.this,
                                 phraseModel,
                                 filePath, getIntent().getStringExtra(IntentUtils.EXTRA_LANGUAGE));
                         finish();
-                }
-            }, 1500);
+                    }
+                }, 1500);
+            }
+
+            isFirstVideo = false;
         }
 
     };
