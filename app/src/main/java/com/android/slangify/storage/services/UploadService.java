@@ -7,9 +7,9 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.android.slangify.storage.IStorageManager;
-import com.android.slangify.storage.IStorageUploadCallback;
-import com.android.slangify.storage.FirebaseStorageManager;
+import com.android.slangify.storage.interfaces.IStorageManager;
+import com.android.slangify.storage.interfaces.IStorageUploadCallback;
+import com.android.slangify.storage.implementation.FirebaseStorageManager;
 import com.android.slangify.utils.IntentUtils;
 
 /**

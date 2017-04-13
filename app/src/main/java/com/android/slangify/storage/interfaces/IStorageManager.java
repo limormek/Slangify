@@ -1,4 +1,4 @@
-package com.android.slangify.storage;
+package com.android.slangify.storage.interfaces;
 
 
 /**

@@ -1,9 +1,11 @@
-package com.android.slangify.storage;
+package com.android.slangify.storage.implementation;
 
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import com.android.slangify.storage.interfaces.IStorageManager;
+import com.android.slangify.storage.interfaces.IStorageUploadCallback;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.FirebaseStorage;
