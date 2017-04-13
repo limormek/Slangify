@@ -23,7 +23,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dropdown_margin_top"
-        android:hint="Dutch"
         android:textColor="@color/white"
         android:textColorHint="@color/transparent_grey"
         app:typeface="roboto_slab_regular"

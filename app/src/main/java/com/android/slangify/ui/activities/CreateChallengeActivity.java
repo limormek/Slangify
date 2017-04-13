@@ -82,6 +82,11 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
             public void onSuccess(ArrayList<LanguageModel> result) {
                 //save data
                 languageModels = result;
+
+                if (languageModels != null && languageModels.size() > 0) {
+                    mLanguageAutoComplete.setHint(languageModels.get(0).getName());
+                }
+
                 String[] mStringArray = new String[languageModels.size()];
                 for (int i = 0; i < languageModels.size(); i++) {
                     mStringArray[i] = languageModels.get(i).getName();
