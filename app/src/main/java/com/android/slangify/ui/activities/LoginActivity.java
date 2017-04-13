@@ -6,9 +6,12 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.android.slangify.R;
+import com.devspark.robototextview.widget.RobotoTextView;
 import com.facebook.AccessToken;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
@@ -25,6 +28,7 @@ import com.google.firebase.auth.FirebaseUser;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import com.android.slangify.utils.IntentUtils;
 
 /**
@@ -35,12 +39,26 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private static final String TAG = LoginActivity.class.getName();
-    @BindView(R.id.btn_facebook) LoginButton btnFacebookLogin;
+    @BindView(R.id.btn_facebook)
+    LoginButton btnFacebookLogin;
+    @BindView(R.id.btn_skip)
+    RobotoTextView tvSkip;
+    @BindView(R.id.progress_bar)
+    ProgressBar progressBar;
+
     private CallbackManager mCallbackManager;
     private FirebaseAuth mAuth;
 
     private FirebaseAuth.AuthStateListener mAuthListener;
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        mCallbackManager.onActivityResult(requestCode, resultCode, data);
+
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,14 +82,12 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onCancel() {
-                        // App code
-                        Log.e(TAG, "onCancel: ");
+                        // App code - todo - failed! please try again
                     }
 
                     @Override
                     public void onError(FacebookException exception) {
-                        // App code
-                        Log.e(TAG, "onCancel: ");
+                        // App code - todo - failed! please try again
                     }
                 });
 
@@ -92,18 +108,34 @@ public class LoginActivity extends AppCompatActivity {
                 // ...
             }
         };
-    }
 
+        tvSkip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
+                tvSkip.setVisibility(View.GONE);
+                mAuth.signInAnonymously()
+                        .addOnCompleteListener(LoginActivity.this, new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                Log.d(TAG, "signInAnonymously:onComplete:" + task.isSuccessful());
 
+                                // If sign in fails, display a message to the user. If sign in succeeds
+                                // the auth state listener will be notified and logic to handle the
+                                // signed in user can be handled in the listener.
+                                if (!task.isSuccessful()) {
+                                    Log.w(TAG, "signInAnonymously", task.getException());
+                                    Toast.makeText(LoginActivity.this, "Authentication failed.",
+                                            Toast.LENGTH_SHORT).show();
+                                    progressBar.setVisibility(View.GONE);
+                                    tvSkip.setVisibility(View.VISIBLE);
+                                }
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-
-        mCallbackManager.onActivityResult(requestCode, resultCode, data);
-
+                                // ...
+                            }
+                        });
+            }
+        });
     }
 
     @Override
