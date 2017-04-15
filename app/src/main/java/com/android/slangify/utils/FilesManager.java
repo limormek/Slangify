@@ -8,8 +8,6 @@ import java.io.File;
 
 public class FilesManager {
 
-
-
     //check if file exists, if so, add integer to name
     public static String getFilePath(String filePath){
 
@@ -28,6 +26,4 @@ public class FilesManager {
 
         return f.getPath();
     }
-
-
 }

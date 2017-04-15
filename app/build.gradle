@@ -9,7 +9,7 @@ android {
     buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "com.android.slangify"
-        minSdkVersion 16
+        minSdkVersion 19
         targetSdkVersion 25
         versionCode 1
         versionName "0.1"
@@ -21,35 +21,32 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    productFlavors {
+    }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-
     compile 'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
-
     //views
-//    compile 'com.github.ademar111190:android-phased-seek-bar:0.1.2'
+    //    compile 'com.github.ademar111190:android-phased-seek-bar:0.1.2'
     compile 'com.github.johnkil.android-robototextview:robototextview:3.0.0'
-
     //events
     compile 'org.greenrobot:eventbus:3.0.0'
-
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.android.support:support-v4:25.3.1'
-
+    //ffmpeg
+    compile 'com.writingminds:FFmpegAndroid:0.3.2'
     //firebase
     compile 'com.google.firebase:firebase-database:10.2.0'
     compile 'com.google.firebase:firebase-storage:10.2.0'
     compile 'com.google.firebase:firebase-auth:10.2.0'
     compile 'com.google.firebase:firebase-crash:10.2.0'
-
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
-
     testCompile 'junit:junit:4.12'
 }
 
