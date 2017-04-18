@@ -53,6 +53,11 @@ public class DisplayVideoActivity extends AppCompatActivity implements View.OnCl
     private String videoPath;
 
     @Override
+    public void onBackPressed() {
+        IntentUtils.startCreateActivity(DisplayVideoActivity.this);
+    }
+
+    @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
