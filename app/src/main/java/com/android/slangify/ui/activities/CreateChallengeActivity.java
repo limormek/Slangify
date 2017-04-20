@@ -212,6 +212,7 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
 
     private void startCaptureActivity() {
         IntentUtils.startVideoCaptureActivity(CreateChallengeActivity.this, selectedPhrase, selectedLanguage.getName());
+        finish();
     }
 
     /**

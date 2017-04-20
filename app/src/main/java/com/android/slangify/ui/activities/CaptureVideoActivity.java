@@ -19,6 +19,7 @@ import com.android.slangify.repository.models.PhraseModel;
 import com.android.slangify.ui.activities.Events.SurfaceCreatedEvent;
 import com.android.slangify.ui.activities.camera.CameraControl;
 import com.android.slangify.ui.activities.camera.CameraSurfaceView;
+import com.android.slangify.utils.IOUtils;
 import com.android.slangify.utils.IntentUtils;
 import com.devspark.robototextview.widget.RobotoTextView;
 
@@ -118,7 +119,15 @@ public class CaptureVideoActivity extends AppCompatActivity {
 
         currentTime = System.currentTimeMillis();
         mCamControl = new CameraControl(mPreview, this, currentTime);
-        filePath =  String.format("/sdcard/slangify%s.mp4", String.valueOf(currentTime));
+        String slangifyDirectoryPath = "/sdcard/Slangify";
+        try {
+            slangifyDirectoryPath = IOUtils.getSlangifyDirectoryPath(CaptureVideoActivity.this);
+
+        } catch (IOUtils.StorageUnavailableException e) {
+            //fail quietly
+        }
+
+        filePath =  String.format((slangifyDirectoryPath + "_%s.mp4"), String.valueOf(currentTime));
     }
 
     @Override
@@ -140,6 +149,12 @@ public class CaptureVideoActivity extends AppCompatActivity {
         super.onStop();
         EventBus.getDefault().unregister(this);
     }
+
+    @Override
+    public void onBackPressed() {
+        IntentUtils.startCreateActivity(CaptureVideoActivity.this);
+    }
+
 
     ///////////////////////////////////////////////////////////////////////////
     // Events
