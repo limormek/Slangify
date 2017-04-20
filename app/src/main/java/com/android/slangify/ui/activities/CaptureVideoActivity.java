@@ -47,7 +47,8 @@ public class CaptureVideoActivity extends AppCompatActivity {
     RobotoTextView tvTimeout;
 
     private Long currentTime;
-    private String filePath;
+    private String filePath1;
+    private String filePath2;
     private String sourceText;
 
     public CameraSurfaceView mPreview;
@@ -127,7 +128,10 @@ public class CaptureVideoActivity extends AppCompatActivity {
             //fail quietly
         }
 
-        filePath =  String.format((slangifyDirectoryPath + "_%s.mp4"), String.valueOf(currentTime));
+        filePath1 =  String.format((slangifyDirectoryPath + "_%s.mp4"), String.valueOf(currentTime));
+
+        currentTime = System.currentTimeMillis();
+        filePath2 = String.format((slangifyDirectoryPath + "_%s.mp4"), String.valueOf(currentTime));
     }
 
     @Override
@@ -188,7 +192,10 @@ public class CaptureVideoActivity extends AppCompatActivity {
 
             if(!isRecording) {
                 try {
-                    mCamControl.startRecording();
+                    if(isFirstVideo)
+                        mCamControl.startRecording(filePath1);
+                    else
+                        mCamControl.startRecording(filePath2);
 
                     isRecording = true;
                 } catch (final Exception ex) {
@@ -222,7 +229,9 @@ public class CaptureVideoActivity extends AppCompatActivity {
                     public void run() {
                         IntentUtils.startDisplayVideoActivity(CaptureVideoActivity.this,
                                 phraseModel,
-                                filePath, getIntent().getStringExtra(IntentUtils.EXTRA_LANGUAGE));
+                                filePath1,
+                                filePath2,
+                                getIntent().getStringExtra(IntentUtils.EXTRA_LANGUAGE));
                         finish();
                     }
                 }, 1500);

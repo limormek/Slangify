@@ -1,6 +1,6 @@
 package com.android.slangify.ui.activities;
 
-import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -13,7 +13,6 @@ import android.widget.VideoView;
 
 import com.android.slangify.R;
 import com.android.slangify.repository.models.PhraseModel;
-import com.android.slangify.storage.services.UploadService;
 import com.android.slangify.utils.IntentUtils;
 import com.devspark.robototextview.widget.RobotoTextView;
 
@@ -50,7 +49,8 @@ public class DisplayVideoActivity extends AppCompatActivity implements View.OnCl
     @BindView(R.id.btn_finish)
     Button btnFinish;
 
-    private String videoPath;
+    private String videoPathBack;
+    private String videoPathFront;
 
     @Override
     public void onBackPressed() {
@@ -65,7 +65,8 @@ public class DisplayVideoActivity extends AppCompatActivity implements View.OnCl
 
         ButterKnife.bind(this);
 
-        videoPath = getIntent().getStringExtra(IntentUtils.EXTRA_FILE_PATH);
+        videoPathBack = getIntent().getStringExtra(IntentUtils.EXTRA_FILE_PATH_BACK);
+        videoPathFront = getIntent().getStringExtra(IntentUtils.EXTRA_FILE_PATH_FRONT);
 
         String selectedLanguage = getIntent().getStringExtra(IntentUtils.EXTRA_LANGUAGE);
         tvLanguage.setText(String.format(getString(R.string.display_language), selectedLanguage));
@@ -84,16 +85,26 @@ public class DisplayVideoActivity extends AppCompatActivity implements View.OnCl
             }
         }
 
-        if(!TextUtils.isEmpty(videoPath)) {
-//            video.setVideoURI(Uri.parse("https://firebasestorage.googleapis.com/v0/b/slangify-f6c05.appspot.com/o/videos%2FVID-20170214-WA0003.mp4?alt=media&token=5880db37-38da-4fb4-b6c6-b16b2d71ecee"));
-            video.setVideoURI(Uri.parse(videoPath));
-
+        if(!TextUtils.isEmpty(videoPathBack) && !TextUtils.isEmpty(videoPathFront)) {
+            video.setVideoURI(Uri.parse(videoPathBack));
+            video.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                @Override
+                public void onCompletion(MediaPlayer mp) {
+                    video.setVideoURI(Uri.parse(videoPathFront));
+                    video.start();
+                    video.setOnCompletionListener(null);
+                }
+            });
             video.start();
 
-            //start uploading
-            startService(new Intent(DisplayVideoActivity.this, UploadService.class)
+
+            //start uploading the merged video
+            //TODO
+            //Put here the merged video
+
+/*            startService(new Intent(DisplayVideoActivity.this, UploadService.class)
                     .setAction(UploadService.ACTION_UPLOAD)
-                    .putExtra(IntentUtils.EXTRA_FILE_PATH, videoPath));
+                    .putExtra(IntentUtils.EXTRA_FILE_PATH, videoPath));*/
 
 
         }
@@ -111,7 +122,9 @@ public class DisplayVideoActivity extends AppCompatActivity implements View.OnCl
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.share_video:
-                IntentUtils.shareVideoUri(DisplayVideoActivity.this, Uri.parse(videoPath));
+                //TODO
+                //need to share the merged video
+                IntentUtils.shareVideoUri(DisplayVideoActivity.this, Uri.parse(videoPathBack));
                 break;
             case R.id.btn_finish:
                 IntentUtils.startCreateActivity(DisplayVideoActivity.this);

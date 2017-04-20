@@ -91,7 +91,7 @@ public class CameraControl implements CameraControlInterface {
     }
 
     //this function should be called before any other function
-    private boolean prepareCamera(String VideoPath) {
+    private boolean prepareCamera(String videoPath) {
 
         if(mediaRecorder == null)
             mediaRecorder = new MediaRecorder();
@@ -115,9 +115,12 @@ public class CameraControl implements CameraControlInterface {
         mediaRecorder.setAudioEncoder(profile.audioCodec);
 
         String fixedFilePath = "";
-        if(VideoPath == null ){
-            VideoPath = String.format("/sdcard/slangify%s.mp4", String.valueOf(timestamp));
-            fixedFilePath = FilesManager.getFilePath(VideoPath);
+        if(videoPath == null ){
+            videoPath = String.format("/sdcard/slangify%s.mp4", String.valueOf(timestamp));
+            fixedFilePath = FilesManager.getFilePath(videoPath);
+        }
+        else {
+            fixedFilePath = videoPath;
         }
 
         //String defaultFilePath = String.format("/sdcard/slangify%s.mp4", String.valueOf(timestamp));

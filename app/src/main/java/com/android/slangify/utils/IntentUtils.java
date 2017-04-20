@@ -19,7 +19,8 @@ import com.android.slangify.ui.activities.LoginActivity;
 public class IntentUtils {
 
     public static final String EXTRA_PHRASE= "EXTRA_PHRASE";
-    public static final String EXTRA_FILE_PATH= "EXTRA_FILE_PATH";
+    public static final String EXTRA_FILE_PATH_BACK = "EXTRA_FILE_PATH_BACK";
+    public static final String EXTRA_FILE_PATH_FRONT = "EXTRA_FILE_PATH_FRONT";
     public static final String EXTRA_LANGUAGE = "EXTRA_LANGUAGE";
 
     /**
@@ -44,11 +45,12 @@ public class IntentUtils {
         .putExtra(EXTRA_LANGUAGE, language));
     }
 
-    public static void startDisplayVideoActivity(Context context, PhraseModel phrase, String filePath, String language) {
+    public static void startDisplayVideoActivity(Context context, PhraseModel phrase, String filePath1, String filePath2, String language) {
 
         Intent intent = new Intent(context, DisplayVideoActivity.class)
                 .putExtra(EXTRA_PHRASE, phrase)
-                .putExtra(EXTRA_FILE_PATH, filePath)
+                .putExtra(EXTRA_FILE_PATH_BACK, filePath1)
+                .putExtra(EXTRA_FILE_PATH_FRONT, filePath2)
                 .putExtra(EXTRA_LANGUAGE,language);
         context.startActivity(intent);
     }

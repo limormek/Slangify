@@ -55,7 +55,7 @@ public class UploadService extends BaseTaskService {
 
         Log.d(TAG, "onStartCommand:" + intent + ":" + startId);
         if (ACTION_UPLOAD.equals(intent.getAction())) {
-            String filePath = intent.getStringExtra(IntentUtils.EXTRA_FILE_PATH);
+            String filePath = intent.getStringExtra(IntentUtils.EXTRA_FILE_PATH_BACK);
             if(!TextUtils.isEmpty(filePath)){
 
                 uploadFromUri(filePath);
