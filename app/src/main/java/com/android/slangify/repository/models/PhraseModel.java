@@ -10,6 +10,7 @@ import android.os.Parcelable;
 public class PhraseModel implements Parcelable {
     private String text;
     private String extra;
+    private int risky;
     private int score;
     private String translation;
 
@@ -24,13 +25,15 @@ public class PhraseModel implements Parcelable {
         this.text = in.readString();
         this.extra = in.readString();
         this.score = in.readInt();
+        this.risky = in.readInt();
         this.translation = in.readString();
     }
 
-    public PhraseModel(String text, String extra, int score, String translation) {
+    public PhraseModel(String text, String extra, int score, int risky, String translation) {
         this.text = text;
         this.extra = extra;
         this.score = score;
+        this.risky = risky;
         this.translation = translation;
     }
 
@@ -73,6 +76,7 @@ public class PhraseModel implements Parcelable {
         dest.writeString(text);
         dest.writeString(extra);
         dest.writeInt(score);
+        dest.writeInt(risky);
         dest.writeString(translation);
     }
 }
