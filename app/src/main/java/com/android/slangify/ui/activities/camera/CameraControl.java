@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.util.List;
 
 import com.android.slangify.utils.FilesManager;
+import com.android.slangify.utils.Constants;
 
 import static android.content.Context.WINDOW_SERVICE;
 
@@ -28,13 +29,7 @@ public class CameraControl implements CameraControlInterface {
     private Context activityContext;
 
     private long timestamp;
-
-    private static String CAMERA_CONTROL_TAG = "camera control";
-
-    public enum CameraType {
-        FRONT,
-        BACK
-    }
+    private CameraCalculations mCamCalculations;
 
     public CameraType cameraCurrentState = CameraType.BACK;
 
@@ -43,9 +38,8 @@ public class CameraControl implements CameraControlInterface {
 
         activityContext = context;
         this.timestamp = creationTime;
-        //init the camera
-        //setCameraType(cameraCurrentState);
-        //mView.
+
+        mCamCalculations = new CameraCalculations();
     }
 
     @Override
@@ -108,7 +102,17 @@ public class CameraControl implements CameraControlInterface {
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
         mediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
 
-        mediaRecorder.setProfile(CamcorderProfile.get(CamcorderProfile.QUALITY_720P));
+        CamcorderProfile profile = CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH);
+
+        mediaRecorder.setOutputFormat(2); //mpeg_4//profile.fileFormat);
+        mediaRecorder.setVideoFrameRate(60);
+
+        Camera.Size videoSize = mCamCalculations.getCameraRelevantSize(false);
+        mediaRecorder.setVideoSize(videoSize.width, videoSize.height);
+
+        mediaRecorder.setVideoEncodingBitRate(profile.videoBitRate);
+        mediaRecorder.setVideoEncoder(profile.videoCodec);
+        mediaRecorder.setAudioEncoder(profile.audioCodec);
 
         String fixedFilePath = "";
         if(VideoPath == null ){
@@ -118,8 +122,8 @@ public class CameraControl implements CameraControlInterface {
 
         //String defaultFilePath = String.format("/sdcard/slangify%s.mp4", String.valueOf(timestamp));
         mediaRecorder.setOutputFile(fixedFilePath);
-        mediaRecorder.setMaxDuration(600000); //set maximum duration 60 sec.
-        mediaRecorder.setMaxFileSize(50000000); //set maximum file size 50M
+/*        mediaRecorder.setMaxDuration(600000); //set maximum duration 60 sec.
+        mediaRecorder.setMaxFileSize(50000000); //set maximum file size 50M*/
 
         //change recorder camera orientation according to type of camera
         if(cameraCurrentState == CameraType.BACK)
@@ -166,10 +170,8 @@ public class CameraControl implements CameraControlInterface {
         Camera.Parameters parameters = mCamera.getParameters();
         Display display = ((WindowManager) activityContext.getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
 
-        List<Camera.Size> previewSizes = parameters.getSupportedPreviewSizes();
-
-        Camera.Size previewSize = chooseVideoAndPictureSize(previewSizes);//= previewSizes.get(6);
-
+        mCamCalculations.loadCameraSizes(parameters.getSupportedPreviewSizes(), parameters.getSupportedVideoSizes());
+        Camera.Size previewSize = mCamCalculations.getCameraRelevantSize(true);
         parameters.setPreviewSize(previewSize.width, previewSize.height);
 
         if (display.getRotation() == Surface.ROTATION_0) {
@@ -193,7 +195,7 @@ public class CameraControl implements CameraControlInterface {
                 mCamera.startPreview();
             }
         } catch (IOException e) {
-            Log.d(CAMERA_CONTROL_TAG, "Error setting camera preview: " + e.getMessage());
+            Log.d(Constants.Media.CAMERA_CONTROL_TAG, "Error setting camera preview: " + e.getMessage());
         }
     }
 
@@ -276,4 +278,9 @@ public class CameraControl implements CameraControlInterface {
         return choices.get(8);
     }
 
+
+    public enum CameraType {
+        FRONT,
+        BACK
+    }
 }

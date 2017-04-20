@@ -27,27 +27,27 @@ public class FfmpegController {
 
                 @Override
                 public void onStart() {
-                    Log.d(Constants.Media.Ffmpeg, "Entered onStart ffmpeg");
+                    Log.d(Constants.Media.FFMPEG, "Entered onStart ffmpeg");
                 }
 
                 @Override
                 public void onFailure() {
-                    Log.d(Constants.Media.Ffmpeg, "ERROR! Entered onFailure ffmpeg");
+                    Log.d(Constants.Media.FFMPEG, "ERROR! Entered onFailure ffmpeg");
                 }
 
                 @Override
                 public void onSuccess() {
-                    Log.d(Constants.Media.Ffmpeg, "Entered onSuccess ffmpeg!!");
+                    Log.d(Constants.Media.FFMPEG, "Entered onSuccess ffmpeg!!");
                 }
 
                 @Override
                 public void onFinish() {
-                    Log.d(Constants.Media.Ffmpeg, "Entered onFinish ffmpeg");
+                    Log.d(Constants.Media.FFMPEG, "Entered onFinish ffmpeg");
                 }
             });
         } catch (FFmpegNotSupportedException e) {
             // Handle if FFmpeg is not supported by device
-            Log.d(Constants.Media.Ffmpeg, "ERROR! ffmpeg" + e.getMessage());
+            Log.d(Constants.Media.FFMPEG, "ERROR! ffmpeg" + e.getMessage());
         }
     }
 
@@ -68,7 +68,7 @@ public class FfmpegController {
 
         //execute command
         if(ffmpeg.isFFmpegCommandRunning()){
-            Log.d(Constants.Media.Ffmpeg, "ERROR! Other component uses FFmpeg at the moment");
+            Log.d(Constants.Media.FFMPEG, "ERROR! Other component uses FFmpeg at the moment");
             return false;
         }
         else{
@@ -81,7 +81,7 @@ public class FfmpegController {
                 isExecuted = true;
             }
             catch(Exception ex){
-                Log.d(Constants.Media.Ffmpeg, "ERROR! " + ex.getMessage().toString());
+                Log.d(Constants.Media.FFMPEG, "ERROR! " + ex.getMessage().toString());
             }
         }
         return isExecuted;
