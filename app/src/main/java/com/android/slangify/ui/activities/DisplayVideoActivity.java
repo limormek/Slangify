@@ -13,7 +13,9 @@ import android.widget.VideoView;
 
 import com.android.slangify.R;
 import com.android.slangify.repository.models.PhraseModel;
+import com.android.slangify.utils.IOUtils;
 import com.android.slangify.utils.IntentUtils;
+import com.android.slangify.utils.MediaEditUtils;
 import com.devspark.robototextview.widget.RobotoTextView;
 
 import butterknife.BindView;
@@ -51,6 +53,7 @@ public class DisplayVideoActivity extends AppCompatActivity implements View.OnCl
 
     private String videoPathBack;
     private String videoPathFront;
+    private String videoPathMerged;
 
     @Override
     public void onBackPressed() {
@@ -78,14 +81,14 @@ public class DisplayVideoActivity extends AppCompatActivity implements View.OnCl
 
             tvTranslation.setText(String.format(getString(R.string.display_translation), phraseModel.getTranslation()));
             String extra = phraseModel.getExtra();
-            if(!TextUtils.isEmpty(extra)) {
+            if (!TextUtils.isEmpty(extra)) {
                 tvDidYouKnow.setText(extra);
             } else {
                 tvDidYouKnow.setVisibility(View.GONE);
             }
         }
 
-        if(!TextUtils.isEmpty(videoPathBack) && !TextUtils.isEmpty(videoPathFront)) {
+        if (!TextUtils.isEmpty(videoPathBack) && !TextUtils.isEmpty(videoPathFront)) {
             video.setVideoURI(Uri.parse(videoPathBack));
             video.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                 @Override
@@ -97,14 +100,31 @@ public class DisplayVideoActivity extends AppCompatActivity implements View.OnCl
             });
             video.start();
 
+            String slangifyDirectoryPath = "/sdcard/Slangify";
+            try {
+                slangifyDirectoryPath = IOUtils.getSlangifyDirectoryPath(DisplayVideoActivity.this);
 
-            //start uploading the merged video
-            //TODO
-            //Put here the merged video
+            } catch (IOUtils.StorageUnavailableException e) {
+                //fail quietly
+            }
+
+            //Start merge videos.
+            videoPathMerged = String.format((slangifyDirectoryPath + "_%s.mp4"), String.valueOf(System.currentTimeMillis()));
+
+            Boolean isSucceeded = MediaEditUtils.merge2VideosFFMPEG(videoPathBack, videoPathFront, videoPathMerged, getApplicationContext());
+
+            if (isSucceeded) {
+                //upload to server
+                //start uploading the merged video
+                //TODO
+                //Put here the merged video
 
 /*            startService(new Intent(DisplayVideoActivity.this, UploadService.class)
                     .setAction(UploadService.ACTION_UPLOAD)
                     .putExtra(IntentUtils.EXTRA_FILE_PATH, videoPath));*/
+
+            }
+
 
 
         }

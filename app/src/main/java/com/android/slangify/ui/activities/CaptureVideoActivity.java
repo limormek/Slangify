@@ -109,7 +109,7 @@ public class CaptureVideoActivity extends AppCompatActivity {
     }
 
     public void initialize() {
-
+        long currentTime = System.currentTimeMillis();
         mPreview = (CameraSurfaceView) findViewById(R.id.camera_preview);
         mCamControl = new CameraControl(mPreview, this);
 
@@ -121,7 +121,6 @@ public class CaptureVideoActivity extends AppCompatActivity {
             //fail quietly
         }
 
-        long currentTime = System.currentTimeMillis();
         videoPathBack =  String.format((slangifyDirectoryPath + "_%s.mp4"), String.valueOf(currentTime));
 
         currentTime = System.currentTimeMillis();

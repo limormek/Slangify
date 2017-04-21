@@ -47,7 +47,7 @@ public class IOUtils {
         if (!dir.exists()) {
 
             if (!dir.mkdirs()) {
-                Log.d(TAG, "getSlangifyDirectoryPath: failed creating the PetPace Images directory");
+                Log.d(TAG, "getSlangifyDirectoryPath: failed creating the Slangify Images directory");
                 return null;
             }
 
