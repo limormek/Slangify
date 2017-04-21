@@ -46,16 +46,14 @@ public class CaptureVideoActivity extends AppCompatActivity {
     @BindView(R.id.timeout)
     RobotoTextView tvTimeout;
 
-    private Long currentTime;
+
     private String videoPathBack;
     private String videoPathFront;
-    private String sourceText;
 
     public CameraSurfaceView mPreview;
 
     private CameraControl mCamControl;
     private PhraseModel phraseModel;
-    private Context myContext;
     private FancyAlertDialog readySetGo;
     private boolean showOnDialogDismiss;
 
@@ -72,7 +70,6 @@ public class CaptureVideoActivity extends AppCompatActivity {
         if (phraseModel != null) {
             phraseTextView.setText(phraseModel.getText());
         }
-        myContext = this;
         initialize();
 
         readySetGo = new FancyAlertDialog(CaptureVideoActivity.this);
@@ -92,15 +89,11 @@ public class CaptureVideoActivity extends AppCompatActivity {
         }, 3000);
     }
 
-
     private void showContent() {
         readySetGo.dismiss();
         showPhrase();
-        //Log.i("MESSAGE!!", "got into show content");
 
         if(showOnDialogDismiss) {
-            //waitTimer.start();
-            //Log.i("MESSAGE!!", "got into show content - start camera flow");
             startCameraFlow();
         }
     }
@@ -116,10 +109,10 @@ public class CaptureVideoActivity extends AppCompatActivity {
     }
 
     public void initialize() {
-        mPreview = (CameraSurfaceView) findViewById(R.id.camera_preview);
 
-        currentTime = System.currentTimeMillis();
-        mCamControl = new CameraControl(mPreview, this, currentTime);
+        mPreview = (CameraSurfaceView) findViewById(R.id.camera_preview);
+        mCamControl = new CameraControl(mPreview, this);
+
         String slangifyDirectoryPath = "/sdcard/Slangify";
         try {
             slangifyDirectoryPath = IOUtils.getSlangifyDirectoryPath(CaptureVideoActivity.this);
@@ -128,6 +121,7 @@ public class CaptureVideoActivity extends AppCompatActivity {
             //fail quietly
         }
 
+        long currentTime = System.currentTimeMillis();
         videoPathBack =  String.format((slangifyDirectoryPath + "_%s.mp4"), String.valueOf(currentTime));
 
         currentTime = System.currentTimeMillis();
@@ -143,8 +137,8 @@ public class CaptureVideoActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        // when on Pause, release camera in order to be used from other
-        // applications
+
+        // when on Pause, release camera in order to be used from other applications
         mCamControl.releaseCamera();
     }
 
@@ -185,6 +179,7 @@ public class CaptureVideoActivity extends AppCompatActivity {
 
         boolean isRecording = false;
         boolean isFirstVideo = true;
+
         public void onTick(long millisUntilFinished) {
 
             Long delta = millisUntilFinished / 1000;
@@ -239,24 +234,19 @@ public class CaptureVideoActivity extends AppCompatActivity {
 
             isFirstVideo = false;
         }
-
     };
+
     @Subscribe
     public void onSurfaceCreated(SurfaceCreatedEvent event) {
         mCamControl.startPreview();
         //Log.i("MESSAGE!!", "got into onSurfaceCreated event");
-
 
         if(readySetGo.isShowing()) {
             showOnDialogDismiss = true;
         } else {
             //Log.i("MESSAGE!!", "got into onSurfaceCreated event - start camera flow");
             startCameraFlow();
-            //waitTimer.start();
         }
-
-
-
-
     }
+
 }

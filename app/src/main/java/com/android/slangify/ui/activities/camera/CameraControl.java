@@ -33,6 +33,10 @@ public class CameraControl implements CameraControlInterface {
 
     public CameraType cameraCurrentState = CameraType.BACK;
 
+    public CameraControl(CameraSurfaceView view, Context context) {
+        this(view, context, System.currentTimeMillis());
+    }
+
     public CameraControl(CameraSurfaceView view, Context context, long creationTime) {
         mView = view;
 
@@ -47,6 +51,7 @@ public class CameraControl implements CameraControlInterface {
 
         startRecording(null);
     }
+
     public void startRecording(String VideoPath) throws Exception {
 
         //check preparedness of camera
@@ -93,7 +98,7 @@ public class CameraControl implements CameraControlInterface {
     //this function should be called before any other function
     private boolean prepareCamera(String videoPath) {
 
-        if(mediaRecorder == null)
+        if (mediaRecorder == null)
             mediaRecorder = new MediaRecorder();
 
         mCamera.unlock();
@@ -115,11 +120,10 @@ public class CameraControl implements CameraControlInterface {
         mediaRecorder.setAudioEncoder(profile.audioCodec);
 
         String fixedFilePath;
-        if(videoPath == null ){
+        if (videoPath == null) {
             videoPath = String.format("/sdcard/slangify%s.mp4", String.valueOf(timestamp));
             fixedFilePath = FilesManager.getFilePath(videoPath);
-        }
-        else {
+        } else {
             fixedFilePath = videoPath;
         }
 
@@ -129,7 +133,7 @@ public class CameraControl implements CameraControlInterface {
         mediaRecorder.setMaxFileSize(50000000); //set maximum file size 50M*/
 
         //change recorder camera orientation according to type of camera
-        if(cameraCurrentState == CameraType.BACK)
+        if (cameraCurrentState == CameraType.BACK)
             mediaRecorder.setOrientationHint(90);
         else
             mediaRecorder.setOrientationHint(270);
@@ -242,45 +246,6 @@ public class CameraControl implements CameraControlInterface {
             refreshCamera();
         }
     }
-
-    /**
-     * iterating through array of given sizes.
-     * @param choices
-     * @return 1080*720 automatically if exists in choices, otherwise will return the next lower 16*9 ratio size.
-     * if choices doesn't contain any desired result return the last size in the array.
-     */
-    private Camera.Size chooseVideoAndPictureSize(List<Camera.Size> choices) {
-        if (choices == null) {
-            //choices are null, return max values of video / still accordingly to if isVideoSize.
-            //return isVideoSize ? new Size(MAX_VIDEO_WIDTH, MAX_VIDEO_HEIGHT) : new Size(MAX_STILL_WIDTH, MAX_STILL_HEIGHT);
-        }
-
-        // max width value of the desired aspect ratio (16:9)
-        int maxWidth = 720;
-        int delta = 100;
-        Camera.Size defultSize = choices.get(4);
-        for (Camera.Size size : choices) {
-
-            if (size.width <= maxWidth){
-                if(size.width == size.height) {
-                    return size;
-                }
-               /* else {
-                    int currentDelta = Math.abs(size.width - size.height);
-                    if(currentDelta < delta){
-                        delta = currentDelta;
-                        defultSize= size;
-                    }
-
-                }*/
-
-            }
-
-        }
-
-        return choices.get(8);
-    }
-
 
     public enum CameraType {
         FRONT,
