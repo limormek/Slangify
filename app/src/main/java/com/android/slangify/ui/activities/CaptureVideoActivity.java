@@ -47,8 +47,8 @@ public class CaptureVideoActivity extends AppCompatActivity {
     RobotoTextView tvTimeout;
 
     private Long currentTime;
-    private String filePath1;
-    private String filePath2;
+    private String videoPathBack;
+    private String videoPathFront;
     private String sourceText;
 
     public CameraSurfaceView mPreview;
@@ -128,10 +128,10 @@ public class CaptureVideoActivity extends AppCompatActivity {
             //fail quietly
         }
 
-        filePath1 =  String.format((slangifyDirectoryPath + "_%s.mp4"), String.valueOf(currentTime));
+        videoPathBack =  String.format((slangifyDirectoryPath + "_%s.mp4"), String.valueOf(currentTime));
 
         currentTime = System.currentTimeMillis();
-        filePath2 = String.format((slangifyDirectoryPath + "_%s.mp4"), String.valueOf(currentTime));
+        videoPathFront = String.format((slangifyDirectoryPath + "_%s.mp4"), String.valueOf(currentTime));
     }
 
     @Override
@@ -193,9 +193,9 @@ public class CaptureVideoActivity extends AppCompatActivity {
             if(!isRecording) {
                 try {
                     if(isFirstVideo)
-                        mCamControl.startRecording(filePath1);
+                        mCamControl.startRecording(videoPathBack);
                     else
-                        mCamControl.startRecording(filePath2);
+                        mCamControl.startRecording(videoPathFront);
 
                     isRecording = true;
                 } catch (final Exception ex) {
@@ -229,8 +229,8 @@ public class CaptureVideoActivity extends AppCompatActivity {
                     public void run() {
                         IntentUtils.startDisplayVideoActivity(CaptureVideoActivity.this,
                                 phraseModel,
-                                filePath1,
-                                filePath2,
+                                videoPathBack,
+                                videoPathFront,
                                 getIntent().getStringExtra(IntentUtils.EXTRA_LANGUAGE));
                         finish();
                     }

@@ -15,8 +15,8 @@ public class CameraCalculations {
 
     private Camera.Size videoSizeCache;
     private Camera.Size PreviewSizeCache;
-    private Boolean isLoaded = false;
 
+    private Boolean isLoaded = false;
 
     public CameraCalculations(){
     }

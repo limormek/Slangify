@@ -114,7 +114,7 @@ public class CameraControl implements CameraControlInterface {
         mediaRecorder.setVideoEncoder(profile.videoCodec);
         mediaRecorder.setAudioEncoder(profile.audioCodec);
 
-        String fixedFilePath = "";
+        String fixedFilePath;
         if(videoPath == null ){
             videoPath = String.format("/sdcard/slangify%s.mp4", String.valueOf(timestamp));
             fixedFilePath = FilesManager.getFilePath(videoPath);
