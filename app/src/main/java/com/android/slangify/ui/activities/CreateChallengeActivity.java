@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.SeekBar;
 
 import com.android.slangify.R;
@@ -104,6 +105,14 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
                     }
                 });
 
+                //Hide keyboard on dismiss textView for picking language as well as clicking outside of the textview
+                mLanguageAutoComplete.setOnDismissListener(new AutoCompleteTextView.OnDismissListener() {
+                    @Override
+                    public void onDismiss() {
+                        UiUtils.hideKeyboard(mLanguageAutoComplete);
+                    }
+                });
+
                 mLanguageAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -138,7 +147,8 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
                         selectedPhrase = result.get(randomNumber);
                     }
                 }
-                UiUtils.hideKeyboard(mLanguageAutoComplete);
+                //no need to hide keyboard here, need to hide keyboard on dismiss window
+                //UiUtils.hideKeyboard(mLanguageAutoComplete);
                 if(shouldSubmit) {
                     startCaptureActivity();
                 }
