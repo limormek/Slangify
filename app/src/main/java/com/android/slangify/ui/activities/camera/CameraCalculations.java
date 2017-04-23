@@ -43,7 +43,7 @@ public class CameraCalculations {
             videoSizeCache = CalculateSquareVideo(videoSizeLst);
 
         if(videoSizeCache == null)
-            calculateMostClosesetToSquare(videoSizeLst, screenWidth);
+            calculateMostClosestToSquare(videoSizeLst, screenWidth);
 
         isLoaded = true;
     }
@@ -101,7 +101,7 @@ public class CameraCalculations {
     }
 
 
-    private Camera.Size calculateMostClosesetToSquare(List<Camera.Size> sizes, int minimalWidth) {
+    private Camera.Size calculateMostClosestToSquare(List<Camera.Size> sizes, int minimalWidth) {
 
         if (sizes == null)
             return null;
@@ -122,14 +122,6 @@ public class CameraCalculations {
 
 
         }
-
-
-
-
-
-
-
-
 
         return optimalSize;
     }
