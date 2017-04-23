@@ -31,14 +31,23 @@ public class CameraCalculations {
      */
     public void loadCameraSizes(List<Camera.Size> previewSizeLst, List<Camera.Size> videoSizeLst){
 
+        loadCameraSizes(previewSizeLst, videoSizeLst, 1000);
+    }
+
+    public void loadCameraSizes(List<Camera.Size> previewSizeLst, List<Camera.Size> videoSizeLst, int screenWidth){
+
         if (PreviewSizeCache == null)
             PreviewSizeCache = CalculateSquareVideo(previewSizeLst);
 
         if(videoSizeCache == null)
             videoSizeCache = CalculateSquareVideo(videoSizeLst);
 
+        if(videoSizeCache == null)
+            calculateMostClosesetToSquare(videoSizeLst, screenWidth);
+
         isLoaded = true;
     }
+
 
     /**
      * This function should be called only after 'loadCameraSizes' has been called,
@@ -88,6 +97,40 @@ public class CameraCalculations {
         }
 
         Log.d("Camera", "chosen size " + optimalSize.width + "w " + optimalSize.height+ "h");
+        return optimalSize;
+    }
+
+
+    private Camera.Size calculateMostClosesetToSquare(List<Camera.Size> sizes, int minimalWidth) {
+
+        if (sizes == null)
+            return null;
+
+        double minDiff = Integer.MAX_VALUE;
+        Camera.Size optimalSize = null;
+
+        for (Camera.Size size : sizes){
+
+            if(size.width >= minimalWidth && size.height >= minimalWidth){
+
+                if(size.width < minDiff) {
+                    minDiff = size.width;
+
+                    optimalSize = size;
+                }
+            }
+
+
+        }
+
+
+
+
+
+
+
+
+
         return optimalSize;
     }
 }

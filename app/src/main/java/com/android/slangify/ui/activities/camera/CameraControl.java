@@ -4,6 +4,7 @@ import android.content.Context;
 import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
@@ -110,7 +111,7 @@ public class CameraControl implements CameraControlInterface {
         CamcorderProfile profile = CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH);
 
         mediaRecorder.setOutputFormat(2); //mpeg_4//profile.fileFormat);
-        mediaRecorder.setVideoFrameRate(60);
+        mediaRecorder.setVideoFrameRate(30);
 
         Camera.Size videoSize = mCamCalculations.getCameraRelevantSize(false);
         mediaRecorder.setVideoSize(videoSize.width, videoSize.height);
@@ -176,6 +177,11 @@ public class CameraControl implements CameraControlInterface {
         //set the camera to be rotate in the right proportions
         Camera.Parameters parameters = mCamera.getParameters();
         Display display = ((WindowManager) activityContext.getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
+
+        //get screen width
+        DisplayMetrics metrics = new DisplayMetrics();
+        display.getMetrics(metrics);
+        int screenWidth = metrics.widthPixels;
 
         mCamCalculations.loadCameraSizes(parameters.getSupportedPreviewSizes(), parameters.getSupportedVideoSizes());
         Camera.Size previewSize = mCamCalculations.getCameraRelevantSize(true);
