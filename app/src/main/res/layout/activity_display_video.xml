@@ -1,18 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-
-    android:weightSum="2">
+    android:orientation="vertical">
 
     <FrameLayout
+        android:id="@+id/video_content"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/black"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:background="@color/black">
 
         <com.android.slangify.ui.activities.views.SquareVideoView
             android:id="@+id/video"
@@ -31,12 +29,10 @@
 
 
     <LinearLayout
-
-        android:id="@+id/buttonsLayout"
+        android:id="@+id/challenge_content_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="1"
+        android:layout_gravity="center_horizontal|bottom"
         android:background="@drawable/bg_create_gradient"
         android:orientation="vertical"
         android:paddingTop="@dimen/phrase_margin_top">
@@ -57,21 +53,21 @@
                     android:id="@+id/tv_challenge_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical"
                     android:background="@color/display_video_green"
+                    android:gravity="center_vertical"
                     android:padding="@dimen/display_padding"
-                    tools:text="Ich bin ein berliner"
                     android:textColor="@color/white"
                     android:textSize="@dimen/display_text_size_title"
-                    app:typeface="roboto_slab_regular" />
+                    app:typeface="roboto_slab_regular"
+                    tools:text="Ich bin ein berliner" />
 
                 <ImageView
                     android:id="@+id/share_video"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top|right"
-                    android:src="@drawable/ic_share"
-                    android:layout_margin="@dimen/share_margin"/>
+                    android:layout_margin="@dimen/share_margin"
+                    android:src="@drawable/ic_share" />
 
 
             </FrameLayout>
@@ -91,39 +87,39 @@
 
                     <com.devspark.robototextview.widget.RobotoTextView
                         android:id="@+id/tv_language"
+                        style="@style/dialog_display_sub_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:typeface="roboto_slab_regular"
-                        tools:text="Language: Dutch"
-                        style="@style/dialog_display_sub_title"/>
+                        tools:text="Language: Dutch" />
 
                     <com.devspark.robototextview.widget.RobotoTextView
                         android:id="@+id/tv_translation"
+                        style="@style/dialog_display_sub_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:typeface="roboto_slab_regular"
-                        tools:text="Translation: It is better late than pregnant"
                         android:layout_marginTop="@dimen/display_translation_margin_top"
-                        style="@style/dialog_display_sub_title"/>
+                        app:typeface="roboto_slab_regular"
+                        tools:text="Translation: It is better late than pregnant" />
 
                     <com.devspark.robototextview.widget.RobotoTextView
                         android:id="@+id/tv_extra"
+                        style="@style/dialog_display_sub_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/display_extra_margin_top"
-                        tools:text="Well, when your period is running late.."
                         app:typeface="roboto_slab_regular"
-                        style="@style/dialog_display_sub_title"/>
+                        tools:text="Well, when your period is running late.." />
 
                     <Button
                         android:id="@+id/btn_finish"
-                        android:layout_marginTop="10dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/go_to_home"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
                         android:background="@color/white"
-                        android:textColor="@color/bg_gradient_start"
-                        android:layout_gravity="center"/>
+                        android:text="@string/go_to_home"
+                        android:textColor="@color/bg_gradient_start" />
 
 
                 </LinearLayout>
@@ -135,4 +131,4 @@
 
 
     </LinearLayout>
-</LinearLayout>
+</FrameLayout>

@@ -1,6 +1,5 @@
 package com.android.slangify.ui.activities;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -40,7 +39,7 @@ public class CaptureVideoActivity extends AppCompatActivity {
     @BindView(R.id.translation_title_text_view)
     RobotoTextView translationTitleTextView;
 
-    @BindView(R.id.buttonsLayout)
+    @BindView(R.id.challenge_content_layout)
     LinearLayout textContainer;
 
     @BindView(R.id.timeout)

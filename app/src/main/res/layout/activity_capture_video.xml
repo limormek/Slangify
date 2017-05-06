@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/video_display_background_color"
-    android:orientation="vertical"
-    android:weightSum="2">
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1">
+        android:layout_height="match_parent">
 
         <com.android.slangify.ui.activities.camera.CameraSurfaceView
             android:id="@+id/camera_preview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             />
 
         <com.devspark.robototextview.widget.RobotoTextView
@@ -35,11 +32,11 @@
 
 
     <LinearLayout
-        android:id="@+id/buttonsLayout"
+        android:id="@+id/challenge_content_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_weight="1"
+        tools:layout_height="200dp"
+        android:layout_gravity="bottom|center_horizontal"
         android:background="@color/video_display_background_color"
         android:orientation="vertical"
         >
@@ -71,8 +68,8 @@
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="@dimen/phrase_text_view_size"
-            app:typeface="roboto_slab_bold"
             android:visibility="gone"
+            app:typeface="roboto_slab_bold"
             tools:text="Ganan Gidel Dagan Bagan Dagan Gadol Gadal Bagan" />
     </LinearLayout>
-</LinearLayout>
+</FrameLayout>

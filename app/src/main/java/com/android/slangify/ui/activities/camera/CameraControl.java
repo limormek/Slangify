@@ -178,10 +178,14 @@ public class CameraControl implements CameraControlInterface {
         Camera.Parameters parameters = mCamera.getParameters();
         Display display = ((WindowManager) activityContext.getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
 
+
+
         //get screen width
         DisplayMetrics metrics = new DisplayMetrics();
         display.getMetrics(metrics);
         int screenWidth = metrics.widthPixels;
+
+        double screenAspectRatio = (double)metrics.widthPixels / (double)metrics.heightPixels;
 
         mCamCalculations.loadCameraSizes(parameters.getSupportedPreviewSizes(), parameters.getSupportedVideoSizes());
         Camera.Size previewSize = mCamCalculations.getCameraRelevantSize(true);
