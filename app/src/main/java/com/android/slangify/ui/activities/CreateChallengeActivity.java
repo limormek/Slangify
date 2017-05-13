@@ -26,6 +26,7 @@ import com.android.slangify.repository.implementation.PhraseRepository;
 import com.android.slangify.repository.interfaces.IRepositoryCallback;
 import com.android.slangify.repository.models.LanguageModel;
 import com.android.slangify.repository.models.PhraseModel;
+import com.android.slangify.ui.activities.camera.CameraCalculations;
 import com.android.slangify.utils.IntentUtils;
 import com.android.slangify.utils.UiUtils;
 import com.android.slangify.utils.Utils;
@@ -129,6 +130,9 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
         });
 
         setListeners();
+
+        //set camera parameters
+        CameraCalculations.setCameraParamsOnSharedPreferences(this);
 
     }
 
