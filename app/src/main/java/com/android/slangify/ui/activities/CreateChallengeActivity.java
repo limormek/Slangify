@@ -1,6 +1,7 @@
 package com.android.slangify.ui.activities;
 
 import android.Manifest;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -131,8 +132,7 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
 
         setListeners();
 
-        //set camera parameters
-        CameraCalculations.setCameraParamsOnSharedPreferences(this);
+
 
     }
 
@@ -261,6 +261,20 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 19999) {
             Log.d("tag", "onRequestPermissionsResult: ");
+            //set camera parameters
+            boolean allGranted = true;
+            for (int i = 0; i < grantResults.length; i++) {
+                if(grantResults[i] != PackageManager.PERMISSION_GRANTED) {
+                    allGranted = false;
+                }
+            }
+
+            if(!allGranted) {
+                Utils.makeSafeToast(CreateChallengeActivity.this, R.string.permission_necessary);
+                //todo - call again requestPermissions
+            } else {
+                CameraCalculations.setCameraParamsOnSharedPreferences(this);
+            }
         }
     }
 }
