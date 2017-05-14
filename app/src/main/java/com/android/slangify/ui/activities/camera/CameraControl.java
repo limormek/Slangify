@@ -76,10 +76,11 @@ public class CameraControl implements CameraControlInterface {
 
     @Override
     public void swapCamera() {
-        if (cameraCurrentState == CameraType.BACK)
+        if (cameraCurrentState == CameraType.BACK) {
             setCameraType(CameraType.FRONT);
-        else
+        } else {
             setCameraType(CameraType.BACK);
+        }
     }
 
     @Override
