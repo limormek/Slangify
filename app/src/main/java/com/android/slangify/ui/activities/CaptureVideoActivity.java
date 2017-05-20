@@ -46,11 +46,11 @@ public class CaptureVideoActivity extends AppCompatActivity {
     @BindView(R.id.timeout)
     RobotoTextView tvTimeout;
 
+    @BindView(R.id.camera_preview)
+    CameraSurfaceView mPreview;
 
     private String videoPathBack;
     private String videoPathFront;
-
-    public CameraSurfaceView mPreview;
 
     private CameraControl mCamControl;
     private PhraseModel phraseModel;
@@ -111,7 +111,7 @@ public class CaptureVideoActivity extends AppCompatActivity {
 
     public void initialize() {
         long currentTime = System.currentTimeMillis();
-        mPreview = (CameraSurfaceView) findViewById(R.id.camera_preview);
+
         mCamControl = new CameraControl(mPreview, this);
 
         String slangifyDirectoryPath = "";
