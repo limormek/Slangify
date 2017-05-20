@@ -104,7 +104,7 @@ public class CameraControl implements CameraControlInterface {
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.CAMCORDER);
         mediaRecorder.setVideoSource(MediaRecorder.VideoSource.CAMERA);
 
-        CamcorderProfile profile = CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH);
+        CamcorderProfile profile = CamcorderProfile.get(CamcorderProfile.QUALITY_480P);
 
         mediaRecorder.setOutputFormat(2);
         mediaRecorder.setVideoFrameRate(30);

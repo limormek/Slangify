@@ -18,6 +18,7 @@ import com.android.slangify.repository.models.PhraseModel;
 import com.android.slangify.ui.activities.Events.SurfaceCreatedEvent;
 import com.android.slangify.ui.activities.camera.CameraControl;
 import com.android.slangify.ui.activities.camera.CameraSurfaceView;
+import com.android.slangify.utils.Constants;
 import com.android.slangify.utils.IOUtils;
 import com.android.slangify.utils.IntentUtils;
 import com.devspark.robototextview.widget.RobotoTextView;
@@ -113,7 +114,7 @@ public class CaptureVideoActivity extends AppCompatActivity {
         mPreview = (CameraSurfaceView) findViewById(R.id.camera_preview);
         mCamControl = new CameraControl(mPreview, this);
 
-        String slangifyDirectoryPath = "/sdcard/Slangify";
+        String slangifyDirectoryPath = "";
         try {
             slangifyDirectoryPath = IOUtils.getSlangifyDirectoryPath(CaptureVideoActivity.this);
 
@@ -121,10 +122,10 @@ public class CaptureVideoActivity extends AppCompatActivity {
             //fail quietly
         }
 
-        videoPathBack =  String.format((slangifyDirectoryPath + "/Slangify_%s.mp4"), String.valueOf(currentTime));
+        videoPathBack =  String.format((slangifyDirectoryPath + Constants.Media.FILMED_VIDEO_NAME), String.valueOf(currentTime));
 
         currentTime = System.currentTimeMillis();
-        videoPathFront = String.format((slangifyDirectoryPath + "/Slangify_%s.mp4"), String.valueOf(currentTime));
+        videoPathFront = String.format((slangifyDirectoryPath + Constants.Media.FILMED_VIDEO_NAME), String.valueOf(currentTime));
     }
 
     @Override
