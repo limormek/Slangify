@@ -43,6 +43,12 @@ public class IOUtils {
     }
 
     public static String getSlangifyDirectoryPath(Context context) throws StorageUnavailableException {
+
+        //check in Shared Preferences first
+        String result = SharedPreferencesUtils.getSlangifyDirectoryPath(context);
+        if(result != "")
+            return result;
+
         File dir = new File(getStorageDir(context), context.getResources().getString(R.string.app_name));
         if (!dir.exists()) {
 
@@ -54,7 +60,10 @@ public class IOUtils {
             dir.setReadable(true, false);
         }
 
-        return dir.getAbsolutePath();
+        result = dir.getAbsolutePath();
+        SharedPreferencesUtils.setSlangifyDirectoryPath(context, result);
+
+        return result;
     }
 
     private static File getStorageDir(Context context) throws StorageUnavailableException {

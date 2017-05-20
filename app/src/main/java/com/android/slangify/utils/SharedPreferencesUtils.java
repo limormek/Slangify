@@ -117,6 +117,29 @@ public class SharedPreferencesUtils {
                 "set - ratio video size index, value:" + val);
     }
 
+    /**
+     * Slangify directory path on the device
+     * @param context
+     * @return
+     */
+    public static void setSlangifyDirectoryPath(Context context, String val){
+        SharedPreferences sp =  getSP(context);
+        SharedPreferences.Editor editor = sp.edit();
+
+        editor.putString(context.getString(R.string.sp_directory_path), val);
+        editor.commit();
+
+        Log.d(
+                context.getString(R.string.shared_preferences),
+                "set - directory path, value:" + val);
+    }
+
+    public static String getSlangifyDirectoryPath(Context context){
+        SharedPreferences sp =  getSP(context);
+
+        return sp.getString(context.getString(R.string.sp_directory_path), "");
+    }
+
 
 
 
