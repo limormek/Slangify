@@ -109,7 +109,7 @@ public class DisplayVideoActivity extends AppCompatActivity implements View.OnCl
             }
 
             //Start merge videos.
-            videoPathMerged = String.format((slangifyDirectoryPath + "_%s.mp4"), String.valueOf(System.currentTimeMillis()));
+            videoPathMerged = String.format((slangifyDirectoryPath + "/merged_%s.mp4"), String.valueOf(System.currentTimeMillis()));
 
             Boolean isSucceeded = MediaEditUtils.merge2VideosFFMPEG(videoPathBack, videoPathFront, videoPathMerged, getApplicationContext());
 

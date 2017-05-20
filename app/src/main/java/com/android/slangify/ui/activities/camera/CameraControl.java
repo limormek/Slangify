@@ -48,11 +48,6 @@ public class CameraControl implements CameraControlInterface {
     }
 
     @Override
-    public void startRecording() throws Exception {
-
-        startRecording(null);
-    }
-
     public void startRecording(String VideoPath) throws Exception {
 
         //check preparedness of camera
@@ -111,7 +106,7 @@ public class CameraControl implements CameraControlInterface {
 
         CamcorderProfile profile = CamcorderProfile.get(CamcorderProfile.QUALITY_HIGH);
 
-        mediaRecorder.setOutputFormat(2); //mpeg_4//profile.fileFormat);
+        mediaRecorder.setOutputFormat(2);
         mediaRecorder.setVideoFrameRate(30);
 
         Camera.Size videoSize = mCamCalculations.getCameraRelevantSize(false);
@@ -121,16 +116,15 @@ public class CameraControl implements CameraControlInterface {
         mediaRecorder.setVideoEncoder(profile.videoCodec);
         mediaRecorder.setAudioEncoder(profile.audioCodec);
 
-        String fixedFilePath;
+        /*String fixedFilePath;
         if (videoPath == null) {
             videoPath = String.format("/sdcard/slangify%s.mp4", String.valueOf(timestamp));
             fixedFilePath = FilesManager.getFilePath(videoPath);
         } else {
             fixedFilePath = videoPath;
-        }
+        }*/
 
-        //String defaultFilePath = String.format("/sdcard/slangify%s.mp4", String.valueOf(timestamp));
-        mediaRecorder.setOutputFile(fixedFilePath);
+        mediaRecorder.setOutputFile(videoPath);
 /*        mediaRecorder.setMaxDuration(600000); //set maximum duration 60 sec.
         mediaRecorder.setMaxFileSize(50000000); //set maximum file size 50M*/
 

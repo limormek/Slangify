@@ -64,6 +64,7 @@ public class CaptureVideoActivity extends AppCompatActivity {
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         ButterKnife.bind(this);
+
         Intent intent = getIntent();
         phraseModel = intent.getParcelableExtra(EXTRA_PHRASE);
         if (phraseModel != null) {
@@ -120,10 +121,10 @@ public class CaptureVideoActivity extends AppCompatActivity {
             //fail quietly
         }
 
-        videoPathBack =  String.format((slangifyDirectoryPath + "_%s.mp4"), String.valueOf(currentTime));
+        videoPathBack =  String.format((slangifyDirectoryPath + "/Slangify_%s.mp4"), String.valueOf(currentTime));
 
         currentTime = System.currentTimeMillis();
-        videoPathFront = String.format((slangifyDirectoryPath + "_%s.mp4"), String.valueOf(currentTime));
+        videoPathFront = String.format((slangifyDirectoryPath + "/Slangify_%s.mp4"), String.valueOf(currentTime));
     }
 
     @Override
@@ -157,8 +158,6 @@ public class CaptureVideoActivity extends AppCompatActivity {
     ///////////////////////////////////////////////////////////////////////////
 
     //Entry point code for starting the video recording flow
-    //TODO
-    //This is not complete, we are missing the 2 videos merging part
     private void startCameraFlow(){
 
         waitTimer.start();

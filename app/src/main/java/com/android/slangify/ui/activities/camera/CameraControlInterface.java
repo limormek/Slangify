@@ -6,14 +6,11 @@ package com.android.slangify.ui.activities.camera;
 
 public interface CameraControlInterface {
 
-
-
     void startPreview();
     void releaseCamera();
 
-    void startRecording() throws Exception;
+    void startRecording(String VideoPath) throws Exception;
     void stopRecording();
 
     void swapCamera();
-
 }
