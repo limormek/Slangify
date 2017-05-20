@@ -58,10 +58,10 @@ public class IOUtils {
             }
 
             dir.setReadable(true, false);
-        }
 
-        result = dir.getAbsolutePath();
-        SharedPreferencesUtils.setSlangifyDirectoryPath(context, result);
+            result = dir.getAbsolutePath();
+            SharedPreferencesUtils.setSlangifyDirectoryPath(context, result);
+        }
 
         return result;
     }
