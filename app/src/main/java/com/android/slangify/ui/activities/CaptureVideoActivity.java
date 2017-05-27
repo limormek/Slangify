@@ -49,6 +49,8 @@ public class CaptureVideoActivity extends AppCompatActivity {
     @BindView(R.id.camera_preview)
     CameraSurfaceView mPreview;
 
+
+
     private String videoPathBack;
     private String videoPathFront;
 
