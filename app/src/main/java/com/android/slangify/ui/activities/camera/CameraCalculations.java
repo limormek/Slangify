@@ -85,15 +85,15 @@ public class CameraCalculations {
         //check if device supports square video
         //Boolean isSupportSquareVideo = SharedPreferencesUtils.getHasSquareRatioSupport(context);
 
-        int preferredSizeIndexFromSharedPoint;
+        int savedPreferredSizeIndex;
 
         if (isPreview)
-            preferredSizeIndexFromSharedPoint = SharedPreferencesUtils.getBestRatioPreviewSizeIndex(context);
+            savedPreferredSizeIndex = SharedPreferencesUtils.getBestRatioPreviewSizeIndex(context);
         else
-            preferredSizeIndexFromSharedPoint = SharedPreferencesUtils.getBestRatioVideoSizeIndex(context);
+            savedPreferredSizeIndex = SharedPreferencesUtils.getBestRatioVideoSizeIndex(context);
 
 
-        Camera.Size optimalSize = sizes.get(preferredSizeIndexFromSharedPoint);
+        Camera.Size optimalSize = sizes.get(savedPreferredSizeIndex);
 
         Log.d("Camera", "chosen size for " + (isPreview? " preview " : " video " ) + optimalSize.width + "w " + optimalSize.height + "h");
         return optimalSize;
@@ -181,7 +181,7 @@ public class CameraCalculations {
                 }
             }
 
-        } else {
+        } else { //no square video
             Log.d("Camera sizes", "This device does not have a supported square size for preview/video");
             //need to choose aspect ratio that is closest to the current real device aspect ratio
 
