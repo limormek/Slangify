@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
-import com.android.slangify.utils.Constants;
 import com.android.slangify.utils.SharedPreferencesUtils;
 
 import java.util.List;
@@ -24,6 +23,11 @@ public class CameraCalculations {
     private Camera.Size PreviewSizeCache;
 
     private Boolean isLoaded = false;
+
+    public enum ListSizeType{
+        PREVIEW,
+        VIDEO
+    }
 
     public CameraCalculations() {
     }
@@ -53,15 +57,15 @@ public class CameraCalculations {
      * This function should be called only after 'loadCameraSizes' has been called,
      * and both 'videoSizeCache' and 'PreviewSizeCache' are loaded with relevant supported sizes.
      *
-     * @param IsPreview if true return relevant Camera.Size object for preview, otherwise get the video size.
+     * @param type return relevant Camera.Size object for preview/video by enum type
      * @return the relevant size that been loaded previously for preview or video.
      */
-    public Camera.Size getCameraRelevantSize(Boolean IsPreview) {
+    public Camera.Size getCameraRelevantSize(ListSizeType type) {
 
         if (!isLoaded)
             return null;
 
-        if (IsPreview)
+        if (type == ListSizeType.PREVIEW)
             return PreviewSizeCache;
         else
             return videoSizeCache;
@@ -210,33 +214,4 @@ public class CameraCalculations {
 
 
     }
-
-
-
-    /*    private Camera.Size calculateMostClosestToSquare(List<Camera.Size> sizes, int minimalWidth) {
-
-        if (sizes == null)
-            return null;
-
-        double minDiff = Integer.MAX_VALUE;
-        Camera.Size optimalSize = null;
-
-        for (Camera.Size size : sizes) {
-
-            if (size.width >= minimalWidth && size.height >= minimalWidth) {
-
-                if (size.width < minDiff) {
-                    minDiff = size.width;
-
-                    optimalSize = size;
-                }
-            }
-        }
-
-        if (optimalSize != null) {
-
-            //surface view should be the same size as
-        }
-        return optimalSize;
-    }*/
 }

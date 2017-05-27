@@ -3,20 +3,20 @@ package com.android.slangify.ui.activities;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.android.slangify.R;
+import com.android.slangify.application_logic.CaptureManager;
+import com.android.slangify.application_logic.interfaces.CaptureManagerInterface;
+import com.android.slangify.application_logic.interfaces.CaptureVideoListener;
 import com.android.slangify.dialog.FancyAlertDialog;
 import com.android.slangify.repository.models.PhraseModel;
 import com.android.slangify.ui.activities.Events.SurfaceCreatedEvent;
-import com.android.slangify.ui.activities.camera.CameraControl;
 import com.android.slangify.ui.activities.camera.CameraSurfaceView;
 import com.android.slangify.utils.Constants;
 import com.android.slangify.utils.IOUtils;
@@ -35,6 +35,7 @@ import static com.android.slangify.utils.IntentUtils.EXTRA_PHRASE;
 public class CaptureVideoActivity extends AppCompatActivity {
 
     private static final String TAG = CaptureVideoActivity.class.getName();
+    private static final long DIALOG_TIMEOUT_MILLISEC = 3000;
 
     ///////////////////////////////////////////////////////////////////////////
     // Views
@@ -54,18 +55,18 @@ public class CaptureVideoActivity extends AppCompatActivity {
     @BindView(R.id.camera_preview)
     CameraSurfaceView mPreview;
 
-
     ///////////////////////////////////////////////////////////////////////////
     // Other Params
     ///////////////////////////////////////////////////////////////////////////
+
+    private PhraseModel phraseModel;
+    private FancyAlertDialog readySetGoDialog;
+    private boolean surfaceReadyForCapturing;
+
+    private CaptureManagerInterface captureManager;
+
     private String videoPathBack;
     private String videoPathFront;
-
-    private CameraControl mCamControl;
-    private PhraseModel phraseModel;
-    private FancyAlertDialog readySetGo;
-    private boolean showOnDialogDismiss;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,30 @@ public class CaptureVideoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_capture_video);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
+        initViews();
+
+        initPaths();//todo - calculate before, pass to captureManager / save in prefs
+
+        captureManager = new CaptureManager(CaptureVideoActivity.this, mPreview,
+                videoPathBack, videoPathFront);
+
+        //Update phrase data
+        Intent intent = getIntent();
+        phraseModel = intent.getParcelableExtra(EXTRA_PHRASE);
+        if (phraseModel != null) {
+            phraseTextView.setText(phraseModel.getText());
+        }
+
+        //Start dialog timeout to show the phrase
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                showContent();
+            }
+        }, DIALOG_TIMEOUT_MILLISEC);
+    }
+
+    private void initViews() {
         ButterKnife.bind(this);
 
         //set the phrase layout correct height
@@ -81,35 +106,22 @@ public class CaptureVideoActivity extends AppCompatActivity {
         params.height = phraseHeight;
         phraseLayout.setLayoutParams(params);
 
-        Intent intent = getIntent();
-        phraseModel = intent.getParcelableExtra(EXTRA_PHRASE);
-        if (phraseModel != null) {
-            phraseTextView.setText(phraseModel.getText());
-        }
-        initialize();
-
-        readySetGo = new FancyAlertDialog(CaptureVideoActivity.this);
-        readySetGo.setOnCancelListener(new DialogInterface.OnCancelListener() {
+        //init dialog
+        readySetGoDialog = new FancyAlertDialog(CaptureVideoActivity.this);
+        readySetGoDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
             @Override
             public void onCancel(DialogInterface dialog) {
                 showContent();
             }
         });
-        readySetGo.show();
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                showContent();
-            }
-        }, 3000);
+        readySetGoDialog.show();
     }
 
     private void showContent() {
-        readySetGo.dismiss();
+        readySetGoDialog.dismiss();
         showPhrase();
 
-        if(showOnDialogDismiss) {
+        if (surfaceReadyForCapturing) {
             startCameraFlow();
         }
     }
@@ -124,25 +136,6 @@ public class CaptureVideoActivity extends AppCompatActivity {
         phraseTextView.setText(phraseModel.getTranslation());
     }
 
-    public void initialize() {
-        long currentTime = System.currentTimeMillis();
-
-        mCamControl = new CameraControl(mPreview, this);
-
-        String slangifyDirectoryPath = "";
-        try {
-            slangifyDirectoryPath = IOUtils.getSlangifyDirectoryPath(CaptureVideoActivity.this);
-
-        } catch (IOUtils.StorageUnavailableException e) {
-            //fail quietly
-        }
-
-        videoPathBack =  String.format((slangifyDirectoryPath + Constants.Media.FILMED_VIDEO_NAME), String.valueOf(currentTime));
-
-        currentTime = System.currentTimeMillis();
-        videoPathFront = String.format((slangifyDirectoryPath + Constants.Media.FILMED_VIDEO_NAME), String.valueOf(currentTime));
-    }
-
     @Override
     public void onStart() {
         super.onStart();
@@ -154,7 +147,9 @@ public class CaptureVideoActivity extends AppCompatActivity {
         super.onPause();
 
         // when on Pause, release camera in order to be used from other applications
-        mCamControl.releaseCamera();
+        if (captureManager != null) {
+            captureManager.release();
+        }
     }
 
     @Override
@@ -168,95 +163,82 @@ public class CaptureVideoActivity extends AppCompatActivity {
         IntentUtils.startCreateActivity(CaptureVideoActivity.this);
     }
 
-
     ///////////////////////////////////////////////////////////////////////////
     // Events
     ///////////////////////////////////////////////////////////////////////////
 
     //Entry point code for starting the video recording flow
-    private void startCameraFlow(){
+    private void startCameraFlow() {
 
-        waitTimer.start();
+        //3 listeners:
+        //1- finish recording back camera - in it: update UI.
+        //2 - finish front recording - in it: update UI + intent for start next activity
+        //3 - onTick - update countdown UI component
+        captureManager.startCapturing(new CaptureVideoListener() {
+                                          @Override
+                                          public void onTick(long timePassed) {
+                                              tvTimeout.setText(String.valueOf(timePassed));
+                                          }
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mCamControl.swapCamera();
-                waitTimer.start();
-            }
-        }, 7000);
+                                          @Override
+                                          public void onFinishBack() {
+                                              tvTimeout.setText(getString(R.string.capture_video_done));
+                                              showTranslation();
+                                          }
+
+                                          @Override
+                                          public void onFinishFront() {
+                                              //Start next activity
+                                              new Handler().postDelayed(new Runnable() {
+                                                  @Override
+                                                  public void run() {
+                                                      IntentUtils.startDisplayVideoActivity(CaptureVideoActivity.this,
+                                                              phraseModel,
+                                                              videoPathBack,
+                                                              videoPathFront,
+                                                              getIntent().getStringExtra(IntentUtils.EXTRA_LANGUAGE));
+                                                      finish();
+                                                  }
+                                              }, 1500);
+                                          }
+                                      }
+        );
     }
 
-    private CountDownTimer waitTimer = new CountDownTimer(6000, 1000) {
+    private void initPaths() {
+        long currentTime = System.currentTimeMillis();
 
-        boolean isRecording = false;
-        boolean isFirstVideo = true;
+        //mCamControl = new CameraControl(mPreview, this);
 
-        public void onTick(long millisUntilFinished) {
+        String slangifyDirectoryPath = "";
+        try {
+            slangifyDirectoryPath = IOUtils.getSlangifyDirectoryPath(CaptureVideoActivity.this);
 
-            Long delta = millisUntilFinished / 1000;
-            tvTimeout.setText(delta.toString());
-
-            if(!isRecording) {
-                try {
-                    if(isFirstVideo)
-                        mCamControl.startRecording(videoPathBack);
-                    else
-                        mCamControl.startRecording(videoPathFront);
-
-                    isRecording = true;
-                } catch (final Exception ex) {
-                    // Log.i("---","Exception in thread");
-                }
-            }
-
-            if(!isFirstVideo) {
-                showTranslation();
-            }
+        } catch (IOUtils.StorageUnavailableException e) {
+            //fail quietly
         }
 
-        public void onFinish() {
-            if(isFirstVideo) {
-                tvTimeout.setText(getString(R.string.capture_video_done));
-            }
+        videoPathBack = String.format((slangifyDirectoryPath + Constants.Media.FILMED_VIDEO_NAME), String.valueOf(currentTime));
 
-            try {
-                mCamControl.stopRecording();
-                isRecording = false;
-            } catch (final Exception ex) {
-                Log.e(TAG, "onFinish: error finish recording: " + ex.getMessage());
-            }
+        currentTime = System.currentTimeMillis();
+        videoPathFront = String.format((slangifyDirectoryPath + Constants.Media.FILMED_VIDEO_NAME), String.valueOf(currentTime));
+    }
 
-            if(!isFirstVideo) {
-
-                //todo - move to a more logical location:
-                Log.e(TAG, "onFinish: start display video act!");
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        IntentUtils.startDisplayVideoActivity(CaptureVideoActivity.this,
-                                phraseModel,
-                                videoPathBack,
-                                videoPathFront,
-                                getIntent().getStringExtra(IntentUtils.EXTRA_LANGUAGE));
-                        finish();
-                    }
-                }, 1500);
-            }
-
-            isFirstVideo = false;
-        }
-    };
-
+    ///////////////////////////////////////////////////////////////////////////
+    // Events
+    ///////////////////////////////////////////////////////////////////////////
     @Subscribe
     public void onSurfaceCreated(SurfaceCreatedEvent event) {
-        mCamControl.startPreview();
-        //Log.i("MESSAGE!!", "got into onSurfaceCreated event");
 
-        if(readySetGo.isShowing()) {
-            showOnDialogDismiss = true;
+        if (captureManager != null) {
+            captureManager.onSurfaceCreated();
+        }
+        //camera issues handled inside the manager
+
+        if (readySetGoDialog.isShowing()) {
+            surfaceReadyForCapturing = true;
         } else {
-            //Log.i("MESSAGE!!", "got into onSurfaceCreated event - start camera flow");
+            //Dialog already dismissed - start camera flow safely.
             startCameraFlow();
         }
     }

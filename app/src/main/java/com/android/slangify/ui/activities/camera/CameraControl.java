@@ -4,16 +4,13 @@ import android.content.Context;
 import android.hardware.Camera;
 import android.media.CamcorderProfile;
 import android.media.MediaRecorder;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.Surface;
 import android.view.WindowManager;
 
 import java.io.IOException;
-import java.util.List;
 
-import com.android.slangify.utils.FilesManager;
 import com.android.slangify.utils.Constants;
 
 import static android.content.Context.WINDOW_SERVICE;
@@ -34,11 +31,11 @@ public class CameraControl implements CameraControlInterface {
 
     public CameraType cameraCurrentState = CameraType.BACK;
 
-    public CameraControl(CameraSurfaceView view, Context context) {
-        this(view, context, System.currentTimeMillis());
+    public CameraControl(Context context, CameraSurfaceView view) {
+        this(context, view, System.currentTimeMillis());
     }
 
-    public CameraControl(CameraSurfaceView view, Context context, long creationTime) {
+    public CameraControl(Context context, CameraSurfaceView view, long creationTime) {
         mView = view;
 
         activityContext = context;
@@ -109,7 +106,7 @@ public class CameraControl implements CameraControlInterface {
         mediaRecorder.setOutputFormat(2);
         mediaRecorder.setVideoFrameRate(30);
 
-        Camera.Size videoSize = mCamCalculations.getCameraRelevantSize(false);
+        Camera.Size videoSize = mCamCalculations.getCameraRelevantSize(CameraCalculations.ListSizeType.VIDEO);
         mediaRecorder.setVideoSize(videoSize.width, videoSize.height);
 
         mediaRecorder.setVideoEncodingBitRate(profile.videoBitRate);
@@ -166,7 +163,7 @@ public class CameraControl implements CameraControlInterface {
 
 
         mCamCalculations.loadCameraSizes(parameters.getSupportedPreviewSizes(), parameters.getSupportedVideoSizes(), activityContext);
-        Camera.Size previewSize = mCamCalculations.getCameraRelevantSize(true);
+        Camera.Size previewSize = mCamCalculations.getCameraRelevantSize(CameraCalculations.ListSizeType.PREVIEW);
         parameters.setPreviewSize(previewSize.width, previewSize.height);
 
         if (display.getRotation() == Surface.ROTATION_0) {
