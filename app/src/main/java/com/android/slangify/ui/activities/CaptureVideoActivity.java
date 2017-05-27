@@ -50,7 +50,6 @@ public class CaptureVideoActivity extends AppCompatActivity {
     CameraSurfaceView mPreview;
 
 
-
     private String videoPathBack;
     private String videoPathFront;
 
