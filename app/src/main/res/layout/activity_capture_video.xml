@@ -7,7 +7,9 @@
     android:background="@android:color/transparent"
     android:orientation="vertical">
 
+    <!-- Video Display Layout-->
     <FrameLayout
+        android:id="@+id/video_display_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -30,17 +32,20 @@
 
     </FrameLayout>
 
-
+    <!-- Text Content Layout-->
     <LinearLayout
-        android:id="@+id/challenge_content_layout"
+        android:id="@+id/phrase_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:layout_height="200dp"
         android:layout_gravity="bottom|center_horizontal"
         android:background="@color/video_display_background_color"
         android:orientation="vertical"
+        android:visibility="gone"
+        android:gravity="center"
         >
 
+        <!-- Title (what you actually said)-->
         <com.devspark.robototextview.widget.RobotoTextView
             android:id="@+id/translation_title_text_view"
             android:layout_width="wrap_content"
@@ -56,6 +61,7 @@
             android:visibility="gone"
             app:typeface="roboto_slab_bold" />
 
+        <!-- Phrase text (challenge / translation)-->
         <com.devspark.robototextview.widget.RobotoTextView
             android:id="@+id/phrase_text_view"
             android:layout_width="wrap_content"
@@ -68,7 +74,6 @@
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="@dimen/phrase_text_view_size"
-            android:visibility="gone"
             app:typeface="roboto_slab_bold"
             tools:text="Ganan Gidel Dagan Bagan Dagan Gadol Gadal Bagan" />
     </LinearLayout>

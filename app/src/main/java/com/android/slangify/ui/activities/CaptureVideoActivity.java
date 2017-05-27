@@ -5,11 +5,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.android.slangify.R;
@@ -21,6 +21,7 @@ import com.android.slangify.ui.activities.camera.CameraSurfaceView;
 import com.android.slangify.utils.Constants;
 import com.android.slangify.utils.IOUtils;
 import com.android.slangify.utils.IntentUtils;
+import com.android.slangify.utils.UiUtils;
 import com.devspark.robototextview.widget.RobotoTextView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -34,14 +35,18 @@ import static com.android.slangify.utils.IntentUtils.EXTRA_PHRASE;
 public class CaptureVideoActivity extends AppCompatActivity {
 
     private static final String TAG = CaptureVideoActivity.class.getName();
+
+    ///////////////////////////////////////////////////////////////////////////
+    // Views
+    ///////////////////////////////////////////////////////////////////////////
+    @BindView(R.id.phrase_layout)
+    LinearLayout phraseLayout;
+
     @BindView(R.id.phrase_text_view)
     RobotoTextView phraseTextView;
 
     @BindView(R.id.translation_title_text_view)
     RobotoTextView translationTitleTextView;
-
-    @BindView(R.id.challenge_content_layout)
-    LinearLayout textContainer;
 
     @BindView(R.id.timeout)
     RobotoTextView tvTimeout;
@@ -50,6 +55,9 @@ public class CaptureVideoActivity extends AppCompatActivity {
     CameraSurfaceView mPreview;
 
 
+    ///////////////////////////////////////////////////////////////////////////
+    // Other Params
+    ///////////////////////////////////////////////////////////////////////////
     private String videoPathBack;
     private String videoPathFront;
 
@@ -66,6 +74,12 @@ public class CaptureVideoActivity extends AppCompatActivity {
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         ButterKnife.bind(this);
+
+        //set the phrase layout correct height
+        int phraseHeight = UiUtils.getDeviceHeight(CaptureVideoActivity.this) - UiUtils.getDeviceWidth(CaptureVideoActivity.this);
+        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) phraseLayout.getLayoutParams();
+        params.height = phraseHeight;
+        phraseLayout.setLayoutParams(params);
 
         Intent intent = getIntent();
         phraseModel = intent.getParcelableExtra(EXTRA_PHRASE);
@@ -101,8 +115,8 @@ public class CaptureVideoActivity extends AppCompatActivity {
     }
 
     public void showPhrase() {
+        phraseLayout.setVisibility(View.VISIBLE);
         phraseTextView.setVisibility(View.VISIBLE);
-        textContainer.setBackgroundColor(ContextCompat.getColor(CaptureVideoActivity.this,R.color.video_display_background_color));
     }
 
     public void showTranslation() {
