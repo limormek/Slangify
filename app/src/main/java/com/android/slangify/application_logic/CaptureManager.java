@@ -10,6 +10,7 @@ import com.android.slangify.ui.activities.camera.CameraControl;
 import com.android.slangify.ui.activities.camera.CameraSurfaceView;
 import com.android.slangify.utils.Constants;
 import com.android.slangify.utils.IOUtils;
+import com.android.slangify.utils.SharedPreferencesUtils;
 
 /**
  * CaptureManager is in charge of all the recording flow, including the countdown,
@@ -22,8 +23,8 @@ import com.android.slangify.utils.IOUtils;
 
 public class CaptureManager implements CaptureManagerInterface {
 
-    public static final int COUNT_DOWN_TOTAL_TIME_MILLISEC = 6000;
-    public static final int COUNT_DOWN_TICK_INTERVAL_MILLISEC = 1000;
+/*    public static final int COUNT_DOWN_TOTAL_TIME_MILLISEC = 6000;
+    public static final int COUNT_DOWN_TICK_INTERVAL_MILLISEC = 1000;*/
     private static final String TAG = CaptureManager.class.getName();
 
     private Context mContext;
@@ -51,9 +52,14 @@ public class CaptureManager implements CaptureManagerInterface {
     @Override
     public void startCapturing(final CaptureVideoListener captureVideoListener) {
 
+
+        int countDownTime = SharedPreferencesUtils.getVideoFilmingCountDown(mContext);
+        int tickInterval = SharedPreferencesUtils.getVideoTickInterval(mContext);
+
+
         mCountdownTimer = new CountDownTimer(
-                COUNT_DOWN_TOTAL_TIME_MILLISEC,
-                COUNT_DOWN_TICK_INTERVAL_MILLISEC) {
+                countDownTime,
+                tickInterval) {
 
             boolean isFirstVideo = true;
 

@@ -17,16 +17,5 @@
     <string name="rude_slider_top">oh yes!</string>
     <string name="skip_login">Skip</string>
     <string name="share_video_title">Share Video</string>
-
-
-    <!-- Shared Preferences -->
-    <string name="shared_preferences_key">slangifyPreferences</string>
-    <string name="sp_has_square_ratio">spHasSquareRatio</string>
-    <string name="sp_screen_height">spScreenHeight</string>
-    <string name="sp_screen_width">spScreenWidth</string>
-    <string name="sp_best_ratio_preview_index">spBestPreviewIndex</string>
-    <string name="sp_best_ratio_video_index">spBestVideoIndex</string>
-    <string name="sp_directory_path">spDirectoryPath</string>
-    <string name="shared_preferences">SharedPreferences</string>
     <string name="permission_necessary">You have to approve all the permissions in order to use Slangify</string>
 </resources>

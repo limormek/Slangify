@@ -218,10 +218,10 @@ public class CaptureVideoActivity extends AppCompatActivity {
             //fail quietly
         }
 
-        videoPathBack = String.format((slangifyDirectoryPath + Constants.Media.FILMED_VIDEO_NAME), String.valueOf(currentTime));
+        videoPathBack = String.format((slangifyDirectoryPath + Constants.Media.FILMED_VIDEO_NAME_BACK), String.valueOf(currentTime));
 
         currentTime = System.currentTimeMillis();
-        videoPathFront = String.format((slangifyDirectoryPath + Constants.Media.FILMED_VIDEO_NAME), String.valueOf(currentTime));
+        videoPathFront = String.format((slangifyDirectoryPath + Constants.Media.FILMED_VIDEO_NAME_FRONT), String.valueOf(currentTime));
     }
 
     ///////////////////////////////////////////////////////////////////////////

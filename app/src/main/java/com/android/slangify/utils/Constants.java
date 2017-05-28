@@ -11,7 +11,8 @@ public class Constants {
         public static final String FFMPEG = "FFMPEG";
         public static final String CAMERA_CONTROL_TAG = "camera control";
 
-        public static final String FILMED_VIDEO_NAME = "/Slangify_%s.mp4";
+        public static final String FILMED_VIDEO_NAME_BACK = "/Slangify_Back%s.mp4";
+        public static final String FILMED_VIDEO_NAME_FRONT = "/Slangify_Front%s.mp4";
         public static final String MERGED_VIDEO_NAME = "/merged_%s.mp4";
     }
 

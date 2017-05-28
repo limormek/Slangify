@@ -9,11 +9,21 @@ import android.view.WindowManager;
 
 import com.android.slangify.utils.SharedPreferencesUtils;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 import java.util.List;
 
 import static android.content.Context.WINDOW_SERVICE;
 
 /**
+ *
+ * 1. Go over all the supported VIDEO & PREVIEW sizes
+ *  1.1. In case square not supported:
+ *      1.1.1. Save the SIZE that is the same as the device.
+ *      1.1.2. Check if there's a smaller SIZE that still meets the minimal SIZE requirements (so it won't be too shitty)
+ *      Note: minimal SIZE requirements means also that: PREVIEW SIZE <= VIDEO SIZE
+ *
+ *
  * Created by avishai on 4/17/2017.
  */
 
@@ -141,6 +151,19 @@ public class CameraCalculations {
         List<Camera.Size> videoSizeList = parameters.getSupportedVideoSizes();
         List<Camera.Size> previewSizeList = parameters.getSupportedPreviewSizes();
 
+/*        for (int i = 0; i <videoSizeList.size() ; i++) {
+
+            Log.d("size-" + i , videoSizeList.get(i).height  + " : " + videoSizeList.get(i).width);
+
+        }
+
+        for (int i = 0; i <previewSizeList.size() ; i++) {
+
+            Log.d("size-" + i , previewSizeList.get(i).height  + " : " + previewSizeList.get(i).width);
+
+        }*/
+
+
         for (Camera.Size tmp : videoSizeList) {
             if (tmp.width == tmp.height) {
                 hasSquareSupport = true;
@@ -189,27 +212,45 @@ public class CameraCalculations {
             Log.d("Camera sizes", "This device does not have a supported square size for preview/video");
             //need to choose aspect ratio that is closest to the current real device aspect ratio
 
+
+            double screenRation =(double)screenWidth / screenHeight;
+
             //device params are screenWidth,screenHeight
             Camera.Size preferredPreviewSize = parameters.getPreferredPreviewSizeForVideo();
+            int selectedPreviewSizeIndex = -1;
             for (int i = 0; i < previewSizeList.size(); i++) {
                 Camera.Size tmp = previewSizeList.get(i);
+
+                double currentSizeRatio =  (double)tmp.height / tmp.width;
+
                 if (tmp.width == preferredPreviewSize.width && tmp.height == preferredPreviewSize.height) {
-                    SharedPreferencesUtils.setBestRatioPreviewSizeIndex(context, i);
-                    break;
+                    selectedPreviewSizeIndex = i;
+                    //SharedPreferencesUtils.setBestRatioPreviewSizeIndex(context, i);
+                    //break;
+                } else if(Math.abs(currentSizeRatio - screenRation) < 0.01 &&
+                        (tmp.height > 700 && tmp.width > 1200)){ //todo change to configurable values
+                    selectedPreviewSizeIndex = i;
                 }
             }
+            SharedPreferencesUtils.setBestRatioPreviewSizeIndex(context, selectedPreviewSizeIndex);
 
+            int selectedVideoSizeIndex = -1;
             for (int i = 0; i < videoSizeList.size(); i++) {
                 Camera.Size tmp = videoSizeList.get(i);
-                //double screenRatio = (double)preferredPreviewSize.width / (double)preferredPreviewSize.height;
 
-                //double tempRatio = (double)tmp.width / (double)tmp.height;
+                double currentSizeRatio = (double)tmp.height / tmp.width;
 
                 if (tmp.width == preferredPreviewSize.width && tmp.height == preferredPreviewSize.height) {
-                    SharedPreferencesUtils.setBestRatioVideoSizeIndex(context, i);
-                    break;
+                    selectedVideoSizeIndex = i;
+                    //SharedPreferencesUtils.setBestRatioVideoSizeIndex(context, i);
+                    //break;
+                } else if(Math.abs(currentSizeRatio - screenRation) < 0.01 &&
+                        (tmp.height > 700 && tmp.width > 1200)){ //todo change to configurable values
+                    selectedVideoSizeIndex = i;
                 }
             }
+
+            SharedPreferencesUtils.setBestRatioVideoSizeIndex(context, selectedVideoSizeIndex);
         }
 
 
