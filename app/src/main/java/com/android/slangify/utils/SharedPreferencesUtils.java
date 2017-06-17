@@ -16,8 +16,8 @@ public class SharedPreferencesUtils {
 
 
     public static final String HAS_SQUARE_RATIO = "spHasSquareRatio";
-    public static final String SCREEN_HEIGHT = "spScreenHeight";
-    public static final String SCREEN_WIDTH = "spScreenWidth";
+    public static final String VIDEO_HEIGHT = "spScreenHeight";
+    public static final String VIDEO_WIDTH = "spScreenWidth";
 
     public static final String BEST_RATIO_PREVIEW_INDEX = "spBestPreviewIndex";
     public static final String BEST_RATIO_VIDEO_INDEX = "spBestVideoIndex";
@@ -59,22 +59,22 @@ public class SharedPreferencesUtils {
      * @return
      */
     @TargetApi(21)
-    public static Size getScreenSize(Context context){
+    public static Size getVideoSize(Context context){
         SharedPreferences sp =  getSP(context);
 
-        int width = sp.getInt(SCREEN_WIDTH, -1);
-        int height = sp.getInt(SCREEN_HEIGHT, -1);
+        int width = sp.getInt(VIDEO_WIDTH, -1);
+        int height = sp.getInt(VIDEO_HEIGHT, -1);
 
         Size size = new Size(width, height);
         return size;
     }
 
-    public static void setScreenSize(Context context, int width, int height){
+    public static void setVideoSize(Context context, int width, int height){
         SharedPreferences sp =  getSP(context);
 
         SharedPreferences.Editor editor = sp.edit();
-        editor.putInt(SCREEN_WIDTH, width);
-        editor.putInt(SCREEN_HEIGHT, height);
+        editor.putInt(VIDEO_WIDTH, width);
+        editor.putInt(VIDEO_HEIGHT, height);
 
         editor.commit();
 

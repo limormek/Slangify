@@ -9,8 +9,6 @@ import android.view.WindowManager;
 
 import com.android.slangify.utils.SharedPreferencesUtils;
 
-import java.math.RoundingMode;
-import java.text.DecimalFormat;
 import java.util.List;
 
 import static android.content.Context.WINDOW_SERVICE;
@@ -144,7 +142,7 @@ public class CameraCalculations {
         int screenWidth = metrics.widthPixels;
         int screenHeight = metrics.heightPixels;
 
-        SharedPreferencesUtils.setScreenSize(context, screenWidth, screenHeight);
+
 
         // if device has 1:1 aspect ratio supported
         Boolean hasSquareSupport = false;
@@ -235,6 +233,9 @@ public class CameraCalculations {
             SharedPreferencesUtils.setBestRatioPreviewSizeIndex(context, selectedPreviewSizeIndex);
 
             int selectedVideoSizeIndex = -1;
+
+            int videoWidth = 768;
+            int videoHeight = 1080;
             for (int i = 0; i < videoSizeList.size(); i++) {
                 Camera.Size tmp = videoSizeList.get(i);
 
@@ -242,13 +243,22 @@ public class CameraCalculations {
 
                 if (tmp.width == preferredPreviewSize.width && tmp.height == preferredPreviewSize.height) {
                     selectedVideoSizeIndex = i;
+
+                    videoWidth = tmp.height;
+                    videoHeight = tmp.width;
                     //SharedPreferencesUtils.setBestRatioVideoSizeIndex(context, i);
                     //break;
                 } else if(Math.abs(currentSizeRatio - screenRation) < 0.01 &&
                         (tmp.height > 700 && tmp.width > 1200)){ //todo change to configurable values
                     selectedVideoSizeIndex = i;
+
+                    videoWidth = tmp.height;
+                    videoHeight = tmp.width;
                 }
             }
+
+            SharedPreferencesUtils.setVideoSize(context, videoWidth, videoHeight);
+
 
             SharedPreferencesUtils.setBestRatioVideoSizeIndex(context, selectedVideoSizeIndex);
         }

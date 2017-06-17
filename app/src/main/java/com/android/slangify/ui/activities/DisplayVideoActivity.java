@@ -115,8 +115,7 @@ public class DisplayVideoActivity extends AppCompatActivity implements View.OnCl
 
             //Start merge videos.
             videoPathMerged = String.format((slangifyDirectoryPath + Constants.Media.MERGED_VIDEO_NAME), String.valueOf(System.currentTimeMillis()));
-
-            Boolean isSucceeded = MediaEditUtils.merge2VideosFFMPEG(videoPathBack, videoPathFront, videoPathMerged, getApplicationContext());
+            Boolean isSucceeded = MediaEditUtils.merge2VideosFFMPEG(videoPathBack, videoPathFront, videoPathMerged, slangifyDirectoryPath, getApplicationContext());
 
             if (isSucceeded) {
                 //upload to server
