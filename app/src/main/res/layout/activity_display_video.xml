@@ -22,7 +22,6 @@
             android:id="@+id/iv_play"
             android:layout_width="@dimen/play_size"
             android:layout_height="@dimen/play_size"
-            android:layout_gravity="center"
             android:src="@drawable/ic_play"
             android:visibility="gone" />
 

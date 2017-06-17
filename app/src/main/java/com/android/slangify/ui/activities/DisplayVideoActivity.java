@@ -4,11 +4,15 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.VideoView;
 
 import com.android.slangify.R;
@@ -17,6 +21,7 @@ import com.android.slangify.utils.Constants;
 import com.android.slangify.utils.IOUtils;
 import com.android.slangify.utils.IntentUtils;
 import com.android.slangify.utils.MediaEditUtils;
+import com.android.slangify.utils.UiUtils;
 import com.devspark.robototextview.widget.RobotoTextView;
 
 import butterknife.BindView;
@@ -69,6 +74,14 @@ public class DisplayVideoActivity extends AppCompatActivity implements View.OnCl
 
         ButterKnife.bind(this);
 
+        //align play button to center of the video
+        FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) playBtn.getLayoutParams();
+        //set the play button margins
+        int playBtnSize = (int) getResources().getDimension(R.dimen.play_size);
+        int margin = (UiUtils.getDeviceWidth(DisplayVideoActivity.this) - playBtnSize)/2;
+        lp.setMargins(margin, margin, lp.rightMargin, lp.bottomMargin);
+        playBtn.setLayoutParams(lp);
+
         videoPathBack = getIntent().getStringExtra(IntentUtils.EXTRA_FILE_PATH_BACK);
         videoPathFront = getIntent().getStringExtra(IntentUtils.EXTRA_FILE_PATH_FRONT);
 
@@ -90,16 +103,7 @@ public class DisplayVideoActivity extends AppCompatActivity implements View.OnCl
         }
 
         if (!TextUtils.isEmpty(videoPathBack) && !TextUtils.isEmpty(videoPathFront)) {
-            video.setVideoURI(Uri.parse(videoPathBack));
-            video.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
-                @Override
-                public void onCompletion(MediaPlayer mp) {
-                    video.setVideoURI(Uri.parse(videoPathFront));
-                    video.start();
-                    video.setOnCompletionListener(null);
-                }
-            });
-            video.start();
+            playVideo();
 
             String slangifyDirectoryPath = "/sdcard/Slangify";
             try {
@@ -132,6 +136,31 @@ public class DisplayVideoActivity extends AppCompatActivity implements View.OnCl
 
         setListeners();
 
+    }
+
+    private void playVideo() {
+        video.setVideoURI(Uri.parse(videoPathBack));
+        video.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                video.setVideoURI(Uri.parse(videoPathFront));
+                video.start();
+                video.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                        playBtn.setVisibility(View.VISIBLE);
+                        playBtn.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                playBtn.setVisibility(View.GONE);
+                                playVideo();
+                            }
+                        });
+                    }
+                });
+            }
+        });
+        video.start();
     }
 
     private void setListeners() {
