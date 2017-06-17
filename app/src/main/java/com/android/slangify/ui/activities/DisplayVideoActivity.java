@@ -57,6 +57,14 @@ public class DisplayVideoActivity extends AppCompatActivity implements View.OnCl
     @BindView(R.id.btn_finish)
     Button btnFinish;
 
+    @BindView(R.id.ic_like)
+    ImageView ivLike;
+
+    @BindView(R.id.ic_dislike)
+    ImageView ivDislike;
+
+
+
     private String videoPathBack;
     private String videoPathFront;
     private String videoPathMerged;
@@ -165,6 +173,9 @@ public class DisplayVideoActivity extends AppCompatActivity implements View.OnCl
     private void setListeners() {
         btnFinish.setOnClickListener(this);
         ivShare.setOnClickListener(this);
+
+        ivLike.setOnClickListener(this);
+        ivDislike.setOnClickListener(this);
     }
 
     @Override
@@ -177,6 +188,15 @@ public class DisplayVideoActivity extends AppCompatActivity implements View.OnCl
                 break;
             case R.id.btn_finish:
                 IntentUtils.startCreateActivity(DisplayVideoActivity.this);
+                break;
+            case R.id.ic_like:
+                ivLike.setSelected(!ivLike.isSelected());
+                ivLike.setSelected(!ivDislike.isSelected());
+                break;
+            case R.id.ic_dislike:
+                ivLike.setSelected(!ivDislike.isSelected());
+
+                ivLike.setSelected(!ivLike.isSelected());
                 break;
         }
     }
