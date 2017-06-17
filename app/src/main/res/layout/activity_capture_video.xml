@@ -72,6 +72,7 @@
             android:paddingRight="@dimen/video_text_padding_side"
             android:paddingTop="@dimen/video_text_padding_side"
             android:textAlignment="center"
+            android:gravity="center_horizontal"
             android:textColor="@color/white"
             android:textSize="@dimen/phrase_text_view_size"
             app:typeface="roboto_slab_bold"
