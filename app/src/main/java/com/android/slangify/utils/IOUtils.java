@@ -2,6 +2,7 @@ package com.android.slangify.utils;
 
 import android.content.Context;
 import android.os.Environment;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.android.slangify.R;
@@ -46,8 +47,10 @@ public class IOUtils {
 
         //check in Shared Preferences first
         String result = SharedPreferencesUtils.getSlangifyDirectoryPath(context);
-        if(result != "")
+
+        if(!TextUtils.isEmpty(result)) {
             return result;
+        }
 
         File dir = new File(getStorageDir(context), context.getResources().getString(R.string.app_name));
         if (!dir.exists()) {
@@ -56,12 +59,12 @@ public class IOUtils {
                 Log.d(TAG, "getSlangifyDirectoryPath: failed creating the Slangify Images directory");
                 return null;
             }
-
-            dir.setReadable(true, false);
-
-            result = dir.getAbsolutePath();
-            SharedPreferencesUtils.setSlangifyDirectoryPath(context, result);
         }
+
+        dir.setReadable(true, false);
+
+        result = dir.getAbsolutePath();
+        SharedPreferencesUtils.setSlangifyDirectoryPath(context, result);
 
         return result;
     }
