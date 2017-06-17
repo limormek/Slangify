@@ -21,6 +21,7 @@ import com.android.slangify.ui.activities.camera.CameraSurfaceView;
 import com.android.slangify.utils.Constants;
 import com.android.slangify.utils.IOUtils;
 import com.android.slangify.utils.IntentUtils;
+import com.android.slangify.utils.SharedPreferencesUtils;
 import com.android.slangify.utils.UiUtils;
 import com.devspark.robototextview.widget.RobotoTextView;
 
@@ -86,6 +87,8 @@ public class CaptureVideoActivity extends AppCompatActivity {
         phraseModel = intent.getParcelableExtra(EXTRA_PHRASE);
         if (phraseModel != null) {
             phraseTextView.setText(phraseModel.getText());
+
+            setFilmingTime();
         }
 
         //Start dialog timeout to show the phrase
@@ -95,6 +98,17 @@ public class CaptureVideoActivity extends AppCompatActivity {
                 showContent();
             }
         }, DIALOG_TIMEOUT_MILLISEC);
+    }
+
+    private void setFilmingTime() {
+        int textLength = phraseModel.getText().length();
+        int filmingTimeSec = 6;
+        if(textLength <= 20) {
+            filmingTimeSec = 4;
+        } else if (textLength > 42) {
+            filmingTimeSec = 7;
+        }
+        SharedPreferencesUtils.setVideoFilmingCountDown(CaptureVideoActivity.this, filmingTimeSec*1000);
     }
 
     private void initViews() {
