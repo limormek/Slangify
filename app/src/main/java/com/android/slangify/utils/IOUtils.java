@@ -45,13 +45,6 @@ public class IOUtils {
 
     public static String getSlangifyDirectoryPath(Context context) throws StorageUnavailableException {
 
-        //check in Shared Preferences first
-        String result = SharedPreferencesUtils.getSlangifyDirectoryPath(context);
-
-        if(!TextUtils.isEmpty(result)) {
-            return result;
-        }
-
         File dir = new File(getStorageDir(context), context.getResources().getString(R.string.app_name));
         if (!dir.exists()) {
 
@@ -59,6 +52,12 @@ public class IOUtils {
                 Log.d(TAG, "getSlangifyDirectoryPath: failed creating the Slangify Images directory");
                 return null;
             }
+        }
+
+        String result = SharedPreferencesUtils.getSlangifyDirectoryPath(context);
+
+        if(!TextUtils.isEmpty(result)) {
+            return result;
         }
 
         dir.setReadable(true, false);
