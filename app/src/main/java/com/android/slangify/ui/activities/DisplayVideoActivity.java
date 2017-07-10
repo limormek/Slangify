@@ -33,6 +33,9 @@ import butterknife.ButterKnife;
 
 public class DisplayVideoActivity extends AppCompatActivity implements View.OnClickListener {
 
+    @BindView(R.id.phrase_layout)
+    LinearLayout phraseLayout;
+
     @BindView(R.id.video)
     VideoView video;
 
@@ -64,7 +67,6 @@ public class DisplayVideoActivity extends AppCompatActivity implements View.OnCl
     ImageView ivDislike;
 
 
-
     private String videoPathBack;
     private String videoPathFront;
     private String videoPathMerged;
@@ -81,14 +83,7 @@ public class DisplayVideoActivity extends AppCompatActivity implements View.OnCl
         setContentView(R.layout.activity_display_video);
 
         ButterKnife.bind(this);
-
-        //align play button to center of the video
-        FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) playBtn.getLayoutParams();
-        //set the play button margins
-        int playBtnSize = (int) getResources().getDimension(R.dimen.play_size);
-        int margin = (UiUtils.getDeviceWidth(DisplayVideoActivity.this) - playBtnSize)/2;
-        lp.setMargins(margin, margin, lp.rightMargin, lp.bottomMargin);
-        playBtn.setLayoutParams(lp);
+        initViews();
 
         videoPathBack = getIntent().getStringExtra(IntentUtils.EXTRA_FILE_PATH_BACK);
         videoPathFront = getIntent().getStringExtra(IntentUtils.EXTRA_FILE_PATH_FRONT);
@@ -137,12 +132,26 @@ public class DisplayVideoActivity extends AppCompatActivity implements View.OnCl
 
             }
 
-
-
         }
 
         setListeners();
 
+    }
+
+    private void initViews() {
+        //set the phrase layout correct height
+        int phraseHeight = UiUtils.getDeviceHeight(DisplayVideoActivity.this) - UiUtils.getDeviceWidth(DisplayVideoActivity.this);
+        FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) phraseLayout.getLayoutParams();
+        params.height = phraseHeight;
+        phraseLayout.setLayoutParams(params);
+
+        //align play button to center of the video
+        FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) playBtn.getLayoutParams();
+        //set the play button margins
+        int playBtnSize = (int) getResources().getDimension(R.dimen.play_size);
+        int margin = (UiUtils.getDeviceWidth(DisplayVideoActivity.this) - playBtnSize) / 2;
+        lp.setMargins(margin, margin, lp.rightMargin, lp.bottomMargin);
+        playBtn.setLayoutParams(lp);
     }
 
     private void playVideo() {
