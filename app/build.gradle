@@ -47,6 +47,8 @@ dependencies {
     compile 'com.google.firebase:firebase-auth:10.2.0'
     compile 'com.google.firebase:firebase-crash:10.2.0'
     compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+    //gson
+    compile 'com.google.code.gson:gson:2.7'
     testCompile 'junit:junit:4.12'
 }
 
