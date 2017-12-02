@@ -216,10 +216,6 @@ public class SharedPreferencesUtils {
         String lstAsGson = gson.toJson(lst);
         editor.putString(LANGUAGES_CACHE, lstAsGson);
         editor.commit();
-
-        Log.d(
-                SHARED_PREFERENCES,
-                "set - Languages cache, value:" + lstAsGson);
     }
 
     public static ArrayList<LanguageModel> getLanguagesFromCache(Context context){
