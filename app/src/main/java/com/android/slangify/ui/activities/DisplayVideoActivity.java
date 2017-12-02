@@ -48,17 +48,14 @@ public class DisplayVideoActivity extends AppCompatActivity implements View.OnCl
     @BindView(R.id.share_video)
     ImageView ivShare;
 
-    @BindView(R.id.tv_language)
-    RobotoTextView tvLanguage;
+    @BindView(R.id.iv_new_video)
+    ImageView ivFinish;
 
     @BindView(R.id.tv_translation)
     RobotoTextView tvTranslation;
 
     @BindView(R.id.tv_extra)
     RobotoTextView tvDidYouKnow;
-
-    @BindView(R.id.btn_finish)
-    Button btnFinish;
 
     @BindView(R.id.ic_like)
     ImageView ivLike;
@@ -88,15 +85,12 @@ public class DisplayVideoActivity extends AppCompatActivity implements View.OnCl
         videoPathBack = getIntent().getStringExtra(IntentUtils.EXTRA_FILE_PATH_BACK);
         videoPathFront = getIntent().getStringExtra(IntentUtils.EXTRA_FILE_PATH_FRONT);
 
-        String selectedLanguage = getIntent().getStringExtra(IntentUtils.EXTRA_LANGUAGE);
-        tvLanguage.setText(String.format(getString(R.string.display_language), selectedLanguage));
-
         PhraseModel phraseModel = getIntent().getParcelableExtra(IntentUtils.EXTRA_PHRASE);
 
         if (phraseModel != null) {
             tvChallengeText.setText(phraseModel.getText());
 
-            tvTranslation.setText(String.format(getString(R.string.display_translation), phraseModel.getTranslation()));
+            tvTranslation.setText(phraseModel.getTranslation());
             String extra = phraseModel.getExtra();
             if (!TextUtils.isEmpty(extra)) {
                 tvDidYouKnow.setText(extra);
@@ -180,7 +174,7 @@ public class DisplayVideoActivity extends AppCompatActivity implements View.OnCl
     }
 
     private void setListeners() {
-        btnFinish.setOnClickListener(this);
+        ivFinish.setOnClickListener(this);
         ivShare.setOnClickListener(this);
 
         ivLike.setOnClickListener(this);
@@ -195,7 +189,7 @@ public class DisplayVideoActivity extends AppCompatActivity implements View.OnCl
                 //need to share the merged video
                 IntentUtils.shareVideoUri(DisplayVideoActivity.this, Uri.parse(videoPathBack));
                 break;
-            case R.id.btn_finish:
+            case R.id.iv_new_video:
                 IntentUtils.startCreateActivity(DisplayVideoActivity.this);
                 break;
             case R.id.ic_like:

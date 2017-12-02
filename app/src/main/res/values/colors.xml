@@ -12,8 +12,10 @@
     <color name="bg_gradient_start">#3023AE</color>
     <color name="bg_gradient_end">#C96DD8</color>
 
-    <color name="underline_color">#50E3C2</color>
-    <color name="btn_create">#00BFA5</color>
+    <!--<color name="underline_color">#50E3C2</color>-->
+    <color name="underline_color">@color/display_video_green</color>
+    <!--<color name="btn_create">#00BFA5</color>-->
+    <color name="btn_create">@color/display_video_green</color>
     <color name="transparent_grey">#80ffffff</color>
     <color name="video_display_background_color">#9012fe</color>
     <color name="dropdown_text">#757575</color>
@@ -30,4 +32,8 @@
     <color name="slider_gradient_top">#c80010</color>
     <color name="thumb_shadow">#80000000</color>
     <color name="slider_text">#f0f0f0</color>
+
+    <!-- Display video page-->
+    <color name="translation_text">#4e4e4e</color>
+    <color name="phrase_bg">#6200ea</color>
 </resources>

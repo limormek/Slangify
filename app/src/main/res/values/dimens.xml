@@ -38,9 +38,9 @@
     <dimen name="timeout_margin">10dp</dimen>
     <dimen name="phrase_margin_top">10dp</dimen>
     <dimen name="display_video_metadata_margin">8dp</dimen>
-    <dimen name="display_text_size_title">22sp</dimen>
+    <dimen name="display_text_size_title">24sp</dimen>
     <dimen name="display_subtitle_text_size">16sp</dimen>
-    <dimen name="display_padding">8dp</dimen>
+    <dimen name="display_padding">14dp</dimen>
     <dimen name="play_size">80dp</dimen>
     <dimen name="display_translation_margin_top">3dp</dimen>
     <dimen name="display_extra_margin_top">10dp</dimen>
@@ -54,5 +54,6 @@
     <dimen name="slider_text_margin_top">7dp</dimen>
     <dimen name="login_skip_text_size">15sp</dimen>
     <dimen name="login_skip_margin_top">90dp</dimen>
-    <dimen name="share_margin">4dp</dimen>
+    <dimen name="share_margin">14dp</dimen>
+    <dimen name="phrase_text_margin_top">14dp</dimen>
 </resources>

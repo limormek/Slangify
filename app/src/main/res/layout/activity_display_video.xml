@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
+
+    <!-- Video Part-->
 
     <FrameLayout
         android:id="@+id/video_content"
@@ -27,6 +30,7 @@
 
     </FrameLayout>
 
+    <!-- Phrase layout-->
 
     <LinearLayout
         android:id="@+id/phrase_layout"
@@ -42,19 +46,21 @@
             android:layout_height="match_parent"
             android:layout_margin="@dimen/display_video_metadata_margin"
             android:orientation="vertical"
-            android:weightSum="5">
+            android:weightSum="8">
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="2">
+                android:layout_weight="4"
+                android:paddingTop="@dimen/phrase_text_margin_top">
 
                 <com.devspark.robototextview.widget.RobotoTextView
                     android:id="@+id/tv_challenge_text"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="@color/display_video_green"
+                    android:background="@color/phrase_bg"
                     android:gravity="center_vertical"
+                    android:paddingTop="82dp"
                     android:padding="@dimen/display_padding"
                     android:textColor="@color/white"
                     android:textSize="@dimen/display_text_size_title"
@@ -66,17 +72,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top|right"
-                    android:layout_margin="@dimen/share_margin"
+                    android:padding="@dimen/share_margin"
                     android:src="@drawable/ic_share" />
+
+                <ImageView
+                    android:id="@+id/iv_new_video"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top|left"
+                    android:padding="@dimen/share_margin"
+                    android:src="@drawable/ic_replay" />
 
 
             </FrameLayout>
 
-
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="3">
+                android:layout_weight="4">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -86,19 +99,10 @@
                     android:padding="@dimen/display_padding">
 
                     <com.devspark.robototextview.widget.RobotoTextView
-                        android:id="@+id/tv_language"
-                        style="@style/dialog_display_sub_title"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:typeface="roboto_slab_regular"
-                        tools:text="Language: Dutch" />
-
-                    <com.devspark.robototextview.widget.RobotoTextView
                         android:id="@+id/tv_translation"
                         style="@style/dialog_display_sub_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/display_translation_margin_top"
                         app:typeface="roboto_slab_regular"
                         tools:text="Translation: It is better late than pregnant" />
 
@@ -112,26 +116,19 @@
                         tools:text="Well, when your period is running late.." />
 
                     <LinearLayout
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:gravity="center"
                         android:orientation="horizontal">
 
-                        <Button
-                            android:id="@+id/btn_finish"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:background="@color/white"
-                            android:text="@string/go_to_home"
-                            android:textColor="@color/bg_gradient_start" />
-
 
                         <ImageView
                             android:id="@+id/ic_like"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
+                            android:visibility="gone"
                             android:layout_gravity="right|center_vertical"
                             android:layout_margin="@dimen/share_margin"
                             android:background="@android:color/transparent"
@@ -139,6 +136,7 @@
 
                         <ImageView
                             android:id="@+id/ic_dislike"
+                            android:visibility="gone"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
                             android:layout_gravity="right|center_vertical"
