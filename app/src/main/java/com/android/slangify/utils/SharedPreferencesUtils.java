@@ -5,6 +5,12 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.util.Size;
+import com.google.gson.Gson;
+import com.android.slangify.repository.models.LanguageModel;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 
 
 /**
@@ -25,6 +31,8 @@ public class SharedPreferencesUtils {
 
     public static final String VIDEO_FILMING_COUNT_DOWN = "spVideoFilmingTime";
     public static final  String VIDEO_TICK_INTERVAL = "spVideoInterval";
+
+    public static final String LANGUAGES_CACHE = "spLanguagesCache";
 
     private static final String SHARED_PREFERENCES = "SharedPreferences";
     private static final String SLNAGIFY_PREFERENCES = "slangifyPreferences";
@@ -198,6 +206,30 @@ public class SharedPreferencesUtils {
         SharedPreferences sp =  getSP(context);
 
         return sp.getInt(VIDEO_TICK_INTERVAL, 1000);
+    }
+
+    public static void setLanguagesCache(Context context, ArrayList<LanguageModel> lst){
+        SharedPreferences sp = getSP(context);
+        SharedPreferences.Editor editor = sp.edit();
+
+        Gson gson = new Gson();
+        String lstAsGson = gson.toJson(lst);
+        editor.putString(LANGUAGES_CACHE, lstAsGson);
+        editor.commit();
+    }
+
+    public static ArrayList<LanguageModel> getLanguagesFromCache(Context context){
+        SharedPreferences sp =  getSP(context);
+        ArrayList<LanguageModel> result = null;
+
+        String lstAsGson = sp.getString(LANGUAGES_CACHE, "");
+
+        Gson gson = new Gson();
+        if(lstAsGson != null && !lstAsGson.isEmpty()){
+            result = gson.fromJson(lstAsGson, new TypeToken<ArrayList<LanguageModel>>(){}.getType());
+        }
+
+        return result;
     }
 
 

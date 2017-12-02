@@ -11,6 +11,7 @@ import com.android.slangify.repository.interfaces.IRepositoryCallback;
 import com.android.slangify.repository.models.ChallengeModel;
 import com.android.slangify.repository.models.LanguageModel;
 import com.android.slangify.repository.models.PhraseModel;
+import com.android.slangify.utils.SharedPreferencesUtils;
 
 /**
  * Created by bettykin on 09/03/2017.
@@ -28,8 +29,10 @@ public class SlangifyApplication extends Application {
         languagesRepository.getLanguages(new IRepositoryCallback<LanguageModel>() {
             @Override
             public void onSuccess(ArrayList<LanguageModel> result) {
-                //save data
                 SlangifyApplication.languagesArray = result;
+
+                //Save data in Shared Preferences
+                SharedPreferencesUtils.setLanguagesCache(SlangifyApplication.this, SlangifyApplication.languagesArray);
             }
 
             @Override

@@ -29,6 +29,7 @@ import com.android.slangify.repository.models.LanguageModel;
 import com.android.slangify.repository.models.PhraseModel;
 import com.android.slangify.ui.activities.camera.CameraCalculations;
 import com.android.slangify.utils.IntentUtils;
+import com.android.slangify.utils.SharedPreferencesUtils;
 import com.android.slangify.utils.UiUtils;
 import com.android.slangify.utils.Utils;
 import com.devspark.robototextview.widget.RobotoAutoCompleteTextView;
@@ -74,66 +75,50 @@ public class CreateChallengeActivity extends AppCompatActivity implements View.O
                     Manifest.permission.RECORD_AUDIO,
                     Manifest.permission.CAMERA,
                     Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
         }
 
         mLanguageAutoComplete.setThreshold(1);
 
-        LanguagesRepository languagesRepository = new LanguagesRepository();
-        languagesRepository.getLanguages(new IRepositoryCallback<LanguageModel>() {
+        languageModels = SharedPreferencesUtils.getLanguagesFromCache(CreateChallengeActivity.this);
+
+        if (languageModels != null && languageModels.size() > 0) {
+            mLanguageAutoComplete.setHint(languageModels.get(0).getName());
+        }
+
+        String[] mStringArray = new String[languageModels.size()];
+        for (int i = 0; i < languageModels.size(); i++) {
+            mStringArray[i] = languageModels.get(i).getName();
+        }
+
+        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
+                CreateChallengeActivity.this, R.layout.layout_spinner_dropdown_item,
+                mStringArray);
+
+        mLanguageAutoComplete.setAdapter(arrayAdapter);
+        mLanguageAutoComplete.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onSuccess(ArrayList<LanguageModel> result) {
-                //save data
-                languageModels = result;
-
-                if (languageModels != null && languageModels.size() > 0) {
-                    mLanguageAutoComplete.setHint(languageModels.get(0).getName());
-                }
-
-                String[] mStringArray = new String[languageModels.size()];
-                for (int i = 0; i < languageModels.size(); i++) {
-                    mStringArray[i] = languageModels.get(i).getName();
-                }
-
-                final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(
-                        CreateChallengeActivity.this, R.layout.layout_spinner_dropdown_item,
-                        mStringArray);
-
-                mLanguageAutoComplete.setAdapter(arrayAdapter);
-                mLanguageAutoComplete.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(final View arg0) {
-                        mLanguageAutoComplete.showDropDown();
-                    }
-                });
-
-                //Hide keyboard on dismiss textView for picking language as well as clicking outside of the textview
-                mLanguageAutoComplete.setOnDismissListener(new AutoCompleteTextView.OnDismissListener() {
-                    @Override
-                    public void onDismiss() {
-                        UiUtils.hideKeyboard(mLanguageAutoComplete);
-                    }
-                });
-
-                mLanguageAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        selectedLanguage = languageModels.get(position);
-                        fetchPhrase(false);
-                    }
-                });
+            public void onClick(final View arg0) {
+                mLanguageAutoComplete.showDropDown();
             }
+        });
 
+        //Hide keyboard on dismiss textView for picking language as well as clicking outside of the textview
+        mLanguageAutoComplete.setOnDismissListener(new AutoCompleteTextView.OnDismissListener() {
             @Override
-            public void onFailure() {
-                //todo check internet
+            public void onDismiss() {
+                UiUtils.hideKeyboard(mLanguageAutoComplete);
+            }
+        });
+
+        mLanguageAutoComplete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedLanguage = languageModels.get(position);
+                fetchPhrase(false);
             }
         });
 
         setListeners();
-
-
-
     }
 
     private void fetchPhrase(final boolean shouldSubmit) {
