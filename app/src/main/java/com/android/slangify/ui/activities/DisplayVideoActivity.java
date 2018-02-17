@@ -1,5 +1,6 @@
 package com.android.slangify.ui.activities;
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.widget.VideoView;
 
 import com.android.slangify.R;
 import com.android.slangify.repository.models.PhraseModel;
+import com.android.slangify.storage.services.UploadService;
 import com.android.slangify.utils.Constants;
 import com.android.slangify.utils.IOUtils;
 import com.android.slangify.utils.IntentUtils;
@@ -120,16 +122,13 @@ public class DisplayVideoActivity extends AppCompatActivity implements View.OnCl
                 //TODO
                 //Put here the merged video
 
-/*            startService(new Intent(DisplayVideoActivity.this, UploadService.class)
-                    .setAction(UploadService.ACTION_UPLOAD)
-                    .putExtra(IntentUtils.EXTRA_FILE_PATH, videoPath));*/
+//            startService(new Intent(DisplayVideoActivity.this, UploadService.class)
+//                    .setAction(UploadService.ACTION_UPLOAD)
+//                    .putExtra(IntentUtils.EXTRA_FILE_PATH_MERGED, videoPathMerged));
 
             }
-
         }
-
         setListeners();
-
     }
 
     private void initViews() {

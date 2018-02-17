@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/create_challenge_title"
-        app:typeface="roboto_slab_bold" />
+        app:robotoTypeface="roboto_slab_bold" />
 
 
     <com.devspark.robototextview.widget.RobotoAutoCompleteTextView
@@ -25,7 +25,7 @@
         android:layout_marginTop="@dimen/dropdown_margin_top"
         android:textColor="@color/white"
         android:textColorHint="@color/transparent_grey"
-        app:typeface="roboto_slab_regular"
+        app:robotoTypeface="roboto_slab_regular"
         android:theme="@style/Autocomplete" />
 
     <com.devspark.robototextview.widget.RobotoTextView
@@ -36,7 +36,7 @@
         android:text="@string/create_challenge_sub_title"
         android:textColor="@color/white"
         android:textSize="@dimen/sub_title_text_size"
-        app:typeface="roboto_slab_bold" />
+        app:robotoTypeface="roboto_slab_bold" />
 
     <SeekBar
         android:id="@+id/rude_seekbar"
@@ -66,7 +66,7 @@
             android:layout_height="wrap_content"
             android:text="@string/rude_slider_top"
             android:layout_gravity="right|center_vertical"
-            app:typeface="roboto_slab_regular"
+            app:robotoTypeface="roboto_slab_regular"
             android:textSize="@dimen/rude_slider_text_size"
             android:textColor="@color/slider_text"/>
 
@@ -77,7 +77,7 @@
             android:layout_gravity="left|center_vertical"
             android:text="@string/rude_slider_bottom"
             android:textSize="@dimen/rude_slider_text_size"
-            app:typeface="roboto_slab_regular"
+            app:robotoTypeface="roboto_slab_regular"
             android:textColor="@color/slider_text"/>
 
     </FrameLayout>
@@ -100,7 +100,7 @@
             android:gravity="center"
             android:textColor="@color/white"
             android:textSize="@dimen/create_btn_text_size"
-            app:typeface="roboto_slab_regular" />
+            app:robotoTypeface="roboto_slab_regular" />
 
         <ProgressBar
             android:id="@+id/progress_bar"
@@ -109,15 +109,6 @@
             android:layout_gravity="center"
             android:visibility="gone"
             android:progressDrawable="@drawable/primary_progress" />
-
-
-
     </FrameLayout>
-
-
-
-
-
-
 
 </LinearLayout>

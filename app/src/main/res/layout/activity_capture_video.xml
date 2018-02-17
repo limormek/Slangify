@@ -59,7 +59,7 @@
             android:textColor="@color/white"
             android:textSize="@dimen/translation_title_text_view_size"
             android:visibility="gone"
-            app:typeface="roboto_slab_bold" />
+            app:robotoTypeface="roboto_slab_bold" />
 
         <!-- Phrase text (challenge / translation)-->
         <com.devspark.robototextview.widget.RobotoTextView
@@ -75,7 +75,7 @@
             android:gravity="center_horizontal"
             android:textColor="@color/white"
             android:textSize="@dimen/phrase_text_view_size"
-            app:typeface="roboto_slab_bold"
+            app:robotoTypeface="roboto_slab_bold"
             tools:text="Ganan Gidel Dagan Bagan Dagan Gadol Gadal Bagan" />
     </LinearLayout>
 </FrameLayout>

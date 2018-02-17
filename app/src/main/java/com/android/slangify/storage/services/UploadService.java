@@ -3,7 +3,6 @@ package com.android.slangify.storage.services;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -40,7 +39,6 @@ public class UploadService extends BaseTaskService {
         mStorageManager = new FirebaseStorageManager();
     }
 
-    @Nullable
     @Override
     public IBinder onBind(Intent intent) {
         return null;

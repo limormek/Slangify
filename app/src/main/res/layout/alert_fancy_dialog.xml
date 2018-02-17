@@ -22,7 +22,7 @@
             android:id="@+id/title_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:typeface="roboto_slab_regular"
+            app:robotoTypeface="roboto_slab_regular"
             android:layout_marginTop="@dimen/fancy_dialog_content_padding"
             android:gravity="center_horizontal"
             android:text="@string/ready_set_dialog_title"
@@ -35,17 +35,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/fancy_dialog_content_padding"
-            app:typeface="roboto_slab_regular"
+            app:robotoTypeface="roboto_slab_regular"
             android:gravity="center"
             android:text="@string/ready_set_dialog_subtitle"
             android:textAlignment="center"
             android:textColor="@color/white"
             android:textSize="@dimen/fancy_dialog_content_size"
             android:visibility="visible" />
-
-
     </LinearLayout>
-
 
     <ImageView
         android:id="@+id/btn_close"

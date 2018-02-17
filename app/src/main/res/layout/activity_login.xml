@@ -44,7 +44,7 @@
         android:gravity="center"
         android:text="@string/skip_login"
         android:textAllCaps="true"
-        app:typeface="roboto_slab_bold"
+        app:robotoTypeface="roboto_slab_bold"
         android:textColor="@color/white"
         android:textSize="@dimen/login_skip_text_size"/>
 

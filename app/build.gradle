@@ -5,12 +5,12 @@ repositories {
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.2"
     defaultConfig {
         applicationId "com.android.slangify"
         minSdkVersion 19
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 2
         versionName "0.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -34,21 +34,21 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
     //views
     //    compile 'com.github.ademar111190:android-phased-seek-bar:0.1.2'
-    compile 'com.github.johnkil.android-robototextview:robototextview:3.0.0'
+    compile 'com.github.johnkil.android-robototextview:robototextview:4.0.0'
     //events
     compile 'org.greenrobot:eventbus:3.0.0'
-    compile 'com.android.support:appcompat-v7:25.2.0'
-    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support:appcompat-v7:27.0.2'
+    compile 'com.android.support:support-v4:27.0.2'
     //ffmpeg
     compile 'com.writingminds:FFmpegAndroid:0.3.2'
     //firebase
-    compile 'com.google.firebase:firebase-database:10.2.0'
-    compile 'com.google.firebase:firebase-storage:10.2.0'
-    compile 'com.google.firebase:firebase-auth:10.2.0'
-    compile 'com.google.firebase:firebase-crash:10.2.0'
-    compile 'com.facebook.android:facebook-android-sdk:[4,5)'
+    compile 'com.google.firebase:firebase-database:11.8.0'
+    compile 'com.google.firebase:firebase-storage:11.8.0'
+    compile 'com.google.firebase:firebase-auth:11.8.0'
+    compile 'com.google.firebase:firebase-crash:11.8.0'
+    compile 'com.facebook.android:facebook-android-sdk:4.30.0'
     //gson
-    compile 'com.google.code.gson:gson:2.7'
+    compile 'com.google.code.gson:gson:2.8.0'
     testCompile 'junit:junit:4.12'
 }
 

@@ -21,6 +21,7 @@ public class IntentUtils {
     public static final String EXTRA_PHRASE= "EXTRA_PHRASE";
     public static final String EXTRA_FILE_PATH_BACK = "EXTRA_FILE_PATH_BACK";
     public static final String EXTRA_FILE_PATH_FRONT = "EXTRA_FILE_PATH_FRONT";
+    public static final String EXTRA_FILE_PATH_MERGED = "EXTRA_FILE_PATH_MERGED";
     public static final String EXTRA_LANGUAGE = "EXTRA_LANGUAGE";
 
     /**

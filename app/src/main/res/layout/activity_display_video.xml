@@ -64,7 +64,7 @@
                     android:padding="@dimen/display_padding"
                     android:textColor="@color/white"
                     android:textSize="@dimen/display_text_size_title"
-                    app:typeface="roboto_slab_regular"
+                    app:robotoTypeface="roboto_slab_regular"
                     tools:text="Ich bin ein berliner" />
 
                 <ImageView
@@ -103,7 +103,7 @@
                         style="@style/dialog_display_sub_title"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:typeface="roboto_slab_regular"
+                        app:robotoTypeface="roboto_slab_regular"
                         tools:text="Translation: It is better late than pregnant" />
 
                     <com.devspark.robototextview.widget.RobotoTextView
@@ -112,7 +112,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/display_extra_margin_top"
-                        app:typeface="roboto_slab_regular"
+                        app:robotoTypeface="roboto_slab_regular"
                         tools:text="Well, when your period is running late.." />
 
                     <LinearLayout
@@ -143,18 +143,9 @@
                             android:layout_margin="@dimen/share_margin"
                             android:background="@android:color/transparent"
                             android:src="@drawable/ic_dislike_selector" />
-
-
                     </LinearLayout>
-
-
                 </LinearLayout>
-
             </ScrollView>
-
-
         </LinearLayout>
-
-
     </LinearLayout>
 </FrameLayout>
